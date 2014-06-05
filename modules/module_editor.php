@@ -47,8 +47,13 @@ function sola_nl_add_admin_editor_stylesheet() {
             wp_enqueue_style( 'sola_nl_bootstrap_theme_css' );
             wp_register_style( 'sola_nl_font_awesome', PLUGIN_DIR.'/css/font-awesome.min.css' );
             wp_enqueue_style( 'sola_nl_font_awesome' );
-            wp_register_style( 'sola_nl_editor_style', PLUGIN_DIR.'/css/editor.css' );
-            wp_enqueue_style( 'sola_nl_editor_style' );
+            if (is_rtl()) {
+                wp_register_style( 'sola_nl_editor_style_rtl', PLUGIN_DIR.'/css/editor_rtl.css' );
+                wp_enqueue_style( 'sola_nl_editor_style_rtl' );
+            } else { 
+                wp_register_style( 'sola_nl_editor_style', PLUGIN_DIR.'/css/editor.css' );
+                wp_enqueue_style( 'sola_nl_editor_style' );
+            }
         }
     }
 }

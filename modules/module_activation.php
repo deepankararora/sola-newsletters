@@ -93,13 +93,15 @@ function sola_nl_handle_db() {
          status tinyint(1) NOT NULL DEFAULT '1', 
          PRIMARY KEY  (sub_id),
          UNIQUE KEY sub_email (sub_email)
-       ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ;
     ";
 
    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
    dbDelta($sql);
    
-   
+    $sql = "ALTER TABLE $sola_nl_subs_tbl DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci";
+    $wpdb->Query($sql);
+
    $sql = "
       CREATE TABLE `$sola_nl_list_tbl` (
          list_id int(11) NOT NULL AUTO_INCREMENT,
@@ -107,9 +109,11 @@ function sola_nl_handle_db() {
          list_description mediumtext NOT NULL,
          PRIMARY KEY  (list_id),
          UNIQUE KEY list_name (list_name)
-       ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ;
        ";
    dbDelta($sql);
+    $sql = "ALTER TABLE $sola_nl_list_tbl DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci";
+    $wpdb->Query($sql);
    
    $sql = "
       CREATE TABLE `$sola_nl_subs_list_tbl` (
@@ -119,9 +123,11 @@ function sola_nl_handle_db() {
          PRIMARY KEY  (id),
          KEY sub_id (sub_id),
          KEY list_id (list_id)
-       ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+       ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ;
     ";
    dbDelta($sql);
+    $sql = "ALTER TABLE $sola_nl_subs_list_tbl DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci";
+    $wpdb->Query($sql);
    
    $sql ="
      CREATE TABLE `$sola_nl_camp_tbl` (
@@ -141,9 +147,11 @@ function sola_nl_handle_db() {
         time_frame_qty int(11) NOT NULL,
         theme_id int(11) NOT NULL,
       PRIMARY KEY  (camp_id)
-    ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ; 
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ; 
    ";
    dbDelta($sql);
+    $sql = "ALTER TABLE $sola_nl_camp_tbl DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci";
+    $wpdb->Query($sql);
    
    $sql = "
       CREATE TABLE `$sola_nl_camp_list_tbl` (
@@ -152,9 +160,11 @@ function sola_nl_handle_db() {
          list_id int(11) NOT NULL,
          PRIMARY KEY  (id),
          KEY camp_id (camp_id,list_id)
-       ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ;
       ";
    dbDelta($sql);
+    $sql = "ALTER TABLE $sola_nl_camp_list_tbl DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci";
+    $wpdb->Query($sql);
    
    $sql = "
        CREATE TABLE `$sola_nl_camp_subs_tbl` (
@@ -166,9 +176,11 @@ function sola_nl_handle_db() {
             opens int(11) NOT NULL DEFAULT '0',
             PRIMARY KEY  (id),
             KEY camp_id (camp_id,sub_id)
-          ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+          ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ;
        ";
    dbDelta($sql);
+    $sql = "ALTER TABLE $sola_nl_camp_subs_tbl DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci";
+    $wpdb->Query($sql);
    
    $sql = "
        CREATE TABLE `$sola_nl_style_elements_table` (
@@ -177,9 +189,11 @@ function sola_nl_handle_db() {
         element varchar(255) NOT NULL,
         element_name varchar(255) NOT NULL,
         PRIMARY KEY  (id)
-      ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ;
     ";
     dbDelta($sql); 
+    $sql = "ALTER TABLE $sola_nl_style_elements_table DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci";
+    $wpdb->Query($sql);
     
     
    
@@ -193,8 +207,10 @@ function sola_nl_handle_db() {
         style varchar(255) NOT NULL,
         type varchar(255) NOT NULL,
         PRIMARY KEY  (id)
-      ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ;";
    dbDelta($sql);
+    $sql = "ALTER TABLE $sola_nl_style_table DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci";
+    $wpdb->Query($sql);
    
    $sql = "CREATE TABLE `$sola_nl_css_options_table` (
         id int(11) NOT NULL AUTO_INCREMENT,
@@ -202,8 +218,10 @@ function sola_nl_handle_db() {
         name varchar(255) NOT NULL,
         value varchar(255) NOT NULL,
         PRIMARY KEY  (id)
-      ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
+      ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ;";
    dbDelta($sql);
+    $sql = "ALTER TABLE $sola_nl_css_options_table DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci";
+    $wpdb->Query($sql);
    
    $sql = "CREATE TABLE `$sola_nl_link_tracking_table` (
         id int(11) NOT NULL AUTO_INCREMENT,
@@ -213,8 +231,10 @@ function sola_nl_handle_db() {
         link text NOT NULL,
         clicked int(11) NOT NULL DEFAULT '0',
         PRIMARY KEY  (id)
-        ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ;";
    dbDelta($sql);
+    $sql = "ALTER TABLE $sola_nl_link_tracking_table DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci";
+    $wpdb->Query($sql);
    
    
    $sql = "CREATE TABLE `$sola_nl_themes_table` (
@@ -222,8 +242,10 @@ function sola_nl_handle_db() {
         theme_name varchar(255) NOT NULL,
         theme_html longtext NOT NULL,
         PRIMARY KEY  (theme_id)
-      ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ;";
    dbDelta($sql);
+    $sql = "ALTER TABLE $sola_nl_themes_table DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci";
+    $wpdb->Query($sql);
    
    sola_nl_add_wp_user_to_sub();
    sola_nl_add_default_editor_style();

@@ -77,5 +77,9 @@ Not applicable.
 
 == Changelog ==
 
+= 1.01 =
+* Added RTL support
+* Added UTF8 support
+
 = 1.0 =
 First version!

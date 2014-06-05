@@ -1,9 +1,9 @@
 <?php
 /*
-Plugin Name: Sola Newsletters
+Plugin Name: Newsletters by Sola
 Plugin URI: http://www.solaplugins.com
 Description: Create beautiful email newsletters in a flash with Sola Newsletters.
-Version: 1.0
+Version: 1.01
 Author: SolaPlugins
 Author URI: http://www.solaplugins.com
 */
@@ -33,7 +33,7 @@ define("SOLA_PLUGIN_NAME","Sola Newsletters");
 
 global $sola_nl_version;
 global $sola_nl_version_string;
-$sola_nl_version = "1.0";
+$sola_nl_version = "1.01";
 $sola_nl_version_string = "beta";
 
 
@@ -550,8 +550,13 @@ function sola_nl_add_admin_stylesheet() {
             wp_enqueue_style( 'sola_nl_jquery_css' );
         }     
     }
-    wp_register_style( 'sola_nl_styles', plugins_url('/css/style.css', __FILE__) );
-    wp_enqueue_style( 'sola_nl_styles' );
+    if (is_rtl()) {
+        wp_register_style( 'sola_nl_styles', plugins_url('/css/style_rtl.css', __FILE__) );
+        wp_enqueue_style( 'sola_nl_styles' );
+    } else { 
+        wp_register_style( 'sola_nl_styles', plugins_url('/css/style.css', __FILE__) );
+        wp_enqueue_style( 'sola_nl_styles' );
+    }
     
 }
 
