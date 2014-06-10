@@ -45,7 +45,6 @@ We've spent over a year building this newsletter plugin and we're proud to final
 = Translations =
 Get a free copy of the premium version in exchange for translating our plugin!
 
-* German
 
 == Installation ==
 
@@ -58,11 +57,24 @@ Get a free copy of the premium version in exchange for translating our plugin!
 = How do I get the premium version of Sola Newsletters? =
 Order your copy of [Sola Newsletters Premium](http://solaplugins.com/plugins/sola-newsletters/?utm_source=wordpress&utm_medium=click&utm_campaign=readme).
 
-
 = I've installed the Sola Newsletters plugin, now what? =
 
 Once installed and activated, a link should appear in your left navigation panel within your wp-admin section. Click on the "Newsletters" link and follow the on screen instructions.
 
+= How do I create a newsletter? =
+* Click on Newsletters in your left navigation menu
+* Click on the "New Newsletter" button at the top of the page
+* Insert a subject for your newsletter
+* Select a list that you would like to send your newsletter to (you may want to import your subscribers first)
+* Select a theme (single column would do just fine for 99% of users)
+* Use our unique and easy-to-use Newsletter Editor to create your newsletter. Simply drag and drop elements into your design. Your design will be saved automatically with every change that is made. When you are happy with your the layout and design of your newsletter, press "Next" (top right)
+* The next screen will help you visualize how your newsletter will appear on mobile phones, tablets and desktop computers. Click "Confirm campaign".
+* Ensure that all your settings are correct and then press "Send now". Your newsletter will now be queued and will be sent according to the email settings you have set in "Newsletter->Settings->Email Settings" 
+
+= How do I add a subscribe to newsletter widget? =
+* Click on Appearance->Widgets in your left navigation
+* Drag "Sola Newsletters Subscribe Widget" to the sidebar of your choice
+* Ensure that you have selected the list you would like to add your subscribers to in "Newsletters->Settings->Sign Up"
 
 == Screenshots ==
 
@@ -78,6 +90,8 @@ Once installed and activated, a link should appear in your left navigation panel
 Not applicable.
 
 == Changelog ==
+= 2.1 =
+* You can now force a batch of newsletters to be sent
 
 = 2.0 =
 * Bug fixes

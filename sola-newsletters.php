@@ -3,7 +3,7 @@
 Plugin Name: Newsletters by Sola
 Plugin URI: http://www.solaplugins.com
 Description: Create beautiful email newsletters in a flash with Sola Newsletters.
-Version: 2.0
+Version: 2.1
 Author: SolaPlugins
 Author URI: http://www.solaplugins.com
 */
@@ -33,7 +33,7 @@ define("SOLA_PLUGIN_NAME","Sola Newsletters");
 
 global $sola_nl_version;
 global $sola_nl_version_string;
-$sola_nl_version = "2.0";
+$sola_nl_version = "2.1";
 $sola_nl_version_string = "";
 
 
@@ -91,6 +91,7 @@ add_action('wp_ajax_preview_mail', 'sola_nl_action_callback');
 add_action('wp_ajax_test_mail_2','sola_nl_action_callback');
 add_action('wp_ajax_send_mail', 'sola_nl_action_callback');
 add_action('wp_ajax_get_perc', 'sola_nl_action_callback');
+add_action('wp_ajax_force_send', 'sola_nl_action_callback');
 add_action('wp_ajax_done_sending', 'sola_nl_action_callback');
 add_action('wp_ajax_nopriv_sola_nl_sign_up_add_sub', 'sola_nl_action_callback');
 add_action('wp_ajax_sola_nl_sign_up_add_sub', 'sola_nl_action_callback');
@@ -192,6 +193,10 @@ function sola_nl_action_callback() {
             
             
             
+        }
+        if ($_POST['action'] == "force_send") {
+            if (isset($_POST['camp_id'])) { $camp_id = $_POST['camp_id']; } else { return false; }
+            sola_cron_send($_POST['camp_id']);
         }
         
         if ($_POST['action'] == "save_template") {

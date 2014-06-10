@@ -540,7 +540,7 @@ function sola_next_send_time_left($camp_id){
 //    }
     return $time_left;
 }
-function sola_cron_send() {
+function sola_cron_send($camp_id = false) {
     $debug_start = (float) array_sum(explode(' ',microtime()));
 
     global $wpdb;
@@ -551,8 +551,9 @@ function sola_cron_send() {
     global $sola_global_campid;
 
 
-
-    $camp_id = sola_check_send_mail_time(3);
+    if (!$camp_id) {
+        $camp_id = sola_check_send_mail_time(3);
+    }
     //var_dump($camp_id);
 
     if ($camp_id) {
