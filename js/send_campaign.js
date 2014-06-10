@@ -34,14 +34,14 @@ jQuery(document).ready( function() {
     ein_get_perc().done(function(response){
             var something = JSON.parse(response);
             progress(something[0], something[2], jQuery('#progressBar_'+camp_id));
-            jQuery("#time_next_"+camp_id).html("<small>"+something[1]+"</small>");
+            jQuery("#time_next_"+camp_id).html("<small>"+something[1]+"<br />"+something[3]+"</small>");
         });
     
     every_ten_seconds = setInterval(function() {
         ein_get_perc().done(function(response){
             var something = JSON.parse(response);
             progress(something[0], something[2], jQuery('#progressBar_'+camp_id));
-            jQuery("#time_next_"+camp_id).html("<small>"+something[1]+"</small>");
+            jQuery("#time_next_"+camp_id).html("<small>"+something[1]+"<br />"+something[3]+"</small>");
             
         });
     }, 10000);

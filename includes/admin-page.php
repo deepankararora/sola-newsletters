@@ -77,9 +77,9 @@ $total_pages = ceil($total_rows/$limit);
                         <th class="manage-column column-title">
                              <span><?php _e("Lists","sola") ?></span>
                         </th>
-                        <th class="manage-column column-title sorted <?php if($orderBy == "date_created"){ echo $lc_order; } ?>">
+                        <th class="manage-column column-title sorted <?php if($orderBy == "date_created") { echo $lc_order; } ?>">
                             <a href="<?php echo $_SERVER['PHP_SELF'];?>?page=sola-nl-menu&p=<?php echo $current_page; ?>&order=<?php echo $orderswop ?>&orderBy=date_created">
-                                <span><?php _e("Date Created","sola") ?></span>
+                                <span><?php _e("Date Created","sola"); ?></span>
                                 <span class="sorting-indicator"></span>
                             </a>
                         </th>
@@ -91,7 +91,7 @@ $total_pages = ceil($total_rows/$limit);
                     foreach($camps as $camp){?>
                         <tr <?php if ($ii % 2 == 0){?>class="alternate"<?php }?>>
                             <td>
-                                <input type="checkbox" name="sola_camp_checkbox[]" value="<?php echo $camp->camp_id ?>" class="sola-check-box">
+                                <input type="checkbox" name="sola_camp_checkbox[]" value="<?php echo $camp->camp_id; ?>" class="sola-check-box">
                             </td>
                             <td>
                                 <strong>
@@ -101,25 +101,50 @@ $total_pages = ceil($total_rows/$limit);
                                     </a>
                                 </strong>
                                 <div class="row-actions">
-                                    <?php if ($camp->status >= 1){?>
-                                        <span>
-                                           <a href="?page=sola-nl-menu&action=camp_stats&camp_id=<?php echo $camp->camp_id ?>">View Stats</a>
-                                        </span>
+                                    <?php if ($camp->email == "" || !$camp->email) { } else { ?>
+                                    <span>
+                                       <a target="_BLANK" href="<?php echo SITE_URL."/?action=sola_nl_browser&camp_id=".$camp->camp_id."&sub_id=0"; ?>"><?php _e("Preview","sola"); ?></a>
+                                    </span>
+                                    <span>|</span>
+                                    <?php } ?>
+                                    <?php if ($camp->status >= 1 && $camp->status < 9) { ?>
+                                    <span>
+                                       <a href="?page=sola-nl-menu&action=camp_stats&camp_id=<?php echo $camp->camp_id; ?>"><?php _e("View Stats","sola"); ?></a>
+                                    </span>
                                     <?php } else { ?>
-                                        <span>
-                                           <a href="?page=sola-nl-menu&action=new_campaign&camp_id=<?php echo $camp->camp_id ?>">Edit</a>
-                                        </span>
+                                    <span>
+                                       <a href="?page=sola-nl-menu&action=new_campaign&camp_id=<?php echo $camp->camp_id; ?>"><?php _e("Edit","sola"); ?></a>
+                                    </span>
+                                    <?php } ?>
+                                    <?php if ($camp->email == "" || !$camp->email) { } else { ?>
+                                    <span>|</span>
+                                    <span>
+                                       <a href="?page=sola-nl-menu&action=duplicate_campaign&camp_id=<?php echo $camp->camp_id; ?>"><?php _e("Duplicate","sola"); ?></a>
+                                    </span>
                                     <?php } ?>
                                     <span>|</span>
                                     <span class="trash">
-                                        <a href="?page=sola-nl-menu&action=delete_camp&camp_id=<?php echo $camp->camp_id ?>" >Delete</a>
+                                        <a href="?page=sola-nl-menu&action=delete_camp&camp_id=<?php echo $camp->camp_id; ?>" ><?php _e("Delete","sola"); ?></a>
                                     </span>
+                                    <?php if ($camp->status == 2 || $camp->status == 3) { ?>
+                                    <span>|</span>
+                                    <span>
+                                       <a href="?page=sola-nl-menu&action=pause_sending&camp_id=<?php echo $camp->camp_id; ?>"><?php _e("Pause Sending","sola"); ?></a>
+                                    </span>
+                                    <?php } ?>
+                                    <?php if ($camp->status == 9) { ?>
+                                    <span>|</span>
+                                    <span>
+                                       <a href="?page=sola-nl-menu&action=resume_sending&camp_id=<?php echo $camp->camp_id; ?>"><?php _e("Resume Sending","sola"); ?></a>
+                                    </span>
+                                    <?php } ?>
                                 </div>
                             </td>
                             <td>
-                                <?php if($camp->status == 1){ echo "Sent";}
-                                else if($camp->status == 0){echo "Not Sent";}
-                                else if($camp->status == 2 || $camp->status == 3){ 
+                                <?php if($camp->status == 1) { echo __("Sent","Sola"); }
+                                else if($camp->status == 0) {echo __("Not Sent","sola"); }
+                                else if($camp->status == 9) {echo __("Sending Paused","sola"); }
+                                else if($camp->status == 2 || $camp->status == 3) { 
                                     echo "Sending...<br />";
                                     echo '<div class="progressBar" id="progressBar_'.$camp->camp_id.'"><div style=""></div></div><div id="time_next_'.$camp->camp_id.'"><small>'.__("Waiting for other campaign to finish sending","sola").'</small></div>';
                                 }

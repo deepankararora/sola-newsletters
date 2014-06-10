@@ -9,9 +9,9 @@
    <table class="wp-list-table widefat fixed">
       <thead>
          <tr>
-            <th>List Name</th>
-            <th>Description</th>
-            <th>Total Subscribers</th>
+            <th><?php _e("List Name","sola"); ?></th>
+            <th><?php _e("Description","sola"); ?></th>
+            <th><?php _e("Total Subscribers","sola"); ?></th>
          </tr>
       </thead>
       <tbody>
@@ -28,17 +28,17 @@
                      <div class="row-actions">
                         <span>
                            <a href="?page=sola-nl-menu&action=new_list&list_id=<?php echo $list->list_id ?>">
-                              Edit
+                              <?php _e("Edit","sola"); ?>
                            </a>
                         </span> | 
                         <span>
                            <a href="?page=sola-nl-menu-subscribers&list_id=<?php echo $list->list_id ?>">
-                              View Subscribers
+                              <?php _e("View Subscribers","sola"); ?>
                            </a>
                         </span> | 
                         <span class="trash">
                            <a href="?page=sola-nl-menu-lists&action=delete_list&list_id=<?php echo $list->list_id ?>">
-                              Delete
+                              <?php _e("Delete","sola"); ?>
                            </a>
                         </span>
                      </div>

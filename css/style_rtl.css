@@ -123,12 +123,12 @@ hr{
 }
 .preview_actions .return_editor{
     display: inline-block;
-    left: 0;
+    right: 0;
 }
 
-.preview_actions .confirm_camp{
+.preview_actions .confirm_camp {
     position: absolute;
-    right: 15px;
+    right: 125px;
     text-align: right;
     display: inline-block;
 }

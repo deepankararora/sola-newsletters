@@ -90,17 +90,20 @@ jQuery(document).ready(function() {
             jQuery("#sola_nl_smtp").show();
             jQuery("#sola_nl_host").val(orig_smtp_host).attr("readonly", false);
             jQuery("#sola_nl_port").attr("readonly", false);
+            jQuery("#sola_nl_hosting_provider").val("2");
             
             //jQuery("#sola_nl_port").val(orig_smtp_port).attr("disabled", false);
         } 
         else if (jQuery('#radio_button_1').is(':checked')){
             jQuery("#sola_nl_smtp").hide();
             jQuery("#sola_nl_port").attr("readonly", false);
+            jQuery("#sola_nl_hosting_provider").val("0");
         }
         else if (jQuery('#radio_button_3').is(':checked')){
             jQuery("#sola_nl_smtp").show();
             jQuery("#sola_nl_host").val("smtp.gmail.com").attr("readonly", "readonly");
             jQuery("#sola_nl_port").val("465").attr("readonly", "readonly");
+            jQuery("#sola_nl_hosting_provider").val("1");
             jQuery("#enc_ssl").prop('checked', true);
 
 

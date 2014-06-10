@@ -262,9 +262,9 @@ function sola_mail($camp_id,$to,$subject,$body,$headers = false,$attachment = fa
     $sql = "SELECT * FROM `$sola_nl_camp_tbl` WHERE `camp_id` = '$camp_id'";
     $result = $wpdb->get_row($sql);
     if (isset($result->reply_to)) { $reply = $result->reply_to; }
-    if (isset($result->reply_to_name)) { $reply_name = stripcslashes($result->reply_to_name); }
+    if (isset($result->reply_to_name)) { $reply_name = stripslashes($result->reply_to_name); }
     if (isset($result->sent_from)) { $sent_from = $result->sent_from; }
-    if (isset($result->sent_from_name)) { $sent_from_name = stripcslashes($result->sent_from_name); }
+    if (isset($result->sent_from_name)) { $sent_from_name = stripslashes($result->sent_from_name); }
 
     if(empty($reply)){ $reply = get_option("sola_nl_reply_to");}
     if(empty($reply_name)){ $reply_name = get_option("sola_nl_reply_to_name");}
@@ -283,9 +283,9 @@ function sola_mail($camp_id,$to,$subject,$body,$headers = false,$attachment = fa
     }
 
     if($send_method == "1"){
-        $headers[] = 'From: '.$sent_from_name.'<'.$sent_from.'>';
+        $headers[] = 'From: '.$sent_from_name.' <'.$sent_from.'>';
         $headers[] = 'Content-type: text/html';
-        $headers[] = 'Reply-To: '.$reply_name.'<'.$reply.'>';
+        $headers[] = 'Reply-To: '.$reply_name.' <'.$reply.'>';
         if(wp_mail($to, $subject, $body, $headers )){
             return true;
         } else {
@@ -574,16 +574,16 @@ function sola_cron_send() {
             update_option("sola_currently_sending","yes");
 
             $subscribers = sola_nl_camp_subs($camp_id, $limit);
-            sola_return_error(new WP_Error( 'Notice', __( 'Campaign send initiated' ), 'Started sending '.count($subscribers).' mails for campaign '.$camp_id.' at '.date("Y-m-d H:i:s") ));
+            sola_return_error(new WP_Error( 'Notice', __( 'Campaign send initiated' ), 'Started sending '.count($subscribers).' mails for campaign '.$camp_id.' at '.date("Y-m-d H:i:s")));
             //var_dump($subscribers);
 
             $sql = "SELECT * FROM `$sola_nl_camp_tbl` WHERE `camp_id` = '$camp_id'";
             $camp = $wpdb->get_row($sql);
 
             if (isset($camp->reply_to)) { $reply = $camp->reply_to; }
-            if (isset($camp->reply_to_name)) { $reply_name = stripcslashes($camp->reply_to_name); }
+            if (isset($camp->reply_to_name)) { $reply_name = stripslashes($camp->reply_to_name); }
             if (isset($camp->sent_from)) { $sent_from = $camp->sent_from; }
-            if (isset($camp->sent_from_name)) { $sent_from_name = stripcslashes($camp->sent_from_name); }
+            if (isset($camp->sent_from_name)) { $sent_from_name = stripslashes($camp->sent_from_name); }
 
             if(empty($reply)){ $reply = get_option("sola_nl_reply_to");}
             if(empty($reply_name)){ $reply_name = get_option("sola_nl_reply_to_name");}
@@ -597,9 +597,9 @@ function sola_cron_send() {
 
             if($saved_send_method == "1"){
                 $headers = Array();
-                $headers[] = 'From: '.$sent_from_name.'<'.$sent_from.'>';
+                $headers[] = 'From: '.$sent_from_name.' <'.$sent_from.'>';
                 $headers[] = 'Content-type: text/html';
-                $headers[] = 'Reply-To: '.$reply_name.'<'.$reply.'>';
+                $headers[] = 'Reply-To: '.$reply_name.' <'.$reply.'>';
 
             } else if ($saved_send_method >= "2") {
                 $file = PLUGIN_URL.'/includes/phpmailer/PHPMailerAutoload.php';
@@ -821,9 +821,9 @@ function sola_nl_ajax_send($subscribers, $camp_id){
         $camp = sola_nl_get_camp_details($camp_id);
 
         if (isset($camp->reply_to)) { $reply = $camp->reply_to; }
-        if (isset($camp->reply_to_name)) { $reply_name = stripcslashes($camp->reply_to_name); }
+        if (isset($camp->reply_to_name)) { $reply_name = stripslashes($camp->reply_to_name); }
         if (isset($camp->sent_from)) { $sent_from = $camp->sent_from; }
-        if (isset($camp->sent_from_name)) { $sent_from_name = stripcslashes($camp->sent_from_name); }
+        if (isset($camp->sent_from_name)) { $sent_from_name = stripslashes($camp->sent_from_name); }
 
         if(empty($reply)){ $reply = get_option("sola_nl_reply_to");}
         if(empty($reply_name)){ $reply_name = get_option("sola_nl_reply_to_name");}

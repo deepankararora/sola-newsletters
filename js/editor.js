@@ -75,7 +75,6 @@ jQuery(document).ready( function() {
         }
     });
     jQuery('#sola_newsletter_preview').on('click','a', function() { 
-        console.log("hi");
         return false; });
      
      
@@ -102,7 +101,13 @@ jQuery(document).ready( function() {
                         td_data = jQuery("<p>Double Click to edit</p>");
                     } else if (ui.item.attr('type') === 'image'){
                         orig_html = ui.item.attr('truesrc');
+                        td_data = jQuery("<img class='nl_img' src='"+orig_html+"' style=\'width:100%;\'/>");
+                    } else if (ui.item.attr('type') === 'image_divider'){
+                        orig_html = ui.item.attr('truesrc');
                         td_data = jQuery("<img src='"+orig_html+"' style=\'width:100%;\'/>");
+                    } else if (ui.item.attr('type') === 'divider'){
+                        orig_html = ui.item.attr('truesrc');
+                        td_data = jQuery("<p style='display:block; height:15px;'>&nbsp;</p>");
                     } else if (ui.item.attr('type') === "blog_post"){
                         var post = ui.item.attr('value');
                         var feat_image = ui.item.attr('feat_image');

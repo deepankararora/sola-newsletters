@@ -192,7 +192,7 @@ box-shadow:         0px 0px 7px 2px rgba(50, 50, 50, 0.25);
     max-width:595px;
 }
 .sortable-item:hover {
-    border:1px dashed #ccc;
+    border:1px dashed red;
 }
 .sortable-item img { max-width:595px; }
 
@@ -242,7 +242,7 @@ h4 { padding-top:0 !important; margin-top:0 !important; }
 }
 
 .editHover{  
-    background-color: #EEE;
+    background-color: transparent;
 }  
   
 .editBox{  

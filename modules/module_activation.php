@@ -2,7 +2,7 @@
 function sola_nl_activate() {
   sola_nl_handle_db();
   $blogname = get_option("blogname");
-  $sig = __("This mail was created using Sola Newsletter Plugin and sent from","sola")." $blogname.\r\n".__("To be as awesome as","sola")." $blogname, ".__("come find us at www.solaplugins.com","sola");
+  $sig = __("This mail was created using the Sola Newsletters WordPress Plugin and was sent from","sola")." $blogname.\r\n<a href='http://solaplugins.com/plugins/sola-newsletters/' target='_BLANK'>solaplugins.com</a>";
   $admin_email = get_option( 'admin_email' );
   add_option("sola_nl_email_note", $admin_email);
   add_option("sola_nl_notifications", "1");
@@ -25,10 +25,10 @@ function sola_nl_activate() {
   add_option("sola_nl_encryption", "");
   add_option("sola_nl_utm_source","newsletter");
   add_option("sola_nl_utm_medium","email");
-  $content = __("Thank you for signing up. We can't wait to send you some mails","sola");
+  $content = __("Thank you for signing up to our newsletter.","sola");
   $page_id = sola_nl_create_page('nl-confirm-signup','Newsletter Sign Up Confirmation',$content);
   add_option("sola_nl_confirm_page","$page_id");
-  $content = __("We are sad to see you go but if you ever change your mind you can easily re-subscribe","sola");
+  $content = __("We're sad to see you go.","sola");
   $page_id = sola_nl_create_page('nl-unsubscribe-page','Newsletter Unsubscription', $content);
   add_option("sola_nl_unsubscribe_page","$page_id");
   add_option("sola_nl_social_links", array(
@@ -38,10 +38,10 @@ function sola_nl_activate() {
       "linkedin"=>"",
       "google-plus"=>""
   ));
-  add_option("sola_nl_hosting_provider", 1);
+  add_option("sola_nl_hosting_provider", 0);
   add_option("sola_nl_send_limit_qty", 20);
   add_option("sola_nl_send_limit_time", 600);
-  $confirmation_mail = "Hey [sub_name]!\n\rYippy you have signed up to our newsletter. Just one more step and then you will start recieving our awesome newsletters.\n\rClick on this awesome [confirm_link]link[/confirm_link] to activate your subscription!\n\rBest Regards\n\r";
+  $confirmation_mail = __("Hey [sub_name]!","sola")."\n\r".__("Thank you for signing up to our newsletter.","sola")."\n\r".__("Please click on this [confirm_link]link[/confirm_link] to activate your subscription.","sola")."\n\r".__("Kind Regards","sola")."\n\r";
   add_option("sola_nl_confirm_mail", $confirmation_mail);
   $sola_cron_timestamp = wp_next_scheduled( 'sola_cron_send_hook' );
    if( $sola_cron_timestamp == false ){
@@ -306,6 +306,7 @@ function sola_nl_add_default_editor_style(){
             (4, '1', '#sola_newsletter_wrapper h2', 'Heading 2'),
             (5, '1', '#sola_newsletter_wrapper h1', 'Heading 1'),
             (7, '1', '#sola_newsletter_wrapper p a', 'Links'),
+            (21, '1', '#sola_newsletter_wrapper .nl_img', 'Images'),
             (8, '1', '.sola_nl_btn', 'Button'),
             (9, '1', '.social-icons-div', 'Social Icons Wrapper'),
             (10, '1', '.social-icons-div img', 'Social Icon');";
@@ -422,7 +423,13 @@ function sola_nl_add_default_editor_style(){
             (46, 5, 'Color', 'color', '#333e48', 'colorpicker style-editor-input', 'background-color: rgb(51, 62, 72);', 'div'),
             (47, 2, 'Text Color', 'color', '#333e48', 'colorpicker style-editor-input', 'background-color: rgb(51, 62, 72);', 'div'),
             (50, 7, 'Text Decoration', 'text-decoration', 'underline', 'form-control style-editor-input', '', 'select'),
-            (51, 8, '', 'text-decoration', 'inherit', 'form-control style-editor-input', 'display:none;', 'select');";
+            (102, 8, '', 'text-decoration', 'inherit', 'form-control style-editor-input', 'display:none;', 'select'),
+            (103, 21, 'Padding top', 'padding-top', '5px', 'form-control style-editor-input', '', 'input'),
+            (104, 21, 'Padding bottom', 'padding-bottom', '5px', 'form-control style-editor-input', '', 'input'),
+            (105, 21, 'Border Color', 'border-color', '#c73232', 'colorpicker style-editor-input', 'background-color: rgb(199, 50, 50);', 'div'),
+            (106, 21, 'Border Width', 'border-width', '0px', 'form-control style-editor-input', '', 'input'),
+            (107, 21, 'Border Style', 'border-style', 'solid', 'form-control style-editor-input', '', 'select')
+            ;";
         $wpdb->query($insert);
    // }
 }
@@ -477,7 +484,7 @@ function sola_nl_default_letter() {
     $letter.= '<tr>';
     $letter.= '<td class="editable" id="sola_50">';
     $letter.= '<h1 style="text-align:center;">Drag this image</h1>';
-    $letter.= '<img src="'.PLUGIN_DIR.'/images/sola_logo.jpg" style="display:block; margin-left:auto; margin-right:auto;" width="540px"/>';
+    $letter.= '<img src="'.PLUGIN_DIR.'/images/sola_logo.jpg" style="display:block; margin-left:auto; margin-right:auto;" class="nl_img" width="540px"/>';
     $letter.= '</td>';
     $letter.= '</tr>';
     $letter.= '</table>';
@@ -491,7 +498,7 @@ function sola_nl_default_letter() {
     $letter.= '<table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%">';
     $letter.= '<tr>';
     $letter.= '<td class="editable" id="sola_70">';
-    $letter.= '<img style="float:left; padding-right:10px; padding-bottom:10px;" width="45px" src="'.PLUGIN_DIR.'/images/sola_logo_2.jpg"/>';
+    $letter.= '<img style="float:left; padding-right:10px; padding-bottom:10px;" width="45px" src="'.PLUGIN_DIR.'/images/sola_logo_2.jpg" class="nl_img"/>';
     $letter.= '<h2>Text And Images Working together</h2>';
     $letter.= '<p>You can float an image to the left or right and resize it in the editor.</p>';
     $letter.= '</td>';

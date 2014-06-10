@@ -14,8 +14,7 @@
             <a target="_blank" href="http://support.solaplugins.com/">Support</a> | 
             <a target="_blank" id="uppgrade" href="http://solaplugins.com/plugins/sola-newsletters/?utm_source=plugin&utm_medium=link&utm_campaign=footer" title="Premium Upgrade">Go Premium</a>
             <?php } ?>
-            <!-- | Add your 
-            <a target="_blank" href="">★★★★★</a> on <a target="_blank" href="">wordpress.org</a> -->
+            
         </div>
     </div>
 </div>

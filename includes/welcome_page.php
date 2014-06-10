@@ -5,10 +5,10 @@
         <strong style='color: #ec6851;'>Sola Newsletters</strong> 
         <small>Beta</small>
     </h1>
-    <div class="about-text" style="margin: 0;">Simple, Easy Newsletters</div>
+    <div class="about-text" style="margin: 0;"><?php _e("Beautiful, Modern and Easy to Create Newsletters","sola"); ?></div>
     <img src="<?php echo PLUGIN_DIR; ?>/images/sola-newsletters-iphone.png" width="40%"/>
 
-    <h2 style="font-size: 25px;">How did you find us?</h2>
+    <h2 style="font-size: 25px;"><?php _e("How did you find us?","sola"); ?></h2>
     <form method="post" name="sola_find_us_form" style="font-size: 16px;">
         <div  style="text-align: left; width:275px;">
             <input type="radio" name="sola_find_us" id="wordpress" value='repository'>

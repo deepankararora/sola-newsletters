@@ -119,7 +119,7 @@ $sola_nl_ajax_nonce = wp_create_nonce("sola_nl");
       </div>
       <div id="tabs-2">
             <h2><?php _e("How To Send Your Mail","sola"); ?></h2>
-                                   <p class="description" style='padding:10px;'><?php _e("Dragons would be awesome but sometimes we just have to do it the old fashioned way","sola"); ?></p>
+                                   
             <div style="float: left; width:40%">
                 <table>
                    <tr>
@@ -226,6 +226,7 @@ $sola_nl_ajax_nonce = wp_create_nonce("sola_nl");
                    <td >
                        <p style='font-weight:bold;'><?php _e("Who do you host with?","sola"); ?></p>
                        <select name='sola_nl_hosting_provider' id='sola_nl_hosting_provider'>
+                           <option value='0' mtype='3600' send_limit="20" <?php if($hosting_provider == 0){echo "selected";} ?>><?php _e("My mail is being sent via WPmail","sola"); ?></option>
                            <option value='1' mtype='3600' send_limit="20" <?php if($hosting_provider == 1){echo "selected";} ?>><?php _e("My mail is being sent through Gmail","sola"); ?></option>
                            <option value='2' mtype='1800' send_limit="200" <?php if($hosting_provider == 2){echo "selected";} ?>><?php _e("My mail is being sent through a SMTP Server","sola"); ?></option>
                            <option value='3' mtype='1800' send_limit="90" <?php if($hosting_provider == 3){echo "selected";} ?>>1and1</option>
@@ -237,8 +238,27 @@ $sola_nl_ajax_nonce = wp_create_nonce("sola_nl");
                            <option value='9' mtype='900' send_limit="95" <?php if($hosting_provider == 9){echo "selected";} ?>>GoDaddy</option>
                            <option value='10' mtype='1800' send_limit="45" <?php if($hosting_provider == 10){echo "selected";} ?>>GreenGeeks</option>
                            <option value='11' mtype='3600' send_limit="2000" <?php if($hosting_provider == 11){echo "selected";} ?>>Hawkhost</option>
+                           <option value='31' mtype='3600' send_limit="450" <?php if($hosting_provider == 31){echo "selected";} ?>>Hetzner</option>
                            <option value='12' mtype='900' send_limit="80" <?php if($hosting_provider == 12){echo "selected";} ?>>Hivetec</option>
-                           <option value='13' mtype='900' send_limit="115" <?php if($hosting_provider == 14){echo "selected";} ?>>Host Gator</option>
+                           <option value='13' mtype='900' send_limit="115" <?php if($hosting_provider == 13){echo "selected";} ?>>Host Gator</option>
+                           <option value='14' mtype='900' send_limit="115" <?php if($hosting_provider == 14){echo "selected";} ?>>Host Monster</option>
+                           <option value='15' mtype='3600' send_limit="4" <?php if($hosting_provider == 15){echo "selected";} ?>>Hotmail</option>
+                           <option value='16' mtype='1800' send_limit="70" <?php if($hosting_provider == 16){echo "selected";} ?>>Just Host</option>
+                           <option value='17' mtype='900' send_limit="15" <?php if($hosting_provider == 17){echo "selected";} ?>>Lunarpages</option>
+                           <option value='18' mtype='900' send_limit="115" <?php if($hosting_provider == 18){echo "selected";} ?>>Media Temple</option>
+                           <option value='19' mtype='3600' send_limit="180" <?php if($hosting_provider == 19){echo "selected";} ?>>Netfirms</option>
+                           <option value='20' mtype='900' send_limit="100" <?php if($hosting_provider == 20){echo "selected";} ?>>Netissime</option>
+                           <option value='21' mtype='1800' send_limit="90" <?php if($hosting_provider == 21){echo "selected";} ?>>Planet Hoster</option>
+                           <option value='32' mtype='7200' send_limit="15" <?php if($hosting_provider == 32){echo "selected";} ?>>Rackspace</option>
+                           <option value='22' mtype='900' send_limit="95" <?php if($hosting_provider == 22){echo "selected";} ?>>Rochen</option>
+                           <option value='23' mtype='900' send_limit="95" <?php if($hosting_provider == 23){echo "selected";} ?>>Siteground</option>
+                           <option value='24' mtype='900' send_limit="250" <?php if($hosting_provider == 24){echo "selected";} ?>>Synthesis</option>
+                           <option value='25' mtype='900' send_limit="60" <?php if($hosting_provider == 25){echo "selected";} ?>>Techark</option>
+                           <option value='26' mtype='900' send_limit="45" <?php if($hosting_provider == 26){echo "selected";} ?>>VPS.net</option>
+                           <option value='27' mtype='900' send_limit="19" <?php if($hosting_provider == 27){echo "selected";} ?>>Webcity</option>
+                           <option value='28' mtype='900' send_limit="225" <?php if($hosting_provider == 28){echo "selected";} ?>>Westhost</option>
+                           <option value='29' mtype='900' send_limit="60" <?php if($hosting_provider == 29){echo "selected";} ?>>Vexxhost</option>
+                           <option value='30' mtype='3600' send_limit="95" <?php if($hosting_provider == 30){echo "selected";} ?>>Yahoo</option>
                        </select>
                        <p style='font-weight:bold;'><?php _e("Limit mail delivery","sola"); ?></p>
                        <p class='bold'><?php _e("Send","sola"); ?> <input type='text' value='<?php echo $limit ?>' size='6' id='sola_nl_send_limit_qty' name='sola_nl_send_limit_qty' /> <?php _e("emails","sola"); ?> 
@@ -277,6 +297,7 @@ $sola_nl_ajax_nonce = wp_create_nonce("sola_nl");
       </div>
       <div id="tabs-3">
           <h3><?php _e("Sign Up Widget",'sola'); ?></h3>
+          <p><?php _e("To put the sign up widget on your site, go to your widgets page, and drag the Sola Newsletter Subscribe widget to the sidebar of your choice.","sola"); ?></p>
           <table>
               <tr>
                   <td width="250px">

@@ -14,7 +14,7 @@
       <table style='width:100%;' cellpadding='10'>
          <tr>
             <td width='150px' valign='top'>
-               <label><strong>Copy/Paste from Excel</strong></label>
+               <label><strong><?php _e("Copy/Paste from Excel","sola"); ?></strong></label>
             </td>
             <td>
                 <textarea name='sub_import_excel' id='sub_import_excel' style='width:70%; height:300px;' placeholder='Email address, First name, Last name'><?php if(isset($_POST['sub_import_excel'])) { echo $_POST['sub_import_excel']; } ?></textarea>
@@ -53,7 +53,7 @@
                <label><strong>
                   List
                </strong></label>
-               <p class="description">Select a list to add these subscriber to. Subscribers can be on multiple lists.</p>
+               <p class="description"><?php _e("Select a list to add these subscriber to. Subscribers can be on multiple lists.","sola"); ?></p>
             </td>
             <td >
                <?php $lists = sola_nl_get_lists();

@@ -16,16 +16,16 @@ $theme_id = sola_get_camp_theme_id($_GET['camp_id']);
     <div class="sola-header-content ">
         <div class="sola-sidebar-header">
             <ul>
-                <li class="active editor_options_header" did="editor-content">Content</li>
-                <li class="editor_options_header" did="editor-styles">Style</li>
+                <li class="active editor_options_header" did="editor-content"><?php _e("Content","sola"); ?></li>
+                <li class="editor_options_header" did="editor-styles"><?php _e("Style","sola"); ?></li>
             </ul>
             
         </div>
         <div class="header-right">
             <div class="next-button">
-                <a id="sola_nl_next_temp_btn" class='button-primary sola_nl_preview_btn' >Next</a>
+                <a id="sola_nl_next_temp_btn" class='button-primary sola_nl_preview_btn' ><?php _e("Next","sola"); ?></a>
             </div>
-            <div id='sola_nl_save_text' ></div>
+            <div id='sola_nl_save_text' ><?php if ($_SERVER['REMOTE_ADDR'] == "127.0.0.1") { echo "<span style='color:red'>"; _e("You are currently using the plugin on your localhost. Various elements such as images will NOT show up in your test or final email as they reference your hard drive which is not accessible via the web to others"); echo "</span>"; } ?></div>
         </div>
     </div>
     <div class="sidebar ">
@@ -33,26 +33,26 @@ $theme_id = sola_get_camp_theme_id($_GET['camp_id']);
         <div id="editor_options">
             <div id="editor-content" class="content">
                 <div class="add-box sola_addable_item" type="text">
-                    <h3>Text</h3>
+                    <h3><?php _e("Text","sola"); ?></h3>
                     <i class="fa fa-5x fa-font"></i>
                 </div>
                 
                 <div class="add-box sola_show_editior_div">
                     <div class="add-box-title">
-                        <h3>Button</h3>
+                        <h3><?php _e("Button","sola"); ?></h3>
                         <i class="fa fa-5x fa-square"></i>
                     </div>
                     <div class="sola-extra-content" style="padding:0 20px 10px 10px;">
                         
                         <div class="form-group">
                             <label>
-                                Button Text
+                                <?php _e("Button Text","sola"); ?>
                             </label>
                             <input type="text" class="form-control" id="sola_nl_btn_text" value="Put Your Text Here"/>
                         </div>
                         <div class="form-group">
                             <label>
-                                Link
+                                <?php _e("Link","sola"); ?>
                             </label>
                             <input type="text" class="form-control" id="sola_nl_btn_link" placeholder="http://www.linkhere.com"/>
                         </div>
@@ -62,7 +62,7 @@ $theme_id = sola_get_camp_theme_id($_GET['camp_id']);
                 
                 <div class="add-box sola_show_editior_div">
                     <div class="add-box-title">
-                        <h3>Blog Post</h3>
+                        <h3><?php _e("Blog Post","sola"); ?></h3>
                         <i class="fa fa-5x fa-bullhorn"></i>   
                     </div>
                     <div class="sola-extra-content">
@@ -101,7 +101,7 @@ $theme_id = sola_get_camp_theme_id($_GET['camp_id']);
                 </div>
                 
                 <div class="add-box sola_show_editior_div">
-                    <h3>Images</h3>
+                    <h3><?php _e("Images","sola"); ?></h3>
                     <i class="fa fa-5x fa-picture-o"></i>
                     <div class="sola-extra-content">
                         <center>
@@ -117,10 +117,11 @@ $theme_id = sola_get_camp_theme_id($_GET['camp_id']);
                 </div>
                 
                 <div class="add-box sola_show_editior_div">
-                    <h3>Divider</h3>
+                    <h3><?php _e("Divider","sola"); ?></h3>
                     <i class="fa fa-5x fa-bars"></i>
                     
                     <div class="sola-extra-content">
+                            <div type="divider" truesrc="" thumbnail="" class="sola_addable_hr sola_sub_addable_item" align="center"><em><?php _e("Insert spacer","sola"); ?></em></div>
                         <?php 
 
                             $dir = PLUGIN_URL.'/images/hr';
@@ -128,7 +129,7 @@ $theme_id = sola_get_camp_theme_id($_GET['camp_id']);
                             foreach($files as $file){
                                 if($file != "." && $file != ".."){
                                     ?>
-                            <div type="image" truesrc="<?php echo PLUGIN_DIR ?>/images/hr/<?php echo $file ?>" thumbnail="<?php echo PLUGIN_DIR ?>/images/hr/<?php echo $file ?>" class="sola_addable_hr sola_sub_addable_item" >
+                            <div type="image_divider" truesrc="<?php echo PLUGIN_DIR ?>/images/hr/<?php echo $file ?>" thumbnail="<?php echo PLUGIN_DIR ?>/images/hr/<?php echo $file ?>" class="sola_addable_hr sola_sub_addable_item" >
 
                                 <img src="<?php echo PLUGIN_DIR ?>/images/hr/<?php echo $file ?>"  width="100%" style="max-width:540px"/>
                             </div>
@@ -142,7 +143,7 @@ $theme_id = sola_get_camp_theme_id($_GET['camp_id']);
             
                 </div>
                 <div class="add-box sola_show_editior_div">
-                    <h3>Social</h3>
+                    <h3><?php _e("Social","sola"); ?></h3>
                     <i class="fa fa-5x fa-thumbs-up"></i>
                     <div class="sola-extra-content">
                         <?php 
@@ -200,7 +201,7 @@ $theme_id = sola_get_camp_theme_id($_GET['camp_id']);
         </div>
         <div id="sola_nl_send_test">
             <input type="email" value="<?php echo get_option('admin_email')?>" class="sola-input" id="sola_nl_to_mail_test" />
-            <button class="button-primary sola_send_preview">Send Test</button>
+            <button class="button-primary sola_send_preview"><?php _e("Send Test","sola"); ?></button>
         </div>
     </div>  
     

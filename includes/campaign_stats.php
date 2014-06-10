@@ -16,6 +16,7 @@ $total_sent = $sdf->total;
 $sent_perc = round((($total_sent / $total_subscribers)*100),1);
 
 ?>
+
 <style>
     
 tr.even td.sorting_1 {
@@ -44,18 +45,21 @@ tr.even {
                 <?php if ($result->status == 3) { ?>
                 <h3><?php _e("Status","sola"); ?>: <span style="color: #EC6851;"><?php _e("Send in progress","sola"); ?> <strong>(<?php echo $sent_perc."%"; ?>)</strong></span></h3>
                 <ul>
-                    <li>Subscribers: <?php echo number_format($total_subscribers); ?></li>
-                    <li>Successfully sent: <?php echo number_format($total_sent); ?></li>
+                    <li><?php _e("Subscribers:","sola"); ?> <?php echo number_format($total_subscribers); ?></li>
+                    <li><?php _e("Successfully sent:","sola"); ?> <?php echo number_format($total_sent); ?></li>
                 </ul>
                 <?php } else { ?>
                 <h3><?php _e("Status","sola"); ?>: <span style="color: #EC6851;"><?php _e("Send complete","sola"); ?> <strong>(<?php echo $sent_perc."%"; ?>)</strong></span></h3>
                 <ul>
-                    <li>Subscribers: <?php echo number_format($total_subscribers); ?></li>
-                    <li>Successfully sent: <?php echo number_format($total_sent); ?></li>
+                    <li><?php _e("Subscribers:","sola"); ?> <?php echo number_format($total_subscribers); ?></li>
+                    <li><?php _e("Successfully sent:","sola"); ?> <?php echo number_format($total_sent); ?></li>
                 </ul>
                 <?php } ?>
             </div>
         </div>
+        
+        
+        
         <hr />
         <div class="row">
             <div class="col-sm-4 ">
