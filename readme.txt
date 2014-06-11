@@ -1,5 +1,5 @@
 === Sola Newsletters ===
-Contributors: SolaPlugins, NickDuncan, Mukdagr8, Jarryd Long
+Contributors: SolaPlugins, NickDuncan, Mark-Pringle, Jarryd Long
 Donate link: http://solaplugins.com
 Tags: newsletter, newsletters, email newsletters, email subscription, email, emailing, email signup, newsletter signup, newsletter widget, subscribe widget, subscribers, newsletter widget, email newsletter, newsletter builder
 Requires at least: 3.6
