@@ -3,7 +3,7 @@ Contributors: SolaPlugins, NickDuncan, MukDaGr8, Jarryd Long
 Donate link: http://solaplugins.com
 Tags: newsletter, newsletters, email newsletters, email subscription, email, emailing, email signup, newsletter signup, newsletter widget, subscribe widget, subscribers, newsletter widget, email newsletter, newsletter builder
 Requires at least: 3.6
-Tested up to: 3.9.1
+Tested up to: 4.0
 Stable tag: trunk
 License: GPLv2
 
@@ -43,7 +43,7 @@ We've spent over a year building this newsletter plugin and we're proud to final
 * Subscriber segmentation
 
 = Translations =
-Get a free copy of the premium version in exchange for translating our plugin!
+Get a free copy of the Sola Newsletters premium version in exchange for translating our plugin!
 
 
 == Installation ==
@@ -90,6 +90,17 @@ Once installed and activated, a link should appear in your left navigation panel
 Not applicable.
 
 == Changelog ==
+
+= 2.2 2014-07-11 =
+* You can now schedule newsletters to be sent
+* You can now edit the subject of the mail that is sent when someone subscribes to your newsletter
+* You can now edit the "Thank You" text that shows when someone subscribes to your newsletter
+* Fixed bug that caused JS to be fired on incorrect page
+* Fixed bug that caused the tinymce window to close when selecting font size and format
+* Beta Removed out of welcome page & footer
+* Text color option added to tinycme
+* Typo fixes
+
 = 2.1 =
 * You can now force a batch of newsletters to be sent
 

@@ -41,8 +41,12 @@ function sola_nl_activate() {
   add_option("sola_nl_hosting_provider", 0);
   add_option("sola_nl_send_limit_qty", 20);
   add_option("sola_nl_send_limit_time", 600);
-  $confirmation_mail = __("Hey [sub_name]!","sola")."\n\r".__("Thank you for signing up to our newsletter.","sola")."\n\r".__("Please click on this [confirm_link]link[/confirm_link] to activate your subscription.","sola")."\n\r".__("Kind Regards","sola")."\n\r";
+  $confirmation_subject = __("Thank You For Subscribing","sola");
+  add_option("sola_nl_confirm_subject", $confirmation_subject);
+  $confirmation_mail = __("Hey [sub_name]!\n\rThank you for signing up to our newsletter.\n\rPlease click on this [confirm_link]link[/confirm_link] to activate your subscription.\n\rKind Regards\n\r","sola");
   add_option("sola_nl_confirm_mail", $confirmation_mail);
+  $confirmation_thank_you = __("Thank You for signing up. You will receive a confirmation mail shortly.");
+  add_option("sola_nl_confirm_thank_you", $confirmation_thank_you);
   $sola_cron_timestamp = wp_next_scheduled( 'sola_cron_send_hook' );
    if( $sola_cron_timestamp == false ){
       wp_schedule_event( time(), 'every_minute', 'sola_cron_send_hook' );  
@@ -146,6 +150,7 @@ function sola_nl_handle_db() {
         last_sent datetime NOT NULL,
         time_frame_qty int(11) NOT NULL,
         theme_id int(11) NOT NULL,
+        schedule_date datetime NOT NULL,
       PRIMARY KEY  (camp_id)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ; 
    ";
@@ -306,7 +311,7 @@ function sola_nl_add_default_editor_style(){
             (4, '1', '#sola_newsletter_wrapper h2', 'Heading 2'),
             (5, '1', '#sola_newsletter_wrapper h1', 'Heading 1'),
             (7, '1', '#sola_newsletter_wrapper p a', 'Links'),
-            (21, '1', '#sola_newsletter_wrapper .nl_img', 'Images'),
+            (11, '1', '#sola_newsletter_wrapper .nl_img', 'Images'),
             (8, '1', '.sola_nl_btn', 'Button'),
             (9, '1', '.social-icons-div', 'Social Icons Wrapper'),
             (10, '1', '.social-icons-div img', 'Social Icon');";
@@ -423,12 +428,12 @@ function sola_nl_add_default_editor_style(){
             (46, 5, 'Color', 'color', '#333e48', 'colorpicker style-editor-input', 'background-color: rgb(51, 62, 72);', 'div'),
             (47, 2, 'Text Color', 'color', '#333e48', 'colorpicker style-editor-input', 'background-color: rgb(51, 62, 72);', 'div'),
             (50, 7, 'Text Decoration', 'text-decoration', 'underline', 'form-control style-editor-input', '', 'select'),
-            (102, 8, '', 'text-decoration', 'inherit', 'form-control style-editor-input', 'display:none;', 'select'),
-            (103, 21, 'Padding top', 'padding-top', '5px', 'form-control style-editor-input', '', 'input'),
-            (104, 21, 'Padding bottom', 'padding-bottom', '5px', 'form-control style-editor-input', '', 'input'),
-            (105, 21, 'Border Color', 'border-color', '#c73232', 'colorpicker style-editor-input', 'background-color: rgb(199, 50, 50);', 'div'),
-            (106, 21, 'Border Width', 'border-width', '0px', 'form-control style-editor-input', '', 'input'),
-            (107, 21, 'Border Style', 'border-style', 'solid', 'form-control style-editor-input', '', 'select')
+            (51, 8, '', 'text-decoration', 'inherit', 'form-control style-editor-input', 'display:none;', 'select'),
+            (52, 11, 'Padding top', 'padding-top', '5px', 'form-control style-editor-input', '', 'input'),
+            (53, 11, 'Padding bottom', 'padding-bottom', '5px', 'form-control style-editor-input', '', 'input'),
+            (54, 11, 'Border Color', 'border-color', '#c73232', 'colorpicker style-editor-input', 'background-color: rgb(199, 50, 50);', 'div'),
+            (55, 11, 'Border Width', 'border-width', '0px', 'form-control style-editor-input', '', 'input'),
+            (56, 11, 'Border Style', 'border-style', 'solid', 'form-control style-editor-input', '', 'select')
             ;";
         $wpdb->query($insert);
    // }

@@ -121,7 +121,7 @@ $theme_id = sola_get_camp_theme_id($_GET['camp_id']);
                     <i class="fa fa-5x fa-bars"></i>
                     
                     <div class="sola-extra-content">
-                            <div type="divider" truesrc="" thumbnail="" class="sola_addable_hr sola_sub_addable_item" align="center"><em><?php _e("Insert spacer","sola"); ?></em></div>
+                            <div type="divider" truesrc="" thumbnail="" class="sola_addable_hr sola_sub_addable_item" align="center"><em><?php _e("Insert divider","sola"); ?></em></div>
                         <?php 
 
                             $dir = PLUGIN_URL.'/images/hr';

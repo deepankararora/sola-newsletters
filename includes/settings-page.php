@@ -333,19 +333,28 @@ $sola_nl_ajax_nonce = wp_create_nonce("sola_nl");
                            $list_id = $list->list_id;?>
                            <input type="checkbox" name="sola_nl_sign_up_sub_list[]" <?php if(in_array($list_id, $sign_up_list)) echo "checked" ?> value="<?php echo $list->list_id ?>"/>
                            <label><?php echo $list->list_name ?> (<?php echo sola_nl_total_list_subscribers($list->list_id) ?>)</label>
-                                                  <p class="description" style='padding:10px;'><?php echo $list->list_description ?></p>
+                            <p class="description" style='padding:10px;'><?php echo $list->list_description ?></p>
                            <?php
                         }?>
                   </td>
               </tr>
               <tr>
                   <td style="vertical-align: top;">
+                      <label><?php _e("Subject Line","sola"); ?></label>
+                      <p class="description" style='padding:10px;'>
+                          <?php _e("This is the subject text that gets sent to a new subscriber to confirm their subscription.","sola"); ?>
+                      </p>
+                  <td><input class="sola-input" type="text" name="sola_nl_confirm_subject" value="<?php echo get_option("sola_nl_confirm_subject"); ?>" /></td>
+                  </td>
+              </tr>
+              <tr>                  
+                  <td style="vertical-align: top;">
                       <label><?php _e("Confirmation Email","sola"); ?></label>
                       <p class="description" style='padding:10px;'>
-                          <?php _e("This is the confirmation message that gets sent to a new subscriber to confirm there subscription.","sola"); ?>
+                          <?php _e("This is the confirmation message that gets sent to a new subscriber to confirm their subscription.","sola"); ?>
                           <br/>
                           <br/>
-                          <?php _e("Don't forget to add [confirm_link] Link Text here [/confirm_link] for your subscribers to confirm there subscription","sola"); ?>
+                          <?php _e("Don't forget to add [confirm_link] Link Text here [/confirm_link] for your subscribers to confirm their subscription","sola"); ?>
                           <br/>
                           <br/>
                           <?php _e("Use [sub_name] to show your subscribers name (Optional)","sola"); ?>
@@ -353,7 +362,15 @@ $sola_nl_ajax_nonce = wp_create_nonce("sola_nl");
                   </td>
                   <td><textarea cols="80" rows="10" name='sola_nl_confirm_mail'><?php echo get_option("sola_nl_confirm_mail"); ?></textarea></td>
               </tr>
-              
+              <tr>                  
+                  <td style="vertical-align: top;">
+                      <label><?php _e("Thank You Text","sola"); ?></label>
+                      <p class="description" style='padding:10px;'>
+                          <?php _e("This is the message the user will see as they signup to your newsletters on your site.","sola"); ?>           
+                      </p>
+                  </td>
+                  <td><textarea cols="80" rows="10" name='sola_nl_confirm_thank_you'><?php echo get_option("sola_nl_confirm_thank_you"); ?></textarea></td>
+              </tr>
           </table>
       </div>
       <div id="tabs-4">
@@ -403,7 +420,7 @@ $sola_nl_ajax_nonce = wp_create_nonce("sola_nl");
             echo "<strong>".__("Scheduled to run at","sola"). ":</strong> " . date("Y-m-d H:i:s",$timestamp);
             echo "<br /><strong>".__("Server time now","sola"). ":</strong> " . date("Y-m-d H:i:s");
             //echo "<br />".ABSPATH;
-            //sola_cron_send();
+//            sola_cron_send();
             ?>
         </div>
         

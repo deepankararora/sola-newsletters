@@ -162,11 +162,14 @@ jQuery(document).ready( function() {
     //off click of tiny mce, contents are saved
     jQuery(document).mouseup(function (e){
         var container = jQuery(".editable");
-
+        console.log(e.target);
+        console.log(jQuery(e.target).attr("data-mce-color"));
         if (!container.is(e.target) // if the target of the click isn't the container...
             && container.has(e.target).length === 0){ // ... nor a descendant of the container
             if(sola_is_editing === true && 
-                    jQuery(e.target).hasClass("mce-text") === false && 
+                    jQuery(e.target).hasClass("mce-text") === false &&
+                    jQuery(e.target).hasClass("mce-container") === false &&
+                    typeof jQuery(e.target).attr("data-mce-color") === typeof undefined &&
                     jQuery(e.target).hasClass("mce-window") === false &&
                     jQuery(".mce-window").has(e.target).length === 0
                     ){
@@ -245,10 +248,11 @@ jQuery(document).ready( function() {
             plugins: [
                 "advlist autolink lists link image charmap print preview anchor",
                 "searchreplace visualblocks code fullscreen",
-                "insertdatetime media table contextmenu paste"
+                "insertdatetime media table contextmenu paste",
+                "textcolor"
             ],
             menubar: false,
-            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | fontsizeselect | bullist numlist outdent indent | link image",
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | fontsizeselect | bullist numlist outdent indent | link image | forecolor backcolor",
 
         });
         

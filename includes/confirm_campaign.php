@@ -6,7 +6,9 @@ else if ($mail_method == "3") { $mail_method = "Gmail"; }
 else if ($mail_method == "2") { $mail_method = "SMTP"; }
 $limit = get_option('sola_nl_send_limit_qty');
 $limit_time = get_option('sola_nl_send_limit_time');
+
 ?>
+
 <div class="wrap">        
     
     <div id="icon-edit" class="icon32 icon32-posts-post"><br></div>
@@ -95,11 +97,52 @@ $limit_time = get_option('sola_nl_send_limit_time');
                     <td colspan="2">
                         <a title="<?php _e("Return To Editor","sola");?>" class="button" href="admin.php?page=sola-nl-menu&action=editor&camp_id=<?php  echo $_GET['camp_id'] ?>"><?php _e("Return To Editor","sola"); ?></a> 
                           or  
-                        <input id="sola_nl_cron_send_btn" type="submit" class="button-primary" name="sola_nl_cron_send" value="<?php _e("Send Now","sola"); ?>"/> <br />
-                        <p><em><?php echo __("Your mail will be sent via","sola")." <strong>$mail_method</strong> ($limit ".__("mails every","sola")." ".($limit_time/60)." ".__("minute(s)","sola"); ?>)</em> <small><a href='?page=sola-nl-menu-settings'><?php _e("Edit","sola"); ?></a></small></p>
+                        <input id="sola_nl_cron_send_btn" type="submit" class="button-primary" name="sola_nl_cron_send" value="<?php _e("Send Now","sola"); ?>"/> 
+                        or 
+                        <a title="Schedule Send" id="sola_nl_schedule_send_btn" class="button-primary" href="javascript:void(0);"><?php _e("Schedule Send","sola"); ?></a> 
+                    </td>
+                </tr>                
+                <tr class="schedule_send_block">                    
+                    <td>
+                        <label><?php _e("Date","sola"); ?></label>
+                        <p class="description"><?php _e("The date you want this campaign to be sent.","sola"); ?></p>
+                    </td>
+                    <td>
+                        <input type="text" id="datepicker" class="" name="schedule_date">
                     </td>
                 </tr>
+                <tr class="schedule_send_block">                    
+                    <td>
+                        <label><?php _e("Time","sola"); ?></label>
+                        <p class="description"><?php _e("The time you want this campaign to be sent. (Hours & Minutes)","sola"); ?></p>
+                    </td>
+                    <td>
+                        <select name="schedule_hour">
+                            <?php 
+                            for($i=0; $i<=24; $i++){
+                                echo '<option value="'.$i.'">'.$i.'</option>';
+                            }
+                            ?>
+                        </select>
+                        <select name="schedule_minutes">
+                            <?php 
+                            for($ii=0; $ii<60; $ii+=15){
+                                echo '<option value="'.$ii.'">'.$ii.'</option>';
+                            }
+                            ?>
+                        </select>                        
+                    </td>
 
+                </tr>
+                <tr class="schedule_send_block">
+                    <td colspan="2">
+                        <input id="" type="submit" class="button-primary" name="schedule_send" value="<?php _e("Schedule Now","sola"); ?>"/> 
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><p><em><?php echo __("Your mail will be sent via","sola")." <strong>$mail_method</strong> ($limit ".__("mails every","sola")." ".($limit_time/60)." ".__("minute(s)","sola"); ?>)</em> <small><a href='?page=sola-nl-menu-settings'><?php _e("Edit","sola"); ?></a></small></p></td>
+                </tr>
+            
             </table>
         </form>
     </div>

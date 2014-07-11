@@ -1,7 +1,5 @@
 <?php  
-
-
-
+$camp_id = $_GET['camp_id'];
 $current_page = 1;
 $order = "DESC";
 
@@ -22,11 +20,22 @@ if($order == "DESC"){
     $orderswop = "DESC";
 }
 $lc_order = strtolower($order);
-    
+
+if(isset($_GET['campaigns'])){
+    $campaign_name_search = $_GET['campaigns'];
+    $camps = sola_nl_get_camps($limit, $current_page, $order, $orderBy, $campaign_name_search);
+} else{
+    $campaign_name_search = "";
+    $camps = sola_nl_get_camps($limit, $current_page, $order, $orderBy, $campaign_name_search);
+}
 $order_url = "&order=".$order."&orderBy=".$orderBy;
-$camps = sola_nl_get_camps($limit, $current_page, $order, $orderBy);
+
 $total_rows = sola_nl_total_camps();
 $total_pages = ceil($total_rows/$limit);
+
+global $sola_nl_camp_subs_tbl;
+global $wpdb;
+
 ?>
 
 <div class="wrap">   
@@ -39,6 +48,13 @@ $total_pages = ceil($total_rows/$limit);
             <?php _e("New Campaign","sola") ?>
         </a>
     </h2>
+    <form method="get" action="">
+        <p class="search-box">   
+            <input type="hidden" id="sola_nl_search_input" name="page" value="sola-nl-menu">
+            <input type="search" id="sola_nl_search_input" name="campaigns" value="">
+            <input type="submit" name="" id="search-submit" class="button" value="Search Campaigns">
+        </p>        
+    </form>
     <form id="sola_nl_camp_form" method="post">
         <div class="tablenav top">
             <div class="alignleft">
@@ -75,6 +91,11 @@ $total_pages = ceil($total_rows/$limit);
                             </a>
                         </th>
                         <th class="manage-column column-title">
+                             <span>
+                                 <?php _e("Stats","sola") ?><br/> 
+                             </span>
+                        </th>
+                        <th class="manage-column column-title">
                              <span><?php _e("Lists","sola") ?></span>
                         </th>
                         <th class="manage-column column-title sorted <?php if($orderBy == "date_created") { echo $lc_order; } ?>">
@@ -90,9 +111,16 @@ $total_pages = ceil($total_rows/$limit);
                     $ii = 0;
                     foreach($camps as $camp){?>
                         <tr <?php if ($ii % 2 == 0){?>class="alternate"<?php }?>>
+                            <?php 
+                                $camp_id = $camp->camp_id; 
+                                if(function_exists('sola_nl_register_pro_return_stats')){
+                                    $stats = sola_nl_register_pro_return_stats($camp_id);
+                                }
+                                
+                            ?>
                             <td>
                                 <input type="checkbox" name="sola_camp_checkbox[]" value="<?php echo $camp->camp_id; ?>" class="sola-check-box">
-                            </td>
+                            </td>                            
                             <td>
                                 <strong>
                                     <a class="row-title"<?php if ($camp->status == 0) echo "href=\"?page=sola-nl-menu&action=editor&camp_id=".$camp->camp_id."\"";
@@ -141,7 +169,13 @@ $total_pages = ceil($total_rows/$limit);
                                 </div>
                             </td>
                             <td>
-                                <?php if($camp->status == 1) { echo __("Sent","Sola"); }
+                               
+                            <?php  
+                                $current_date = date("Y-m-d H:i:s",current_time('timestamp'));       
+                                $scheduled_time = $camp->schedule_date;
+//                                echo $current_date;
+                                if($current_date < $scheduled_time){ echo __('Scheduled to be sent on: <br/>'.$scheduled_time); }
+                                else if($camp->status == 1) { echo __("Sent","Sola"); }
                                 else if($camp->status == 0) {echo __("Not Sent","sola"); }
                                 else if($camp->status == 9) {echo __("Sending Paused","sola"); }
                                 else if($camp->status == 2 || $camp->status == 3) { 
@@ -150,6 +184,24 @@ $total_pages = ceil($total_rows/$limit);
                                 }
                                 ?>
                             </td>
+                            <?php if (function_exists('sola_nl_register_pro_version')){ ?>
+                                <td>
+                                    <?php 
+                                    if(function_exists('sola_nl_register_pro_return_stats')){
+                                        echo $stats['clicks']." ".__("clicks","sola")." <br />
+                                            ".$stats['opens']." ".__("opens","sola")." <br />
+                                            ".$stats['unsubscribes']." ".__("unsubscribes","sola")." <br />
+                                            ".$stats['open_rate']."% ".__("open rate","sola")."";
+                                    } else {
+                                        echo "<small>".__("Please <a href='update-core.php'>upgrade</a> your premium version to view this.","sola")."</small>";
+                                    }
+                                    ?>
+                                </td>
+                            <?php } else {?>
+                                <td>
+                                    <?php echo "<a href='http://solaplugins.com/plugins/sola-newsletters/?utm_source=plugin&utm_medium=link&utm_campaign=campaign_stats_list' target='_BLANK'>".__("Pro only","sola")."</a>"; ?>
+                                </td>
+                            <?php } ?>
                             <td>
                                 <?php
                                 $lists = sola_nl_get_camp_lists($camp->camp_id);
@@ -171,6 +223,7 @@ $total_pages = ceil($total_rows/$limit);
                         <th></th>
                         <th><?php _e("Campaign Name","sola") ?></th>
                         <th><?php _e("Campaign Status","sola") ?></th>
+                        <th><?php _e("Stats","sola") ?></th>
                         <th><?php _e("Lists","sola") ?></th>
                         <th><?php _e("Date Created","sola") ?></th>
                     </tr>

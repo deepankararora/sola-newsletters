@@ -467,19 +467,27 @@ function sola_check_send_mail_time($type){
     global $wpdb;
     global $sola_nl_camp_tbl;
     if (!isset($type)) { $type = 2; }
-    $sql = "SELECT * FROM `$sola_nl_camp_tbl` WHERE `status` = $type LIMIT 1";
+    
+    $current_date = date("Y-m-d H:i:s",current_time('timestamp'));    
+    
+    
+    $sql = "SELECT * FROM `$sola_nl_camp_tbl` WHERE `schedule_date` < '$current_date' AND `status` = '$type' LIMIT 1";
     $campaign = $wpdb->get_row($sql);
+       
     if($campaign){
         $time_limit = strtotime("-".get_option('sola_nl_send_limit_time')." seconds");
         $camp_id = false;
+         
         $last_sent_date = strtotime($campaign->last_sent);
-        if($last_sent_date < $time_limit && $campaign->time_frame_qty > 0){
-            $camp_id = $campaign->camp_id; 
+        if(($last_sent_date < $time_limit) && ($campaign->time_frame_qty > 0)){
+            $camp_id = $campaign->camp_id;             
         }
         return $camp_id;
+        
     } else {
         return false;
     }
+    
 }
 function sola_get_camp_limit($camp_id){
     global $wpdb;
@@ -549,12 +557,11 @@ function sola_cron_send($camp_id = false) {
     global $sola_nl_subs_tbl;
     global $sola_global_subid;
     global $sola_global_campid;
-
-
+    
     if (!$camp_id) {
         $camp_id = sola_check_send_mail_time(3);
     }
-    //var_dump($camp_id);
+//    var_dump($camp_id);
 
     if ($camp_id) {
         $limit = sola_get_camp_limit($camp_id);
@@ -648,11 +655,6 @@ function sola_cron_send($camp_id = false) {
 
 
                     $body = sola_nl_replace_links($body, $sub_id, $camp->camp_id);
-
-
-
-
-
 
 
                     /* ------ */    

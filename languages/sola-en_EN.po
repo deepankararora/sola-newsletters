@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: sola-newsletters\n"
-"POT-Creation-Date: 2014-06-10 13:24+0200\n"
-"PO-Revision-Date: 2014-06-10 13:24+0200\n"
+"Project-Id-Version: sola nl\n"
+"POT-Creation-Date: 2014-07-11 15:30+0200\n"
+"PO-Revision-Date: 2014-07-11 15:30+0200\n"
 "Last-Translator: \n"
-"Language-Team: sola plugins <support@solaplugins.com>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,68 +13,74 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: C:\\wamp\\www\\wordpress38\\wp-content\\plugins\\sola-"
 "newsletters\n"
+"X-Poedit-SearchPath-1: C:\\wamp\\www\\wordpress38\\wp-content\\plugins\\sola-"
+"newsletters-pro\n"
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:166
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:165
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/modules/module_activation.php:44
+msgid "Thank You For Subscribing"
+msgstr ""
+
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:169
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/modules/module_activation.php:48
+msgid "Thank You for signing up. You will receive a confirmation mail shortly."
+msgstr ""
+
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:206
 msgid "Pending first batch"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:174
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:176
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:214
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:216
 msgid "Sending again in about "
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:174
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:176
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:214
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:216
 msgid " minute(s)"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:189
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:229
 msgid "of"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:189
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:229
 msgid "sent"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:255
-msgid ""
-"Thank you for subscribing. You will recive a mail shortly to confirm your "
-"account"
-msgstr ""
-
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:288
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:330
 msgid "Sola Newsletters"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:288
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:330
 msgid "Newsletters"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:289
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/subscribers-page.php:36
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:331
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/subscribers-page.php:42
 msgid "Subscribers"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:290
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:78
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:174
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:332
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:99
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:227
 msgid "Lists"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:291
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:333
 msgid "Settings"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:292
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:334
 msgid "Error Log"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:293
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:335
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/feedback-page.php:37
 msgid "Feedback"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:308
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:350
 msgid ""
 "Please note: <strong>Sola Newsletters will not function correctly while "
 "using APC Object Cache.</strong> We have found that GoDaddy hosting packages "
@@ -83,221 +89,249 @@ msgid ""
 "content/ directory."
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:314
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:327
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:356
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:369
 msgid "Thank you for your feedback. We will be in touch soon"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:331
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:373
 msgid "There was a problem sending your feedback. Please log your feedback on "
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:342
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:384
 msgid "Subscribers Updated"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:347
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:389
 msgid "Upload error"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:347
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:389
 msgid ""
 "Please ensure you upload a CSV file. The file you are trying to upload is a "
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:347
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:389
 msgid " type file"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:352
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:363
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:394
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:405
 msgid "Subscribers Imported Successfully"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:375
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:417
 msgid "Subscriber Added"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:383
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:425
 msgid "Please Select a List when adding the subscriber"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:391
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:479
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:433
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:521
 msgid "Subscribers Deleted"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:396
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:438
 msgid "Campaign Deleted"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:425
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:467
 msgid "List Updated"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:430
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:472
 msgid "List Deleted"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:435
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:477
 msgid "Settings Saved"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:496
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:538
 msgid "Campaigns Deleted"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:513
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:555
 msgid "Thank You for your feedback!"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:717
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:767
 msgid "Could not add subscriber"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:723
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:773
 msgid "Please enter an E-mail Address"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:748
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:798
 msgid "There was an error while trying to add the list"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:753
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:803
 msgid "List added"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:759
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:809
 msgid "Please enter a list name"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:810
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:829
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:856
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:870
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:947
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:996
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:1019
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:1042
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:1079
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:1138
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:1574
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:860
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:879
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:906
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:920
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:999
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:1056
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:1073
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:1090
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:1127
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:1186
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:1622
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/modules/module_subscribers.php:85
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/modules/module_subscribers.php:207
 msgid "Could not execute query"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:951
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:1086
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:1003
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:1134
 msgid "Please Select at least one list to send to"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:955
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:1090
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:1007
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:1138
 msgid "Please Enter a Subject"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:1009
-msgid "Cannot Pause"
-msgstr ""
-
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:1031
-msgid "Cannot Resume"
-msgstr ""
-
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:1487
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:1535
 msgid "No errors to report on"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:1553
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:1601
 msgid "You can only have a maximum of "
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:1553
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:1601
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/campaign_stats.php:140
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/campaign_stats.php:175
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/campaign_theme.php:29
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:414
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:431
 msgid "Premium"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:1553
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/sola-newsletters.php:1601
 msgid "to get unlimited subscribers."
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:37
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:46
 msgid "My Newsletter Campaigns"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:39
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:48
 msgid "New Campaign"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:48
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/subscribers-page.php:47
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:64
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/subscribers-page.php:61
 msgid "items"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:67
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:172
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:83
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:224
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters-pro/sola-newsletters-pro.php:122
 msgid "Campaign Name"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:73
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:173
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:89
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:225
 msgid "Campaign Status"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:82
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:175
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:95
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:226
+msgid "Stats"
+msgstr ""
+
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:103
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:228
 msgid "Date Created"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:106
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:134
 msgid "Preview"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:112
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:140
 msgid "View Stats"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:116
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:99
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:144
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:143
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/lists-page.php:31
 msgid "Edit"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:122
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:150
 msgid "Duplicate"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:127
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:155
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/lists-page.php:41
 msgid "Delete"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:132
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:160
 msgid "Pause Sending"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:138
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:166
 msgid "Resume Sending"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:144
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:177
+msgid "Scheduled to be sent on: <br/>"
+msgstr ""
+
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:178
 msgid "Sent"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:145
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:179
 msgid "Not Sent"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:146
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:180
 msgid "Sending Paused"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:149
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:183
 msgid "Waiting for other campaign to finish sending"
+msgstr ""
+
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:191
+msgid "clicks"
+msgstr ""
+
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:192
+msgid "opens"
+msgstr ""
+
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:193
+msgid "unsubscribes"
+msgstr ""
+
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:194
+msgid "open rate"
+msgstr ""
+
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:196
+msgid ""
+"Please <a href='update-core.php'>upgrade</a> your premium version to view "
+"this."
+msgstr ""
+
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/admin-page.php:202
+msgid "Pro only"
 msgstr ""
 
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/campaign_stats.php:33
@@ -310,8 +344,8 @@ msgstr ""
 
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/campaign_stats.php:46
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/campaign_stats.php:52
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/subscribers-page.php:78
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/subscribers-page.php:147
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/subscribers-page.php:92
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/subscribers-page.php:161
 msgid "Status"
 msgstr ""
 
@@ -339,8 +373,8 @@ msgstr ""
 
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/campaign_stats.php:77
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/campaign_stats.php:107
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/subscribers-page.php:72
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/subscribers-page.php:146
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/subscribers-page.php:86
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/subscribers-page.php:160
 msgid "E-mail"
 msgstr ""
 
@@ -383,6 +417,7 @@ msgid "Clicks"
 msgstr ""
 
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/campaign_theme.php:6
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters-pro/includes/campaign_theme_pro.php:6
 msgid "Choose a Theme"
 msgstr ""
 
@@ -390,82 +425,108 @@ msgstr ""
 msgid "to get more themes!"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:13
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:15
 msgid "Confirm Campaign"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:22
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:24
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/duplicate_campaign.php:23
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/new_campaign.php:18
 msgid ""
 "Give your campaign a subject line to make your subscribers take the bait!"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:31
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:33
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/duplicate_campaign.php:33
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/new_campaign.php:28
 msgid "Select List"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:32
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:34
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/duplicate_campaign.php:36
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/new_campaign.php:31
 msgid "Select a list you want to send this campaign to."
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:37
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:39
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/new_campaign.php:36
 msgid ""
 "You cannot edit the list while the campaign is being sent, or the sending "
 "has been paused"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:59
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:61
 msgid "Send From"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:60
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:62
 msgid "What email do you want to send from"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:68
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:69
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:70
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:71
 msgid "Send From Name"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:77
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:79
 msgid "Reply To"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:78
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:80
 msgid "Where Should your subscribers reply"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:86
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:88
 msgid "Reply To Name"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:87
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:89
 msgid "Give your subscribers a name to reply to"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:96
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:98
 msgid "Return To Editor"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:98
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:100
 msgid "Send Now"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:99
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:102
+msgid "Schedule Send"
+msgstr ""
+
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:107
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/subscribers-page.php:101
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/subscribers-page.php:163
+msgid "Date"
+msgstr ""
+
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:108
+msgid "The date you want this campaign to be sent."
+msgstr ""
+
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:116
+msgid "Time"
+msgstr ""
+
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:117
+msgid "The time you want this campaign to be sent. (Hours & Minutes)"
+msgstr ""
+
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:139
+msgid "Schedule Now"
+msgstr ""
+
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:143
 msgid "Your mail will be sent via"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:99
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:143
 msgid "mails every"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:99
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/confirm_campaign.php:143
 msgid "minute(s)"
 msgstr ""
 
@@ -526,7 +587,7 @@ msgid "Divider"
 msgstr ""
 
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/editor.php:124
-msgid "Insert spacer"
+msgid "Insert divider"
 msgstr ""
 
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/editor.php:146
@@ -571,9 +632,7 @@ msgid "Send Feedback"
 msgstr ""
 
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/footer.php:6
-msgid ""
-"Sola Newsletters is still in BETA. If you find any errors or if you have any "
-"suggestions"
+msgid "Sola Newsletters. If you find any errors or if you have any suggestions"
 msgstr ""
 
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/footer.php:6
@@ -581,7 +640,7 @@ msgid "please get in touch with us"
 msgstr ""
 
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/import_subscribers.php:7
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/subscribers-page.php:38
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/subscribers-page.php:44
 msgid "Import Subscribers"
 msgstr ""
 
@@ -669,7 +728,7 @@ msgstr ""
 
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/new_subscriber.php:13
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/new_subscriber.php:60
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/subscribers-page.php:37
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/subscribers-page.php:43
 msgid "Add Subscriber"
 msgstr ""
 
@@ -681,8 +740,9 @@ msgstr ""
 msgid "Live Preview"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/send_campaign.php:8
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/send_campaign.php:20
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/send_campaign.php:9
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/send_campaign.php:21
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/send_campaign.php:37
 msgid "Campaign Ready to Send"
 msgstr ""
 
@@ -704,7 +764,7 @@ msgid "Sign Up Widget"
 msgstr ""
 
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:27
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:360
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:377
 msgid "Social Links"
 msgstr ""
 
@@ -905,8 +965,8 @@ msgid "Set the Title of sign up Box"
 msgstr ""
 
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:320
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/subscribers-page.php:83
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/subscribers-page.php:148
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/subscribers-page.php:97
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/subscribers-page.php:162
 msgid "List"
 msgstr ""
 
@@ -915,46 +975,66 @@ msgid "Select lists that subscribers will be associated with"
 msgstr ""
 
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:343
-msgid "Confirmation Email"
+msgid "Subject Line"
 msgstr ""
 
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:345
 msgid ""
-"This is the confirmation message that gets sent to a new subscriber to "
-"confirm there subscription."
+"This is the subject text that gets sent to a new subscriber to confirm their "
+"subscription."
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:348
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:352
+msgid "Confirmation Email"
+msgstr ""
+
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:354
+msgid ""
+"This is the confirmation message that gets sent to a new subscriber to "
+"confirm their subscription."
+msgstr ""
+
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:357
 msgid ""
 "Don't forget to add [confirm_link] Link Text here [/confirm_link] for your "
-"subscribers to confirm there subscription"
+"subscribers to confirm their subscription"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:351
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:360
 msgid "Use [sub_name] to show your subscribers name (Optional)"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:361
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:367
+msgid "Thank You Text"
+msgstr ""
+
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:369
+msgid ""
+"This is the message the user will see as they signup to your newsletters on "
+"your site."
+msgstr ""
+
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:378
 msgid "Insert Your links to your social platforms that you are associated with"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:381
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:398
 msgid "Upgrade to the"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:381
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:398
 msgid "Premium version"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:381
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:398
 msgid "to integrate your Sola Newsletters with Google Analytics."
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:386
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:403
 msgid "Cron job setup (Advanced users only)"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:388
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:405
 msgid ""
 "Sola Newsletters uses <strong>wp_cron</strong> to send mails. The downside "
 "to this is that wp_cron is only activated when someone visits your site or "
@@ -962,121 +1042,117 @@ msgid ""
 "your mail will not be sent reliably at the intervals you have specified."
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:389
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:406
 msgid ""
 "If you need more reliability and if you want to ensure that your mails get "
 "sent out at the intervals you have specified in your Email Settings tab, "
 "setting up a real cron job would be required."
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:390
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:407
 msgid ""
 "We'd suggest that you follow these instructions to successfully set up a "
 "real cron job:"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:392
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:409
 msgid "Log in to cPanel"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:393
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:410
 msgid "Under Advanced, click on Cron jobs"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:394
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:411
 msgid ""
 "Under New Cron Job, select the time interval you'd prefer (once per hour, "
 "once every 5 minutes, etc.)"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:395
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:412
 msgid "Enter this for Command (changing the URL to match your site):"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:398
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:415
 msgid "If you require technical support with setting up your cron job,"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:398
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:415
 msgid "we can assist you for a charge of $10"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:402
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:419
 msgid "Next wp_cron event"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:403
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:420
 msgid "Scheduled to run at"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:404
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:421
 msgid "Server time now"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:414
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:431
 msgid "Why Go"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:418
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:435
 msgid "+2500 Subscribers"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:419
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:436
 msgid "There are no limits on how many subscribers you can have or send to"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:421
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:438
 msgid "More Themes"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:422
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:439
 msgid ""
 "Get more themes and styles to choose from to make your E-mails so much better"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:428
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:445
 msgid "Detailed Statistics"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:429
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:446
 msgid ""
 "Get insights on your subscribers - How many opens and what links were clicked"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:431
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:448
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters-pro/sola-newsletters-pro.php:99
 msgid "Google Analytics"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:432
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:449
 msgid ""
 "We have intergrated analytics so you can easily track traffic from emails to "
 "your site"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:435
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:452
 msgid "Get The Premium Version"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:438
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/settings-page.php:455
 msgid "Save Settings"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/subscribers-page.php:39
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/subscribers-page.php:45
 msgid "Export Subscribers"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/subscribers-page.php:66
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/subscribers-page.php:145
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/modules/module_widget.php:100
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/subscribers-page.php:80
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/subscribers-page.php:159
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/modules/module_widget.php:101
 msgid "Name"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/subscribers-page.php:87
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/subscribers-page.php:149
-msgid "Date"
-msgstr ""
-
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/subscribers-page.php:105
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/includes/subscribers-page.php:119
 msgid "(No Name)"
 msgstr ""
 
@@ -1131,7 +1207,6 @@ msgid ""
 msgstr ""
 
 #: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/modules/module_activation.php:28
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/modules/module_activation.php:44
 msgid "Thank you for signing up to our newsletter."
 msgstr ""
 
@@ -1139,25 +1214,21 @@ msgstr ""
 msgid "We're sad to see you go."
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/modules/module_activation.php:44
-msgid "Hey [sub_name]!"
-msgstr ""
-
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/modules/module_activation.php:44
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/modules/module_activation.php:46
 msgid ""
-"Please click on this [confirm_link]link[/confirm_link] to activate your "
-"subscription."
+"Hey [sub_name]!\n"
+"\rThank you for signing up to our newsletter.\n"
+"\rPlease click on this [confirm_link]link[/confirm_link] to activate your "
+"subscription.\n"
+"\rKind Regards\n"
+"\r"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/modules/module_activation.php:44
-msgid "Kind Regards"
-msgstr ""
-
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/modules/module_activation.php:64
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/modules/module_activation.php:68
 msgid "Every Minute"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/modules/module_activation.php:445
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/modules/module_activation.php:450
 msgid "View In Browser"
 msgstr ""
 
@@ -1165,16 +1236,16 @@ msgstr ""
 msgid "Failed to send email to subscriber "
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/modules/module_sending.php:577
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/modules/module_sending.php:585
 msgid "Campaign send initiated"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/modules/module_sending.php:713
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/modules/module_sending.php:958
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/modules/module_sending.php:716
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/modules/module_sending.php:961
 msgid "Failed to send email to subscriber"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/modules/module_sending.php:737
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/modules/module_sending.php:740
 msgid "Campaign send ended"
 msgstr ""
 
@@ -1209,6 +1280,23 @@ msgstr ""
 msgid "Add This widget to your site for vistors to sign-up to your newsletter"
 msgstr ""
 
-#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters/modules/module_widget.php:83
-msgid "Thank You for signing up. You will receive a confirmation mail shortly."
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters-pro/sola-newsletters-pro.php:100
+msgid "Add variables here for Google analytics tracking"
+msgstr ""
+
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters-pro/sola-newsletters-pro.php:105
+msgid "Campaign Source"
+msgstr ""
+
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters-pro/sola-newsletters-pro.php:114
+msgid "Campaign Medium"
+msgstr ""
+
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters-pro/sola-newsletters-pro.php:125
+msgid ""
+"This value is the subject from your newsletter with the date added to it"
+msgstr ""
+
+#: C:\wamp\www\wordpress38\wp-content\plugins\sola-newsletters-pro/sola-newsletters-pro.php:126
+msgid "eg. My Subjet Line"
 msgstr ""

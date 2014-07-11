@@ -219,9 +219,12 @@ hr{
     padding: 5px;
 }
 #sola_tabs .ui-state-default{
-    background-color: #EC6851;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+background-color: #EC6851;
+border-top-left-radius: 5px;
+border-top-right-radius: 5px;
+height: 29px;
+padding: 0px 20px;
+line-height: 30px;
 }
 #sola_tabs .ui-state-default a{
     color:#FFFFFF;

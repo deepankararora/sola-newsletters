@@ -24,7 +24,13 @@ if($order == "DESC"){
 $lc_order = strtolower($order);
 
 $order_url = "&order=".$order."&orderBy=".$orderBy;
-$subscribers = sola_nl_get_subscribers('', $limit, $current_page, $order, $orderBy);
+if(isset($_GET['subscriber'])){
+    $subscriber_search = $_GET['subscriber'];
+    $subscribers = sola_nl_get_subscribers('', $limit, $current_page, $order, $orderBy, $subscriber_search);
+} else{
+    $subscriber_search = "";
+    $subscribers = sola_nl_get_subscribers('', $limit, $current_page, $order, $orderBy, $subscriber_search);
+}
 $total_rows = sola_nl_get_total_subs();
 $total_pages = ceil($total_rows/$limit);
 
@@ -38,6 +44,14 @@ $total_pages = ceil($total_rows/$limit);
       <a href="?page=sola-nl-menu&action=import" class="add-new-h2"><?php _e("Import Subscribers","sola") ?></a>
       <a href="?page=sola-nl-menu&action=sola_csv_export" target="_BLANK" class="add-new-h2"><?php _e("Export Subscribers","sola") ?></a>
     </h2>
+    <form method="get" action="">
+        <p class="search-box">   
+            <input type="hidden" id="sola_nl_search_input" name="page" value="sola-nl-menu-subscribers">
+            <input type="search" id="sola_nl_search_input" name="subscriber" value="">
+            <input type="submit" name="" id="search-submit" class="button" value="Search Subscribers">
+        </p>        
+    </form>
+
     <form action="admin.php?page=sola-nl-menu-subscribers" method="post">
         <div class="tablenav top">
             <div class="alignleft">

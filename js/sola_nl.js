@@ -1,4 +1,7 @@
 jQuery(document).ready(function() {
+    
+    jQuery("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
+    
     var orig_smtp_host = jQuery("#sola_nl_host").val();
     var orig_smtp_port = jQuery("#sola_nl_port").val();
     
@@ -26,6 +29,12 @@ jQuery(document).ready(function() {
         jQuery("#sola_nl_send_limit_type").val(sola_nl_host_limiting);
         
     });
+
+    jQuery(".schedule_send_block").hide();
+    jQuery("#sola_nl_schedule_send_btn").click(function() {
+        jQuery(".schedule_send_block").toggle();
+    });
+        
     
     
     //Send A Test Emial -test if mail is working

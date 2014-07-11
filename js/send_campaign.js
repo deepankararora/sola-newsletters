@@ -24,7 +24,7 @@ function sola_nl_send_batch(camp_id) {
         ein_get_perc().done(function(response){
             var something = JSON.parse(response);
             progress(something[0], something[2], jQuery('#progressBar_'+camp_id));
-            jQuery("#time_next_"+camp_id).html("<small>"+something[1]+"<br />"+something[3]+"<br /><a href='javascrit:void(0);' onclick='javascript:sola_nl_send_batch("+camp_id+");'>Send a batch now!</a></small>");
+            jQuery("#time_next_"+camp_id).html("<small>"+something[1]+"<br />"+something[3]+"<br /><a href='javascrit:void(0);' onclick='javascript:sola_nl_send_batch("+camp_id+"); return false;'>Send a batch now!</a></small>");
         });
     });
 }
@@ -44,6 +44,7 @@ function ein_force_send(camp_id){
             action: 'force_send',
             camp_id: camp_id
     };
+    
     return jQuery.post(ajaxurl, data);
 }
 
@@ -52,14 +53,14 @@ jQuery(document).ready( function() {
     ein_get_perc().done(function(response){
             var something = JSON.parse(response);
             progress(something[0], something[2], jQuery('#progressBar_'+camp_id));
-            jQuery("#time_next_"+camp_id).html("<small>"+something[1]+"<br />"+something[3]+"<br /><a href='javascrit:void(0);' onclick='javascript:sola_nl_send_batch("+camp_id+");'>Send a batch now!</a></small>");
+            jQuery("#time_next_"+camp_id).html("<small>"+something[1]+"<br />"+something[3]+"<br /><a href='javascrit:void(0);' onclick='javascript:sola_nl_send_batch("+camp_id+"); return false;'>Send a batch now!</a></small>");
         });
     
     every_ten_seconds = setInterval(function() {
         ein_get_perc().done(function(response){
             var something = JSON.parse(response);
             progress(something[0], something[2], jQuery('#progressBar_'+camp_id));
-            jQuery("#time_next_"+camp_id).html("<small>"+something[1]+"<br />"+something[3]+"<br /><a href='javascrit:void(0);' onclick='javascript:sola_nl_send_batch("+camp_id+");'>Send a batch now!</a></small>");
+            jQuery("#time_next_"+camp_id).html("<small>"+something[1]+"<br />"+something[3]+"<br /><a href='javascrit:void(0);' onclick='javascript:sola_nl_send_batch("+camp_id+"); return false;'>Send a batch now!</a></small>");
             
         });
     }, 10000);
