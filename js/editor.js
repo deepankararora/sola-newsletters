@@ -163,16 +163,19 @@ jQuery(document).ready( function() {
     jQuery(document).mouseup(function (e){
         var container = jQuery(".editable");
         console.log(e.target);
-        console.log(jQuery(e.target).attr("data-mce-color"));
+        
         if (!container.is(e.target) // if the target of the click isn't the container...
             && container.has(e.target).length === 0){ // ... nor a descendant of the container
             if(sola_is_editing === true && 
+                    (
                     jQuery(e.target).hasClass("mce-text") === false &&
                     jQuery(e.target).hasClass("mce-container") === false &&
+                    jQuery(e.target).hasClass("mce-container-body") === false &&
+                    jQuery(e.target).hasClass("mce-menu-item") === false &&
                     typeof jQuery(e.target).attr("data-mce-color") === typeof undefined &&
                     jQuery(e.target).hasClass("mce-window") === false &&
                     jQuery(".mce-window").has(e.target).length === 0
-                    ){
+                    )){
                 
                 newText = jQuery(".editBox").val().replace(/"/g, '"'); 
                 var content = tinyMCE.get(mid).getContent();
@@ -252,6 +255,7 @@ jQuery(document).ready( function() {
                 "textcolor"
             ],
             menubar: false,
+            relative_urls: false,
             toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | fontsizeselect | bullist numlist outdent indent | link image | forecolor backcolor",
 
         });
@@ -596,10 +600,10 @@ jQuery(document).ready( function() {
               }
             });
             attributes["the_value"] = jQuery(this).attr("value");
+            attributes["array_name"] = jQuery(this).closest('.style_element_wrapper').attr('array_name');
             styles.push(attributes);
-          });
+        });
          
-
         
         var data = {
             action: 'save_template',

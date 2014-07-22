@@ -8,7 +8,11 @@ if($_POST['sola_nl_cron_send']){
     } else {
         echo "<div id=\"message\" class=\"updated\"><p>".__("Campaign Ready to Send","sola")."</p></div>";
     }
-    sola_nl_add_subs_to_camp($_GET['camp_id']);
+    if (function_exists('sola_nl_add_subs_to_camp_pro')) {
+        sola_nl_add_subs_to_camp_pro($_GET['camp_id']);
+    } else { 
+        sola_nl_add_subs_to_camp($_GET['camp_id']);
+    }
     header("location:admin.php?page=sola-nl-menu");
     
 

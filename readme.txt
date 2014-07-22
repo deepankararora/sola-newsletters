@@ -91,6 +91,20 @@ Not applicable.
 
 == Changelog ==
 
+= 2.3 2014-07-22 = 
+* New features:
+* - You can now view the average newsletter open rate from all past campaigns
+* - You can now see the newsletter open rate for that specific campaign
+* - You can now view the total number of unique newsletter opens per campaign
+* - You can now see what newsletter links each subscriber clicked on
+* - You can now see which newsletter subscribers clicked on a specific link
+* - Newsletter styles have version numbers
+* Improvements:
+* - Newsletter statistics
+* - Changed how newsletter styles are saved in db
+* Bug fixes:
+* - Tinymce click issue
+
 = 2.2 2014-07-11 =
 * You can now schedule newsletters to be sent
 * You can now edit the subject of the mail that is sent when someone subscribes to your newsletter

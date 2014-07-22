@@ -667,7 +667,7 @@ function sola_cron_send($camp_id = false) {
                         if(wp_mail($sub_email, $camp->subject, $body, $headers )){
                             $check = true;
                         } else {
-                                $check = array('error'=>"Failed to send email to $sub_email... ".$GLOBALS['phpmailer']->ErrorInfo);
+                            $check = array('error'=>"Failed to send email to $sub_email... ".$GLOBALS['phpmailer']->ErrorInfo);
                         }
 
                     } else if ($saved_send_method >= "2") {
@@ -688,6 +688,8 @@ function sola_cron_send($camp_id = false) {
                         if(!$mail->Send()){
                             $check = array('error'=>'Error sending mail to '.$sub_email);
                         } else {
+                            $mail->clearAddresses();
+                            $mail->clearAttachments();
                             $check = true;
                         }
                     }
@@ -696,30 +698,31 @@ function sola_cron_send($camp_id = false) {
 
 
                     if($check === true){
-                        sola_update_camp_limit($camp_id);
-                        $wpdb->update( 
-                            $sola_nl_camp_subs_tbl, 
-                            array( 
-                                'status' => 1
-                            ), 
-                            array( 
-                                'camp_id' => $camp_id,
-                                'sub_id' => $sub_id
-                                ), 
-                            array( 
-                                '%d'	
-                            ), 
-                            array( '%d', '%d' ) 
-                        );
+                        $status = 1;
                         echo "Email sent to $sub_email successfully <br />";
                     } else {
+                        $status = 9;
                         sola_return_error(new WP_Error( 'sola_error', __( 'Failed to send email to subscriber' ), 'Could not send email to '.$mail->ErrorInfo ));
                         echo "<p>Failed to send to ".$sub_email."</p>";
                     }
+                    sola_update_camp_limit($camp_id);
+                    $wpdb->update( 
+                        $sola_nl_camp_subs_tbl, 
+                        array( 
+                            'status' => $status
+                        ), 
+                        array( 
+                            'camp_id' => $camp_id,
+                            'sub_id' => $sub_id
+                            ), 
+                        array( 
+                            '%d'	
+                        ), 
+                        array( '%d', '%d' ) 
+                    );
 
 
-                    $mail->clearAddresses();
-                    $mail->clearAttachments();
+                    
                     $end = (float) array_sum(explode(' ',microtime()));
                     echo "<br />processing time: ". sprintf("%.4f", ($end-$debug_start))." seconds<br />";
 

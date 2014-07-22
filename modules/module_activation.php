@@ -83,7 +83,7 @@ function sola_nl_handle_db() {
    global $sola_nl_css_options_table;
    global $sola_nl_link_tracking_table;
    global $sola_nl_themes_table;
-   
+   global $sola_nl_advanced_link_tracking_table;
    
    
    $sql = "
@@ -103,8 +103,6 @@ function sola_nl_handle_db() {
    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
    dbDelta($sql);
    
-    $sql = "ALTER TABLE $sola_nl_subs_tbl DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci";
-    $wpdb->Query($sql);
 
    $sql = "
       CREATE TABLE `$sola_nl_list_tbl` (
@@ -116,8 +114,6 @@ function sola_nl_handle_db() {
        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ;
        ";
    dbDelta($sql);
-    $sql = "ALTER TABLE $sola_nl_list_tbl DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci";
-    $wpdb->Query($sql);
    
    $sql = "
       CREATE TABLE `$sola_nl_subs_list_tbl` (
@@ -130,8 +126,6 @@ function sola_nl_handle_db() {
        ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ;
     ";
    dbDelta($sql);
-    $sql = "ALTER TABLE $sola_nl_subs_list_tbl DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci";
-    $wpdb->Query($sql);
    
    $sql ="
      CREATE TABLE `$sola_nl_camp_tbl` (
@@ -151,12 +145,11 @@ function sola_nl_handle_db() {
         time_frame_qty int(11) NOT NULL,
         theme_id int(11) NOT NULL,
         schedule_date datetime NOT NULL,
+        styles longtext NOT NULL,
       PRIMARY KEY  (camp_id)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ; 
    ";
    dbDelta($sql);
-    $sql = "ALTER TABLE $sola_nl_camp_tbl DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci";
-    $wpdb->Query($sql);
    
    $sql = "
       CREATE TABLE `$sola_nl_camp_list_tbl` (
@@ -168,8 +161,6 @@ function sola_nl_handle_db() {
        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ;
       ";
    dbDelta($sql);
-    $sql = "ALTER TABLE $sola_nl_camp_list_tbl DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci";
-    $wpdb->Query($sql);
    
    $sql = "
        CREATE TABLE `$sola_nl_camp_subs_tbl` (
@@ -184,38 +175,6 @@ function sola_nl_handle_db() {
           ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ;
        ";
    dbDelta($sql);
-    $sql = "ALTER TABLE $sola_nl_camp_subs_tbl DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci";
-    $wpdb->Query($sql);
-   
-   $sql = "
-       CREATE TABLE `$sola_nl_style_elements_table` (
-        id int(11) NOT NULL AUTO_INCREMENT,
-        theme_id varchar(255) NOT NULL,
-        element varchar(255) NOT NULL,
-        element_name varchar(255) NOT NULL,
-        PRIMARY KEY  (id)
-      ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ;
-    ";
-    dbDelta($sql); 
-    $sql = "ALTER TABLE $sola_nl_style_elements_table DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci";
-    $wpdb->Query($sql);
-    
-    
-   
-   $sql = "CREATE TABLE `$sola_nl_style_table` (
-        id int(11) NOT NULL AUTO_INCREMENT,
-        element_id int(11) NOT NULL,
-        label varchar(255) NOT NULL,
-        css varchar(255) NOT NULL,
-        value varchar(255) NOT NULL,
-        class varchar(255) NOT NULL,
-        style varchar(255) NOT NULL,
-        type varchar(255) NOT NULL,
-        PRIMARY KEY  (id)
-      ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ;";
-   dbDelta($sql);
-    $sql = "ALTER TABLE $sola_nl_style_table DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci";
-    $wpdb->Query($sql);
    
    $sql = "CREATE TABLE `$sola_nl_css_options_table` (
         id int(11) NOT NULL AUTO_INCREMENT,
@@ -225,8 +184,6 @@ function sola_nl_handle_db() {
         PRIMARY KEY  (id)
       ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ;";
    dbDelta($sql);
-    $sql = "ALTER TABLE $sola_nl_css_options_table DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci";
-    $wpdb->Query($sql);
    
    $sql = "CREATE TABLE `$sola_nl_link_tracking_table` (
         id int(11) NOT NULL AUTO_INCREMENT,
@@ -238,19 +195,35 @@ function sola_nl_handle_db() {
         PRIMARY KEY  (id)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ;";
    dbDelta($sql);
-    $sql = "ALTER TABLE $sola_nl_link_tracking_table DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci";
-    $wpdb->Query($sql);
+    
+    $sql = "CREATE TABLE `$sola_nl_advanced_link_tracking_table` (
+        id int(11) NOT NULL AUTO_INCREMENT,
+        sub_id int(11) NOT NULL,
+        camp_id int(11) NOT NULL,
+        link_name text NOT NULL,
+        user_agent VARCHAR(255) NOT NULL,
+        ip_address VARCHAR(255) NOT NULL,
+        country VARCHAR(255) NOT NULL,
+        region_name VARCHAR(255) NOT NULL,
+        timezone VARCHAR(255) NOT NULL,
+        isp VARCHAR(255) NOT NULL,
+        lat VARCHAR(255) NOT NULL,
+        lon VARCHAR(255) NOT NULL,
+        date_clicked DATETIME NOT NULL,
+        PRIMARY KEY  (id)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ;";
+   dbDelta($sql);
    
    
    $sql = "CREATE TABLE `$sola_nl_themes_table` (
         theme_id int(11) NOT NULL AUTO_INCREMENT,
         theme_name varchar(255) NOT NULL,
         theme_html longtext NOT NULL,
+        styles longtext NOT NULL,
+        version int(11) NOT NULL,
         PRIMARY KEY  (theme_id)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ;";
    dbDelta($sql);
-    $sql = "ALTER TABLE $sola_nl_themes_table DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci";
-    $wpdb->Query($sql);
    
    sola_nl_add_wp_user_to_sub();
    sola_nl_add_default_editor_style();
@@ -267,7 +240,8 @@ function sola_nl_add_wp_user_to_sub(){
         $wp_users = get_users('role=Administrator');
         $wpdb->insert($sola_nl_list_tbl, array('list_id' => '', 'list_name' => 'My First List', 'list_description' => 'This is your first list.'));
         $list_id = $wpdb->insert_id;
-        $wpdb->insert($sola_nl_camp_tbl, array('camp_id'=>'', 'subject'=> "My First Campaign", 'theme_id' => '1'));
+        $styles = sola_nl_default_styles_array();
+        $wpdb->insert($sola_nl_camp_tbl, array('camp_id'=>'', 'subject'=> "My First Campaign", 'theme_id' => '1', 'styles' => $styles));
         $camp_id = $wpdb->insert_id;
         $wpdb->insert($sola_nl_camp_list_tbl, array('id' => '', 'camp_id'=>$camp_id,'list_id'=>$list_id));
         foreach($wp_users as $wp_user){
@@ -288,155 +262,82 @@ function sola_nl_add_default_editor_style(){
     global $sola_nl_style_elements_table;
     global $sola_nl_themes_table;
     $letter_1 = sola_nl_default_letter();
+    $styles = sola_nl_default_styles_array();
+    $style_version = 1;
     $wpdb->query( 
 	$wpdb->prepare( 
 		"
-                INSERT IGNORE INTO `$sola_nl_themes_table` (`theme_id`, `theme_name`, `theme_html`) VALUES
-                (%d, %s, %s)
+                INSERT IGNORE INTO `$sola_nl_themes_table` (`theme_id`, `theme_name`, `theme_html`, `styles`, `version`) VALUES
+                (%d, %s, %s, %s, %d)
 		",
-	        1, 'single column', $letter_1 
+	        1, 'single column', $letter_1 , $styles, $style_version
             )
     );
+    $results = $wpdb->get_row("SELECT * FROM `$sola_nl_themes_table` WHERE `theme_id` = 1");
     
+    if($results->version != $style_version){
+        $wpdb->query("UPDATE `$sola_nl_themes_table` SET `styles` = '$styles', `theme_html` = '$letter_1', `version` = '$style_version' WHERE `theme_id` = 1");
+    }
     
+    $sql = "INSERT IGNORE INTO `$sola_nl_css_options_table` (`id`, `css_name`, `name`, `value`) VALUES
+        ('1', 'font-family', 'Georgia', 'Georgia, serif'),
+        ('2', 'font-family', 'Palatino Linotype', '\"Palatino Linotype\", \"Book Antiqua\", Palatino, serif'),
+        ('3', 'font-family', 'Times New Roman', '\"Times New Roman\", Times, serif'),
+        ('4', 'font-family', 'Arial', 'Arial, Helvetica, sans-serif'),
+        ('5', 'font-family', 'Arial Black', '\"Arial Black\", Gadget, sans-serif'),
+        ('6', 'font-family', 'Comic Sans MS', '\"Comic Sans MS\", cursive, sans-serif'),
+        ('7', 'font-family', 'Impact', 'Impact, Charcoal, sans-serif'),
+        ('8', 'font-family', 'Lucida Sans Unicode', '\"Lucida Sans Unicode\", \"Lucida Grande\", sans-serif'),
+        ('9', 'font-family', 'Tahoma', 'Tahoma, Geneva, sans-serif'),
+        ('10', 'font-family', 'Trebuchet MS', '\"Trebuchet MS\", Helvetica, sans-serif'),
+        ('11', 'font-family', 'Verdana', 'Verdana, Geneva, sans-serif'),
+        ('12', 'font-family', 'Courier New', '\"Courier New\", Courier, monospace'),
+        ('13', 'font-family', 'Lucida Console', '\"Lucida Console\" Monaco, monospace'),
+        ('14', 'font-family', 'Inherit', 'inherit'),
+        ('15', 'border-style', 'Dashed', 'dashed'),
+        ('16', 'border-style', 'Dotted', 'dotted'),
+        ('17', 'border-style', 'Double', 'double'),
+        ('18', 'border-style', 'Groove', 'groove'),
+        ('19', 'border-style', 'Hidden', 'hidden'),
+        ('20', 'border-style', 'Inset', 'inset'),
+        ('21', 'border-style', 'None', 'none'),
+        ('22', 'border-style', 'Outset', 'outset'),
+        ('23', 'border-style', 'Ridge', 'ridge'),
+        ('24', 'border-style', 'Solid', 'solid'),
+        ('25', 'font-style', 'Inherit', 'inherit'),
+        ('26', 'font-style', 'Initial', 'initial'),
+        ('27', 'font-style', 'Italic', 'italic'),
+        ('28', 'font-style', 'Normal', 'normal'),
+        ('29', 'font-weight', 'Bold', 'bold'),
+        ('30', 'font-weight', 'Bolder', 'bolder'),
+        ('31', 'font-weight', 'Inherit', 'inherit'),
+        ('32', 'font-weight', 'Initial', 'initial'),
+        ('33', 'font-weight', 'Lighter', 'lighter'),
+        ('34', 'font-weight', 'Normal', 'normal'),
+        ('35', 'text-align', 'Center', 'center'),
+        ('36', 'text-align', 'Inherit', 'inherit'),
+        ('37', 'text-align', 'Justify', 'justify'),
+        ('38', 'text-align', 'Left', 'left'),
+        ('39', 'text-align', 'Right', 'right'),
+        ('40', 'text-decoration', 'Inherit', 'inherit'),
+        ('41', 'text-decoration', 'Initial', 'initial'),
+        ('42', 'text-decoration', 'Line-Through', 'line-through'),
+        ('43', 'text-decoration', 'None', 'none'),
+        ('44', 'text-decoration', 'Overline', 'overline'),
+        ('45', 'text-decoration', 'Underline', 'underline'),
+        ('46', 'border-right-style', 'Dashed', 'dashed'),
+        ('47', 'border-right-style', 'Dotted', 'dotted'),
+        ('48', 'border-right-style', 'Double', 'double'),
+        ('49', 'border-right-style', 'Groove', 'groove'),
+        ('50', 'border-right-style', 'Hidden', 'hidden'),
+        ('51', 'border-right-style', 'Inset', 'inset'),
+        ('52', 'border-right-style', 'None', 'none'),
+        ('53', 'border-right-style', 'Outset', 'outset'),
+        ('54', 'border-right-style', 'Ridge', 'ridge'),
+        ('55', 'border-right-style', 'Solid', 'solid');
+    ";
+    $wpdb->query($sql);
     
-    
-    //    $sql = "SELECT * FROM `$sola_nl_style_elements_table`";
-    //    if(!$wpdb->get_results($sql)){
-        
-        $sql = "INSERT IGNORE INTO `$sola_nl_style_elements_table` (`id`, `theme_id`, `element`, `element_name`) VALUES
-            (1, '1', '#sola_newsletter_wrapper', 'Background'),
-            (2, '1', '#sola_nl_newsletter_background', 'Newsletter'),
-            (3, '1', '#sola_newsletter_wrapper h3', 'Heading 3'),
-            (4, '1', '#sola_newsletter_wrapper h2', 'Heading 2'),
-            (5, '1', '#sola_newsletter_wrapper h1', 'Heading 1'),
-            (7, '1', '#sola_newsletter_wrapper p a', 'Links'),
-            (11, '1', '#sola_newsletter_wrapper .nl_img', 'Images'),
-            (8, '1', '.sola_nl_btn', 'Button'),
-            (9, '1', '.social-icons-div', 'Social Icons Wrapper'),
-            (10, '1', '.social-icons-div img', 'Social Icon');";
-        $wpdb->query($sql);
-    //}
-    
-    //$sql = "SELECT * FROM `$sola_nl_css_options_table`";
-    //if(!$wpdb->get_results($sql)){
-        $sql = "INSERT IGNORE INTO `$sola_nl_css_options_table` (`id`, `css_name`, `name`, `value`) VALUES
-            ('1', 'font-family', 'Georgia', 'Georgia, serif'),
-            ('2', 'font-family', 'Palatino Linotype', '\"Palatino Linotype\", \"Book Antiqua\", Palatino, serif'),
-            ('3', 'font-family', 'Times New Roman', '\"Times New Roman\", Times, serif'),
-            ('4', 'font-family', 'Arial', 'Arial, Helvetica, sans-serif'),
-            ('5', 'font-family', 'Arial Black', '\"Arial Black\", Gadget, sans-serif'),
-            ('6', 'font-family', 'Comic Sans MS', '\"Comic Sans MS\", cursive, sans-serif'),
-            ('7', 'font-family', 'Impact', 'Impact, Charcoal, sans-serif'),
-            ('8', 'font-family', 'Lucida Sans Unicode', '\"Lucida Sans Unicode\", \"Lucida Grande\", sans-serif'),
-            ('9', 'font-family', 'Tahoma', 'Tahoma, Geneva, sans-serif'),
-            ('10', 'font-family', 'Trebuchet MS', '\"Trebuchet MS\", Helvetica, sans-serif'),
-            ('11', 'font-family', 'Verdana', 'Verdana, Geneva, sans-serif'),
-            ('12', 'font-family', 'Courier New', '\"Courier New\", Courier, monospace'),
-            ('13', 'font-family', 'Lucida Console', '\"Lucida Console\" Monaco, monospace'),
-            ('14', 'font-family', 'Inherit', 'inherit'),
-            ('15', 'border-style', 'Dashed', 'dashed'),
-            ('16', 'border-style', 'Dotted', 'dotted'),
-            ('17', 'border-style', 'Double', 'double'),
-            ('18', 'border-style', 'Groove', 'groove'),
-            ('19', 'border-style', 'Hidden', 'hidden'),
-            ('20', 'border-style', 'Inset', 'inset'),
-            ('21', 'border-style', 'None', 'none'),
-            ('22', 'border-style', 'Outset', 'outset'),
-            ('23', 'border-style', 'Ridge', 'ridge'),
-            ('24', 'border-style', 'Solid', 'solid'),
-            ('25', 'font-style', 'Inherit', 'inherit'),
-            ('26', 'font-style', 'Initial', 'initial'),
-            ('27', 'font-style', 'Italic', 'italic'),
-            ('28', 'font-style', 'Normal', 'normal'),
-            ('29', 'font-weight', 'Bold', 'bold'),
-            ('30', 'font-weight', 'Bolder', 'bolder'),
-            ('31', 'font-weight', 'Inherit', 'inherit'),
-            ('32', 'font-weight', 'Initial', 'initial'),
-            ('33', 'font-weight', 'Lighter', 'lighter'),
-            ('34', 'font-weight', 'Normal', 'normal'),
-            ('35', 'text-align', 'Center', 'center'),
-            ('36', 'text-align', 'Inherit', 'inherit'),
-            ('37', 'text-align', 'Justify', 'justify'),
-            ('38', 'text-align', 'Left', 'left'),
-            ('39', 'text-align', 'Right', 'right'),
-            ('40', 'text-decoration', 'Inherit', 'inherit'),
-            ('41', 'text-decoration', 'Initial', 'initial'),
-            ('42', 'text-decoration', 'Line-Through', 'line-through'),
-            ('43', 'text-decoration', 'None', 'none'),
-            ('44', 'text-decoration', 'Overline', 'overline'),
-            ('45', 'text-decoration', 'Underline', 'underline'),
-            ('46', 'border-right-style', 'Dashed', 'dashed'),
-            ('47', 'border-right-style', 'Dotted', 'dotted'),
-            ('48', 'border-right-style', 'Double', 'double'),
-            ('49', 'border-right-style', 'Groove', 'groove'),
-            ('50', 'border-right-style', 'Hidden', 'hidden'),
-            ('51', 'border-right-style', 'Inset', 'inset'),
-            ('52', 'border-right-style', 'None', 'none'),
-            ('53', 'border-right-style', 'Outset', 'outset'),
-            ('54', 'border-right-style', 'Ridge', 'ridge'),
-            ('55', 'border-right-style', 'Solid', 'solid');
-        ";
-        $wpdb->query($sql);
-    //}
-    
-    //$sql = "SELECT * FROM `$sola_nl_style_table`";
-    //if(!$wpdb->get_results($sql)){
-        $insert = "INSERT  IGNORE INTO `$sola_nl_style_table` (`id`, `element_id`, `label`, `css`, `value`, `class`, `style`, `type`) VALUES
-            (1, 1, 'Background Color', 'backgroundColor', '#333e48', 'colorpicker style-editor-input', 'background-color: rgb(51, 62, 72);', 'div'),
-            (2, 2, 'Font Family', 'font-family', 'Arial, Helvetica, sans-serif', 'form-control style-editor-input', '0', 'select'),
-            (3, 2, 'Background Color', 'backgroundColor', '#ffffff', 'colorpicker style-editor-input', 'background-color: rgb(255, 255, 255);', 'div'),
-            (5, 2, 'Border Style', 'border-style', 'solid', 'form-control style-editor-input', '0', 'select'),
-            (6, 2, 'Border Size', 'border-width', '0', 'form-control style-editor-input', '0', 'input'),
-            (7, 2, 'Border Radius', 'border-radius', '10px', 'form-control style-editor-input', '0', 'input'),
-            (8, 2, 'Border Color', 'border-color', '#ffffff', 'colorpicker style-editor-input', 'background-color: rgb(255, 255, 255);', 'div'),
-            (9, 8, 'Background Color', 'backgroundColor', '#b50707', 'colorpicker style-editor-input', 'background-color: rgb(181, 7, 7);', 'div'),
-            (10, 8, 'Border Radius', 'border-radius', '5px', 'form-control style-editor-input', '', 'input'),
-            (12, 8, 'Color', 'color', '#ffffff', 'colorpicker style-editor-input', 'background-color: rgb(255, 255, 255);', 'div'),
-            (13, 8, 'Font Family', 'font-family', 'inherit', 'form-control style-editor-input', '', 'select'),
-            (14, 8, 'Font Size', 'font-size', '20px', 'form-control style-editor-input', '', 'input'),
-            (15, 8, 'Font Weight', 'font-weight', 'bold', 'form-control style-editor-input', '', 'select'),
-            (16, 8, 'Font Style', 'font-style', 'inherit', 'form-control style-editor-input', '', 'select'),
-            (17, 8, 'Line Height', 'line-height', '40px', 'form-control style-editor-input', '', 'input'),
-            (18, 8, 'Width', 'width', '100%', 'form-control style-editor-input', '', 'input'),
-            (19, 8, 'Text Align', 'text-align', 'center', 'form-control style-editor-input', '', 'select'),
-            (20, 8, 'Border Color', 'border-color', '#c73232', 'colorpicker style-editor-input', 'background-color: rgb(199, 50, 50);', 'div'),
-            (21, 8, 'Border Width', 'border-width', '1px', 'form-control style-editor-input', '', 'input'),
-            (22, 8, 'Border Style', 'border-style', 'solid', 'form-control style-editor-input', '', 'select'),
-            (23, 10, 'Size', 'width', '20px', 'form-control style-editor-input', '', 'input'),
-            (24, 9, 'Align Icons', 'text-align', 'center', 'form-control style-editor-input', '', 'select'),
-            (25, 3, 'Font Size', 'font-size', '20px', 'form-control style-editor-input', '', 'input'),
-            (26, 3, 'Font Family', 'font-family', 'Arial, Helvetica, sans-serif', 'form-control style-editor-input', '', 'select'),
-            (27, 3, 'Font Weight', 'font-weight', 'bold', 'form-control style-editor-input', '', 'select'),
-            (28, 3, 'Font Style', 'font-style', 'inherit', 'form-control style-editor-input', '', 'select'),
-            (29, 4, 'Font Style', 'font-style', 'inherit', 'form-control style-editor-input', '', 'select'),
-            (30, 4, 'Font Size', 'font-size', '25px', 'form-control style-editor-input', '', 'input'),
-            (31, 4, 'Font Family', 'font-family', 'inherit', 'form-control style-editor-input', '', 'select'),
-            (32, 4, 'Font Weight', 'font-weight', 'bold', 'form-control style-editor-input', '', 'select'),
-            (33, 5, 'Font Size', 'font-size', '30px', 'form-control style-editor-input', '', 'input'),
-            (34, 5, 'Font Family', 'font-family', 'inherit', 'form-control style-editor-input', '', 'select'),
-            (35, 5, 'Font Weight', 'font-weight', 'bold', 'form-control style-editor-input', '', 'select'),
-            (36, 5, 'Font Style', 'font-style', 'inherit', 'form-control style-editor-input', '', 'select'),
-            (37, 2, 'Font Size', 'font-size', '12px', 'form-control style-editor-input', '', 'input'),
-            (38, 7, 'Font Size', 'font-size', '13px', 'form-control style-editor-input', '', 'input'),
-            (39, 7, 'Font Family', 'font-family', 'Arial, Helvetica, sans-serif', 'form-control style-editor-input', '', 'select'),
-            (40, 7, 'Font Weight', 'font-weight', 'bold', 'form-control style-editor-input', '', 'select'),
-            (41, 7, 'Font Style', 'font-style', 'inherit', 'form-control style-editor-input', '', 'select'),
-            (42, 7, 'Color', 'color', '#eb6852', 'colorpicker style-editor-input', 'background-color: rgb(235, 104, 82);', 'div'),
-            (44, 3, 'Color', 'color', '#333e48', 'colorpicker style-editor-input', 'background-color: rgb(51, 62, 72);', 'div'),
-            (45, 4, 'Color', 'color', '#333e48', 'colorpicker style-editor-input', 'background-color: rgb(51, 62, 72);', 'div'),
-            (46, 5, 'Color', 'color', '#333e48', 'colorpicker style-editor-input', 'background-color: rgb(51, 62, 72);', 'div'),
-            (47, 2, 'Text Color', 'color', '#333e48', 'colorpicker style-editor-input', 'background-color: rgb(51, 62, 72);', 'div'),
-            (50, 7, 'Text Decoration', 'text-decoration', 'underline', 'form-control style-editor-input', '', 'select'),
-            (51, 8, '', 'text-decoration', 'inherit', 'form-control style-editor-input', 'display:none;', 'select'),
-            (52, 11, 'Padding top', 'padding-top', '5px', 'form-control style-editor-input', '', 'input'),
-            (53, 11, 'Padding bottom', 'padding-bottom', '5px', 'form-control style-editor-input', '', 'input'),
-            (54, 11, 'Border Color', 'border-color', '#c73232', 'colorpicker style-editor-input', 'background-color: rgb(199, 50, 50);', 'div'),
-            (55, 11, 'Border Width', 'border-width', '0px', 'form-control style-editor-input', '', 'input'),
-            (56, 11, 'Border Style', 'border-style', 'solid', 'form-control style-editor-input', '', 'select')
-            ;";
-        $wpdb->query($insert);
-   // }
 }
 function sola_nl_default_letter() {
 
@@ -566,4 +467,80 @@ function sola_nl_default_letter() {
     $letter.= '</tr>';
     $letter.= '</table>';
     return $letter;
+}
+
+function sola_nl_default_styles_array(){
+$styles = array(
+    "background" => array(
+        "backgroundColor"   => "#333e48"
+    ),
+    "newsletter" => array(
+        "font-family"       => "Arial, Helvetica, sans-serif",
+        "backgroundColor"   => "#ffffff",
+        "border-style"      => "solid",
+        "border-width"      => "0",
+        "border-radius"     => "10px",
+        "border-color"      => "#ffffff",
+        "font-size"         => "12px",
+        "color"             => "#333e48"
+    ),
+    "heading_3" => array(
+        "font-size"         => "20px",
+        "font-family"       => "Arial, Helvetica, sans-serif",
+        "font-weight"       => "bold",
+        "font-style"        => "inherit",
+        "color"             => "#333e48"
+    ),
+    "heading_2" => array(
+        "font-size"         => "25px",
+        "font-family"       => "Arial, Helvetica, sans-serif",
+        "font-weight"       => "bold",
+        "font-style"        => "inherit",
+        "color"             => "#333e48"
+    ),
+    "heading_1" => array(
+        "font-size"         => "30px",
+        "font-family"       => "Arial, Helvetica, sans-serif",
+        "font-weight"       => "bold",
+        "font-style"        => "inherit",
+        "color"             => "#333e48"
+    ),
+    "links" => array(
+        "font-size"         => "13px",
+        "font-family"       => "Arial, Helvetica, sans-serif",
+        "font-weight"       => "bold",
+        "font-style"        => "inherit",
+        "color"             => "#eb6852",
+        "text-decoration"   => "underline"
+    ),
+    "social_icon" => array(
+        "width"             => "20px",
+        "text-align"        => "center"
+    ),
+    "images" => array(
+        "padding-top"       => "5px",
+        "padding-bottom"    => "5px",
+        "border-color"      => "#c73232",
+        "border-width"      => "0px",
+        "border-style"      => "solid",
+        "border-color"      => "#000"
+    ),
+    "button" =>array(
+        "backgroundColor"   =>"#b50707",
+        "border-radius"     =>"5px",
+        "color"             =>"#ffffff",
+        "font-family"       =>"inherit",
+        "font-size"         =>"20px",
+        "font-weight"       =>"bold",
+        "font-style"        =>"inherit",
+        "line-height"       =>"40px",
+        "width"             =>"100%",
+        "text-align"        =>"center",
+        "border-color"      =>"#c73232",
+        "border-width"      =>"1px",
+        "border-style"      =>"solid",
+        "text-decoration"   => "none"
+    )
+);
+return serialize($styles);
 }

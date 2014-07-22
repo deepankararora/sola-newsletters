@@ -1,5 +1,7 @@
 <?php $sola_nl_ajax_nonce = wp_create_nonce("sola_nl");
-$theme_id = sola_get_camp_theme_id($_GET['camp_id']);
+$camp_details = sola_nl_get_camp_details($_GET['camp_id']);
+$theme_id = $camp_details->theme_id;
+$styles = $camp_details->styles;
 
 ?>
 
@@ -194,7 +196,7 @@ $theme_id = sola_get_camp_theme_id($_GET['camp_id']);
             </div>
             
             <div id="editor-styles" class="styles" style="display:none">
-                <?php sola_get_style_editor($theme_id) ?>
+                <?php sola_get_style_editor($theme_id, $styles) ?>
             </div>
             
             

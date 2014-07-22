@@ -17,9 +17,6 @@ jQuery(document).ready(function() {
         sola_nl_show_div();
     });
     
-    
-    
-    
     jQuery("body").on("change", "#sola_nl_hosting_provider", function(){      
         
         var sola_nl_host_select = jQuery('option:selected', this).attr('send_limit');

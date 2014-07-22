@@ -1,5 +1,7 @@
-<?php  
-$camp_id = $_GET['camp_id'];
+<?php 
+if(isset($_GET['camp_id'])){
+    $camp_id = $_GET['camp_id'];
+}
 $current_page = 1;
 $order = "DESC";
 
@@ -116,7 +118,6 @@ global $wpdb;
                                 if(function_exists('sola_nl_register_pro_return_stats')){
                                     $stats = sola_nl_register_pro_return_stats($camp_id);
                                 }
-                                
                             ?>
                             <td>
                                 <input type="checkbox" name="sola_camp_checkbox[]" value="<?php echo $camp->camp_id; ?>" class="sola-check-box">

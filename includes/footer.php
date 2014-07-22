@@ -8,10 +8,10 @@
             <?php if (function_exists("sola_nl_register_pro_version")) { global $sola_nl_pro_version; global $sola_nl_pro_version_string; ?>
             
             <br />Sola Newsletter Premium Version: <a target='_BLANK' href="http://solaplugins.com/plugins/sola-newsletters/?utm_source=plugin&utm_medium=link&utm_campaign=version_premium"><?php echo $sola_nl_pro_version.$sola_nl_pro_version_string; ?></a> |
-            <a target="_blank" href="http://support.solaplugins.com/">Support</a>
+            <a target="_blank" href="http://solaplugins.com/support-desk/">Support</a>
             <?php } else { global $sola_nl_version; global $sola_nl_version_string; ?>
             <br />Sola Newsletter Version: <a target='_BLANK' href="http://solaplugins.com/plugins/sola-newsletters/?utm_source=plugin&utm_medium=link&utm_campaign=version_free"><?php echo $sola_nl_version.$sola_nl_version_string; ?></a> |
-            <a target="_blank" href="http://support.solaplugins.com/">Support</a> | 
+            <a target="_blank" href="http://solaplugins.com/support-desk/">Support</a> | 
             <a target="_blank" id="uppgrade" href="http://solaplugins.com/plugins/sola-newsletters/?utm_source=plugin&utm_medium=link&utm_campaign=footer" title="Premium Upgrade">Go Premium</a>
             <?php } ?>
             

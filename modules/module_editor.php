@@ -60,7 +60,8 @@ function sola_nl_add_admin_editor_stylesheet() {
 
 
 
-function sola_get_style_editor($theme_id) {
+function sola_get_style_editor($theme_id, $styles) {
+    global $sola_nl_themes_table;
     global $wpdb;
     global $sola_nl_style_table;
     global $sola_nl_style_elements_table;
@@ -68,7 +69,461 @@ function sola_get_style_editor($theme_id) {
     if(empty($theme_id)){
         $theme_id = 1;
     }
-    $sql = "SELECT * FROM `$sola_nl_style_elements_table` WHERE `theme_id` = '$theme_id' ORDER BY `element_name` ASC";
+    
+    if(empty($styles)){
+        $sql = "SELECT * FROM `$sola_nl_themes_table` WHERE `theme_id` = '$theme_id'";
+        $result = $wpdb->get_row($sql);
+        $styles = $result->styles;
+    }
+    $sql = "SELECT * FROM `$sola_nl_css_options_table`";
+    $css_options = $wpdb->get_results($sql);
+    extract(unserialize($styles));
+    
+    ?>
+    <form id="sola_nl_styles">
+        <div class="style style_element_wrapper" array_name="background">
+            <div class="style-name">
+                <h4><?php _e('Background', 'sola') ?></h4>
+            </div>
+
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Background Color", "sola")?></label>
+
+                <div name="backgroundColor" class="colorpicker style-editor-input" element="#sola_newsletter_wrapper" style="background-color:<?php echo $background['backgroundColor'] ?> ;" value="<?php echo $background['backgroundColor'] ?>" css="backgroundColor" ></div>
+            </div>
+        </div>
+
+
+
+        <div class="style style_element_wrapper" array_name="newsletter">
+            <div class="style-name">
+                <h4><?php _e('Newsletter','sola')?></h4>
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Font Family", "sola") ?></label>
+                <select class="form-control style-editor-input" element="#sola_nl_newsletter_background" css="font-family">
+                    <?php foreach($css_options as $css_option){ 
+                        if($css_option->css_name == "font-family"){?>
+                            <option 
+                                value='<?php echo $css_option->value; ?>' 
+                                <?php if ($css_option->value == $newsletter['font-family']) {?> selected <?php } ?>>
+                                    <?php echo $css_option->name ?>
+                            </option>
+                        <?php } 
+                    }?>
+                </select>
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Font Size","sola") ?></label>
+                <input type="text" class="form-control style-editor-input" css="font-size" element="#sola_nl_newsletter_background" value="<?php echo $newsletter['font-size'] ?>" />
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Font Color", "sola")?></label>
+
+                <div class="colorpicker style-editor-input" element="#sola_nl_newsletter_background" style="background-color:<?php echo $newsletter['color'] ?> ;" value="<?php echo $newsletter['color'] ?>" css="color" ></div>
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Background Color", "sola")?></label>
+
+                <div class="colorpicker style-editor-input" element="#sola_nl_newsletter_background" style="background-color:<?php echo $newsletter['backgroundColor'] ?> ;" value="<?php echo $newsletter['backgroundColor'] ?>" css="backgroundColor" ></div>
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Border Style", "sola") ?></label>
+                <select class="form-control style-editor-input" element="#sola_nl_newsletter_background" css="border-style">
+                    <?php foreach($css_options as $css_option){ 
+                        if($css_option->css_name == "border-style"){?>
+                            <option 
+                                value='<?php echo $css_option->value; ?>' 
+                                <?php if ($css_option->value == $newsletter['border-style']) {?> selected <?php } ?>>
+                                    <?php echo $css_option->name ?>
+                            </option>
+                        <?php } 
+                    }?>
+                </select>
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Border Size","sola") ?></label>
+                <input type="text" class="form-control style-editor-input" css="border-width" element="#sola_nl_newsletter_background" value="<?php echo $newsletter['border-width'] ?>" />
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Border Radius","sola") ?></label>
+                <input type="text" class="form-control style-editor-input" css="border-radius" element="#sola_nl_newsletter_background" value="<?php echo $newsletter['border-radius'] ?>" />
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Border Color", "sola")?></label>
+
+                <div class="colorpicker style-editor-input" element="#sola_nl_newsletter_background" style="background-color:<?php echo $newsletter['border-color'] ?> ;" value="<?php echo $newsletter['border-color'] ?>" css="border-color" ></div>
+            </div>
+        </div>
+
+        <?php if(isset($left_sidebar)){  ?>
+            <div class="style style_element_wrapper" array_name="left_sidebar">
+                <div class="style-name">
+                    <h4><?php _e('Sidebar','sola')?></h4>
+                </div>
+                <div class="style-options form-group" style="display:none">
+                    <label><?php _e("Border Style", "sola") ?></label>
+                    <select class="form-control style-editor-input" element="#sola_nl_sidebar_left" css="border-right-style">
+                        <?php foreach($css_options as $css_option){ 
+                            if($css_option->css_name == "border-style"){?>
+                                <option 
+                                    value='<?php echo $css_option->value; ?>' 
+                                    <?php if ($css_option->value == $left_sidebar['border-right-style']) {?> selected <?php } ?>>
+                                        <?php echo $css_option->name ?>
+                                </option>
+                            <?php } 
+                        }?>
+                    </select>
+                </div>
+                <div class="style-options form-group" style="display:none">
+                    <label><?php _e("Border Size","sola") ?></label>
+                    <input type="text" class="form-control style-editor-input" css="border-width" element="#sola_nl_sidebar_left" value="<?php echo $left_sidebar['border-width'] ?>" />
+                </div>
+                <div class="style-options form-group" style="display:none">
+                    <label><?php _e("Border Color", "sola")?></label>
+
+                    <div class="colorpicker style-editor-input" element="#sola_nl_sidebar_left" style="background-color:<?php echo $left_sidebar['border-color'] ?> ;" value="<?php echo $left_sidebar['border-color'] ?>" css="border-color" ></div>
+                </div>
+            </div>
+        <?php } ?>
+
+        <div class="style style_element_wrapper" array_name="heading_1">
+            <div class="style-name">
+                <h4><?php _e('Heading 1','sola')?></h4>
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Font Family", "sola") ?></label>
+                <select class="form-control style-editor-input" element="#sola_newsletter_wrapper h1" css="font-family">
+                    <?php foreach($css_options as $css_option){ 
+                        if($css_option->css_name == "font-family"){?>
+                            <option 
+                                value='<?php echo $css_option->value; ?>' 
+                                <?php if ($css_option->value == $heading_1['font-family']) {?> selected <?php } ?>>
+                                    <?php echo $css_option->name ?>
+                            </option>
+                        <?php } 
+                    }?>
+                </select>
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Font Size","sola") ?></label>
+                <input type="text" class="form-control style-editor-input" css="font-size" element="#sola_newsletter_wrapper h1" value="<?php echo $heading_1['font-size'] ?>" />
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Font Color", "sola")?></label>
+
+                <div class="colorpicker style-editor-input" element="#sola_newsletter_wrapper h1" style="background-color:<?php echo $heading_1['color'] ?> ;" value="<?php echo $heading_1['color'] ?>" css="color" ></div>
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Font Weight", "sola") ?></label>
+                <select class="form-control style-editor-input" element="#sola_newsletter_wrapper h1" css="font-weight">
+                    <?php foreach($css_options as $css_option){ 
+                        if($css_option->css_name == "font-weight"){?>
+                            <option 
+                                value='<?php echo $css_option->value; ?>' 
+                                <?php if ($css_option->value == $heading_1['font-weight']) {?> selected <?php } ?>>
+                                    <?php echo $css_option->name ?>
+                            </option>
+                        <?php } 
+                    }?>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="style style_element_wrapper" array_name="heading_2">
+            <div class="style-name">
+                <h4><?php _e('Heading 2','sola')?></h4>
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Font Family", "sola") ?></label>
+                <select class="form-control style-editor-input" element="#sola_newsletter_wrapper h2" css="font-family">
+                    <?php foreach($css_options as $css_option){ 
+                        if($css_option->css_name == "font-family"){?>
+                            <option 
+                                value='<?php echo $css_option->value; ?>' 
+                                <?php if ($css_option->value == $heading_2['font-family']) {?> selected <?php } ?>>
+                                    <?php echo $css_option->name ?>
+                            </option>
+                        <?php } 
+                    }?>
+                </select>
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Font Size","sola") ?></label>
+                <input type="text" class="form-control style-editor-input" css="font-size" element="#sola_newsletter_wrapper h2" value="<?php echo $heading_2['font-size'] ?>" />
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Font Color", "sola")?></label>
+
+                <div class="colorpicker style-editor-input" element="#sola_newsletter_wrapper h2" style="background-color:<?php echo $heading_2['color'] ?> ;" value="<?php echo $heading_2['color'] ?>" css="color" ></div>
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Font Weight", "sola") ?></label>
+                <select class="form-control style-editor-input" element="#sola_newsletter_wrapper h2" css="font-weight">
+                    <?php foreach($css_options as $css_option){ 
+                        if($css_option->css_name == "font-weight"){?>
+                            <option 
+                                value='<?php echo $css_option->value; ?>' 
+                                <?php if ($css_option->value == $heading_2['font-weight']) {?> selected <?php } ?>>
+                                    <?php echo $css_option->name ?>
+                            </option>
+                        <?php } 
+                    }?>
+                </select>
+            </div>
+        </div>
+
+        <div class="style style_element_wrapper" array_name="heading_3">
+            <div class="style-name">
+                <h4><?php _e('Heading 3','sola')?></h4>
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Font Family", "sola") ?></label>
+                <select class="form-control style-editor-input" element="#sola_newsletter_wrapper h3" css="font-family">
+                    <?php foreach($css_options as $css_option){ 
+                        if($css_option->css_name == "font-family"){?>
+                            <option 
+                                value='<?php echo $css_option->value; ?>' 
+                                <?php if ($css_option->value == $heading_3['font-family']) {?> selected <?php } ?>>
+                                    <?php echo $css_option->name ?>
+                            </option>
+                        <?php } 
+                    }?>
+                </select>
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Font Size","sola") ?></label>
+                <input type="text" class="form-control style-editor-input" css="font-size" element="#sola_newsletter_wrapper h3" value="<?php echo $heading_3['font-size'] ?>" />
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Font Color", "sola")?></label>
+
+                <div class="colorpicker style-editor-input" element="#sola_newsletter_wrapper h3" style="background-color:<?php echo $heading_3['color'] ?> ;" value="<?php echo $heading_3['color'] ?>" css="color" ></div>
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Font Weight", "sola") ?></label>
+                <select class="form-control style-editor-input" element="#sola_newsletter_wrapper h3" css="font-weight">
+                    <?php foreach($css_options as $css_option){ 
+                        if($css_option->css_name == "font-weight"){?>
+                            <option 
+                                value='<?php echo $css_option->value; ?>' 
+                                <?php if ($css_option->value == $heading_3['font-weight']) {?> selected <?php } ?>>
+                                    <?php echo $css_option->name ?>
+                            </option>
+                        <?php } 
+                    }?>
+                </select>
+            </div>
+        </div>
+
+        <div class="style style_element_wrapper" array_name="links">
+            <div class="style-name">
+                <h4><?php _e('Links','sola')?></h4>
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Font Family", "sola") ?></label>
+                <select class="form-control style-editor-input" element="#sola_newsletter_wrapper p a" css="font-family">
+                    <?php foreach($css_options as $css_option){ 
+                        if($css_option->css_name == "font-family"){?>
+                            <option 
+                                value='<?php echo $css_option->value; ?>' 
+                                <?php if ($css_option->value == $links['font-family']) {?> selected <?php } ?>>
+                                    <?php echo $css_option->name ?>
+                            </option>
+                        <?php } 
+                    }?>
+                </select>
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Font Size","sola") ?></label>
+                <input type="text" class="form-control style-editor-input" css="font-size" element="#sola_newsletter_wrapper p a" value="<?php echo $links['font-size'] ?>" />
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Font Color", "sola")?></label>
+
+                <div class="colorpicker style-editor-input" element="#sola_newsletter_wrapper p a" style="background-color:<?php echo $links['color'] ?> ;" value="<?php echo $links['color'] ?>" css="color" ></div>
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Font Weight", "sola") ?></label>
+                <select class="form-control style-editor-input" element="#sola_newsletter_wrapper p a" css="font-weight">
+                    <?php foreach($css_options as $css_option){ 
+                        if($css_option->css_name == "font-weight"){?>
+                            <option 
+                                value='<?php echo $css_option->value; ?>' 
+                                <?php if ($css_option->value == $links['font-weight']) {?> selected <?php } ?>>
+                                    <?php echo $css_option->name ?>
+                            </option>
+                        <?php } 
+                    }?>
+                </select>
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Text Decoration", "sola") ?></label>
+                <select class="form-control style-editor-input" element="#sola_newsletter_wrapper p a" css="text-decoration">
+                    <?php foreach($css_options as $css_option){ 
+                        if($css_option->css_name == "text-decoration"){?>
+                            <option 
+                                value='<?php echo $css_option->value; ?>' 
+                                <?php if ($css_option->value == $links['text-decoration']) {?> selected <?php } ?>>
+                                    <?php echo $css_option->name ?>
+                            </option>
+                        <?php } 
+                    }?>
+                </select>
+            </div>
+        </div>
+
+        <div class="style style_element_wrapper" array_name="social_icon">
+            <div class="style-name">
+                <h4><?php _e('Social Icons','sola')?></h4>
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Width","sola") ?></label>
+                <input type="text" class="form-control style-editor-input" css="width" element=".social-icons-div img" value="<?php echo $social_icon['width'] ?>" />
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Align Images", "sola") ?></label>
+                <select class="form-control style-editor-input" element=".social-icons-div" css="text-align">
+                    <?php foreach($css_options as $css_option){ 
+                        if($css_option->css_name == "text-align"){?>
+                            <option 
+                                value='<?php echo $css_option->value; ?>' 
+                                <?php if ($css_option->value == $social_icon['text-align']) {?> selected <?php } ?>>
+                                    <?php echo $css_option->name ?>
+                            </option>
+                        <?php } 
+                    }?>
+                </select>
+            </div>
+        </div>
+
+        <div class="style style_element_wrapper" array_name="button">
+            <div class="style-name">
+                <h4><?php _e('Button','sola')?></h4>
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Background Color", "sola")?></label>
+
+                <div class="colorpicker style-editor-input" element=".sola_nl_btn" style="background-color:<?php echo $button['backgroundColor'] ?> ;" value="<?php echo $button['backgroundColor'] ?>" css="backgroundColor" ></div>
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Font Size","sola") ?></label>
+                <input type="text" class="form-control style-editor-input" css="font-size" element=".sola_nl_btn" value="<?php echo $button['font-size'] ?>" />
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Font Color", "sola")?></label>
+
+                <div class="colorpicker style-editor-input" element=".sola_nl_btn" style="background-color:<?php echo $button['color'] ?> ;" value="<?php echo $button['color'] ?>" css="color" ></div>
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Font Weight", "sola") ?></label>
+                <select class="form-control style-editor-input" element=".sola_nl_btn" css="font-weight">
+                    <?php foreach($css_options as $css_option){ 
+                        if($css_option->css_name == "font-weight"){?>
+                            <option 
+                                value='<?php echo $css_option->value; ?>' 
+                                <?php if ($css_option->value == $button['font-weight']) {?> selected <?php } ?>>
+                                    <?php echo $css_option->name ?>
+                            </option>
+                        <?php } 
+                    }?>
+                </select>
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Text Decoration", "sola") ?></label>
+                <select class="form-control style-editor-input" element=".sola_nl_btn" css="text-decoration">
+                    <?php foreach($css_options as $css_option){ 
+                        if($css_option->css_name == "text-decoration"){?>
+                            <option 
+                                value='<?php echo $css_option->value; ?>' 
+                                <?php if ($css_option->value == $button['text-decoration']) {?> selected <?php } ?>>
+                                    <?php echo $css_option->name ?>
+                            </option>
+                        <?php } 
+                    }?>
+                </select>
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Border Style", "sola") ?></label>
+                <select class="form-control style-editor-input" element=".sola_nl_btn" css="border-style">
+                    <?php foreach($css_options as $css_option){ 
+                        if($css_option->css_name == "border-style"){?>
+                            <option 
+                                value='<?php echo $css_option->value; ?>' 
+                                <?php if ($css_option->value == $button['border-style']) {?> selected <?php } ?>>
+                                    <?php echo $css_option->name ?>
+                            </option>
+                        <?php } 
+                    }?>
+                </select>
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Border Size","sola") ?></label>
+                <input type="text" class="form-control style-editor-input" css="border-width" element=".sola_nl_btn" value="<?php echo $button['border-width'] ?>" />
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Border Radius","sola") ?></label>
+                <input type="text" class="form-control style-editor-input" css="border-radius" element=".sola_nl_btn" value="<?php echo $button['border-radius'] ?>" />
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Border Color", "sola")?></label>
+
+                <div class="colorpicker style-editor-input" element=".sola_nl_btn" style="background-color:<?php echo $button['border-color'] ?> ;" value="<?php echo $button['border-color'] ?>" css="border-color" ></div>
+            </div>
+        </div>
+
+        <div class="style style_element_wrapper" array_name="images">
+            <div class="style-name">
+                <h4><?php _e('Images','sola')?></h4>
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Border Color", "sola")?></label>
+
+                <div class="colorpicker style-editor-input" element="#sola_newsletter_wrapper .nl_img" style="background-color:<?php echo $images['border-color'] ?> ;" value="<?php echo $images['border-color'] ?>" css="border-color" ></div>
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Border Style", "sola") ?></label>
+                <select class="form-control style-editor-input" element="#sola_newsletter_wrapper .nl_img" css="border-style">
+                    <?php foreach($css_options as $css_option){ 
+                        if($css_option->css_name == "border-style"){?>
+                            <option 
+                                value='<?php echo $css_option->value; ?>' 
+                                <?php if ($css_option->value == $images['border-style']) {?> selected <?php } ?>>
+                                    <?php echo $css_option->name ?>
+                            </option>
+                        <?php } 
+                    }?>
+                </select>
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Border Size","sola") ?></label>
+                <input type="text" class="form-control style-editor-input" css="border-width" element="#sola_newsletter_wrapper .nl_img" value="<?php echo $images['border-width'] ?>" />
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Padding Top","sola") ?></label>
+                <input type="text" class="form-control style-editor-input" css="padding-top" element="#sola_newsletter_wrapper .nl_img" value="<?php echo $images['padding-top'] ?>" />
+            </div>
+            <div class="style-options form-group" style="display:none">
+                <label><?php _e("Padding Bottom","sola") ?></label>
+                <input type="text" class="form-control style-editor-input" css="padding-bottom" element="#sola_newsletter_wrapper .nl_img" value="<?php echo $images['padding-bottom'] ?>" />
+            </div>
+        </div>
+    </form>
+   <?php 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /*************  Old Version where all styles were pulled from db ***********/
+    /*$sql = "SELECT * FROM `$sola_nl_style_elements_table` WHERE `theme_id` = '$theme_id' ORDER BY `element_name` ASC";
     $results = $wpdb->get_results($sql);
     foreach ($results as $style_element) {?>
         <div class="style">
@@ -112,7 +567,7 @@ function sola_get_style_editor($theme_id) {
             <?php    } ?>
             </div>
         </div>
-    <?php }
+    <?php } */
     
     
     
