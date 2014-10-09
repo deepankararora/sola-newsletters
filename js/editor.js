@@ -74,73 +74,17 @@ jQuery(document).ready( function() {
                 jQuery(".sola-extra-content").hide();
         }
     });
-    jQuery('#sola_newsletter_preview').on('click','a', function() { 
-        return false; });
+    jQuery('#sola_newsletter_preview').on('click','a', function(ui) { 
+        if (jQuery(this).attr('class') === 'canclick') { } else {
+            return false; 
+        }
+    });
      
      
 
     sola_nl_make_sortable();
     
-    function sola_nl_make_sortable() {    
-       
-        jQuery('#sola_newsletter_wrapper .sortable-list').sortable({
-            connectWith: '#sola_newsletter_wrapper .sortable-list',
-            cancel: ".notdrag",
-            placeholder: 'placeholder',
-            
-            update: function (event, ui) {
-                
-                var td_data = "";
-                var solaid = new Date().getTime();
-                var table = jQuery('<table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%"></table>');
-                var tr = jQuery("<tr></tr>");
-                var td = jQuery('<td class="editable" id="'+solaid+'"></td>');
-                //this adds new items to the editor
-                if(ui.item.attr('type')){
-                    if(ui.item.attr('type') === "text"){
-                        td_data = jQuery("<p>Double Click to edit</p>");
-                    } else if (ui.item.attr('type') === 'image'){
-                        orig_html = ui.item.attr('truesrc');
-                        td_data = jQuery("<img class='nl_img' src='"+orig_html+"' style=\'width:100%;\'/>");
-                    } else if (ui.item.attr('type') === 'image_divider'){
-                        orig_html = ui.item.attr('truesrc');
-                        td_data = jQuery("<img src='"+orig_html+"' style=\'width:100%;\'/>");
-                    } else if (ui.item.attr('type') === 'divider'){
-                        orig_html = ui.item.attr('truesrc');
-                        td_data = jQuery("<p style='display:block; height:15px;'>&nbsp;</p>");
-                    } else if (ui.item.attr('type') === "blog_post"){
-                        var post = ui.item.attr('value');
-                        var feat_image = ui.item.attr('feat_image');
-                        var title = ui.item.attr("title");
-                        var post_url = ui.item.attr("post_url");
-                        td_data = jQuery("<img src='"+feat_image+"' height='150px' style='margin:0 10px 0 0; float:left;'/><h3>"+title+"</h3><p>"+post+" <a title='Read More' href='"+post_url+"'>Read More</a></p>");
-                    } else if(ui.item.attr('type') === "social_icons"){
-                        td_data = ui.item.html();
-                        td.addClass("social-icons-div");
-                    } else if(ui.item.attr('type') === "btn"){
-                        
-                        td = jQuery('<td class="" id="'+solaid+'"></td>');
-                        td_data = ui.item.html();
-                    }
-                    //add data to td element
-                    td.append(td_data);
-                    tr.append(td);
-                    table.append(tr);
-                    ui.item.replaceWith(table);
-                    
-                    //td.bind("dblclick", replaceHTML);
-                    
-                } else {
-                    // this is to move an exsiting item in the editor
-                    jQuery('#sola_toolbar').remove();
-                }
-
-                // add td to table
-                    
-                sola_save_letter();
-            }
-        });
-    }
+    
     
     jQuery(".editable").hover(function(){ 
         if (sola_is_editing === true) { return; }
@@ -162,7 +106,7 @@ jQuery(document).ready( function() {
     //off click of tiny mce, contents are saved
     jQuery(document).mouseup(function (e){
         var container = jQuery(".editable");
-        console.log(e.target);
+//        console.log(e.target);
         
         if (!container.is(e.target) // if the target of the click isn't the container...
             && container.has(e.target).length === 0){ // ... nor a descendant of the container
@@ -256,6 +200,7 @@ jQuery(document).ready( function() {
             ],
             menubar: false,
             relative_urls: false,
+            remove_script_host: false,
             toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | fontsizeselect | bullist numlist outdent indent | link image | forecolor backcolor",
 
         });
@@ -564,12 +509,7 @@ jQuery(document).ready( function() {
     //add default colors on load
     sola_add_style_to_letter();
     
-    function sola_add_style_to_letter(){
-        jQuery(".style-editor-input").each(function(){
-            
-            jQuery(jQuery(this).attr("element")).css(jQuery(this).attr("css"),jQuery(this).attr("value"));
-        });
-    }
+    
     
     jQuery(".style-editor-input").change(function(){
         jQuery(jQuery(this).attr("element")).css(jQuery(this).attr("css"),jQuery(this).attr("value"));
@@ -577,70 +517,7 @@ jQuery(document).ready( function() {
     });
     
     // new function to save letter
-    function sola_save_letter(redirect){
-        
-        
-        
-        jQuery(".header-right").css("background", "");
-        //jQuery(this).prop( "disabled", true );
-        sola_add_style_to_letter();
-        var sola_nl_html = jQuery("#sola_newsletter_preview").html();
-        jQuery("#sola_nl_save_text").html('Saving...');
-        var styles = [];
-        
-        jQuery(".style-editor-input").each(function() {
-            
-            var attributes = {};
-            jQuery.each(this.attributes, function() {
-              // this.attributes is not a plain object, but an array
-              // of attribute nodes, which contain both the name and value
-              
-              if(this) {
-                attributes[this.name] = this.value;
-              }
-            });
-            attributes["the_value"] = jQuery(this).attr("value");
-            attributes["array_name"] = jQuery(this).closest('.style_element_wrapper').attr('array_name');
-            styles.push(attributes);
-        });
-         
-        
-        var data = {
-            action: 'save_template',
-            security: sola_nl_nonce,
-            styles: styles,
-            camp_id: camp_id,
-            sola_html: sola_nl_html
-            
-        };
-       
-        
-        jQuery.ajax({
-            data: data,
-            url: ajaxurl,
-            method: 'POST',
-            success: function(response) {
-                var temp_html = response.replace(/\\(.)/mg, "$1");
-                //jQuery("#sola_newsletter_wrapper").html(temp_html);
-                sola_nl_make_sortable();
-                var now = new Date();
-                now.toString();
-                jQuery("#sola_nl_save_text").html('Last saved at '+now);
-                //jQuery("#sola_nl_save_temp_btn").prop( "disabled", false );
-                //console.log(response);
-                if(redirect){
-                    //console.log(redirect);
-                    window.location.href = redirect;
-                }
-                return true;
-            }
-            
-            
-        });
-        
-        
-        
-    }
+    
     function sola_discard_changes(){
         jQuery("#"+did).html(oldText).removeClass("noPad").bind("dblclick", replaceHTML);  
         //jQuery("#"+did).parent().addClass('sortable-item');
@@ -662,3 +539,181 @@ jQuery(document).ready( function() {
   });
   
   
+  
+  function sola_nl_make_sortable() {    
+       
+        jQuery('#sola_newsletter_wrapper .sortable-list').sortable({
+            connectWith: '#sola_newsletter_wrapper .sortable-list',
+            cancel: ".notdrag",
+            placeholder: 'placeholder',
+            
+            update: function (event, ui) {
+                
+                var td_data = "";
+                var solaid = new Date().getTime();
+                var table = jQuery('<table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%"></table>');
+                var tr = jQuery("<tr></tr>");
+                var td = jQuery('<td class="editable" id="'+solaid+'"></td>');
+                //this adds new items to the editor
+                if(ui.item.attr('type')){
+                    if(ui.item.attr('type') === "text"){
+                        td_data = jQuery("<p>Double Click to edit</p>");
+                    } else if (ui.item.attr('type') === 'image'){
+                        orig_html = ui.item.attr('truesrc');
+                        td_data = jQuery("<img class='nl_img' src='"+orig_html+"' style=\'width:100%;\'/>");
+                    } else if (ui.item.attr('type') === 'image_divider'){
+                        orig_html = ui.item.attr('truesrc');
+                        td_data = jQuery("<img src='"+orig_html+"' style=\'width:100%;\'/>");
+                    } else if (ui.item.attr('type') === 'divider'){
+                        orig_html = ui.item.attr('truesrc');
+                        td_data = jQuery("<p style='display:block; height:15px;'>&nbsp;</p>");
+                    } else if (ui.item.attr('type') === "automatic_content"){
+                        
+                        var feat_image = "[sola_nl_automatic_featured_image]";
+                        var title = "[sola_nl_automatic_title]";
+                        var post_url = "[sola_nl_automatic_url]";
+                        var post_content = "[sola_nl_automatic_content]";
+                        
+                        jQuery("#editor-content").hide();
+                        jQuery("#editor-styles").hide();
+                        jQuery("#content-options").removeClass('active');
+                        jQuery("#style-options").removeClass('active');
+                        jQuery("#automatic-options").addClass('active');
+                        jQuery("#editor-automatic").show();
+                        
+                        
+                        td_data = jQuery("<table id='sola_nl_automatic_container' style='width:96%; border:1px solid #CCC; margin-left:auto; margin-right:auto; margin-top: 5px; margin-bottom: 5px; -webkit-box-shadow: 2px 2px 11px 0px rgba(50, 50, 50, 0.7); -moz-box-shadow: 2px 2px 11px 0px rgba(50, 50, 50, 0.7); box-shadow: 2px 2px 11px 0px rgba(50, 50, 50, 0.7);' height='125' align='center' valign='middle'><tr><td align='center' valign='middle'><i class=\"fa fa-5x fa-file-text-o\"></i><br />AUTOMATIC CONTENT</td></tr></table>");
+                    }  else if (ui.item.attr('type') === "blog_post"){
+                        var post = ui.item.attr('value');
+                        var feat_image = ui.item.attr('feat_image');
+                        var title = ui.item.attr("title");
+                        var post_url = ui.item.attr("post_url");
+                        td_data = jQuery("<img src='"+feat_image+"' height='150px' style='margin:0 10px 0 0; float:left;'/><h3>"+title+"</h3><p>"+post+" <a title='Read More' href='"+post_url+"'>Read More</a></p>");
+                    } else if(ui.item.attr('type') === "social_icons"){
+                        td_data = ui.item.html();
+                        td.addClass("social-icons-div");
+                    } else if(ui.item.attr('type') === "btn"){
+                        
+                        td = jQuery('<td class="" id="'+solaid+'"></td>');
+                        td_data = ui.item.html();
+                    } 
+                    //add data to td element
+                    td.append(td_data);
+                    tr.append(td);
+                    table.append(tr);
+                    ui.item.replaceWith(table);
+//                     console.log('dropped');
+                   
+                    //td.bind("dblclick", replaceHTML);
+                    
+                } else {
+                    // this is to move an exsiting item in the editor
+                    jQuery('#sola_toolbar').remove();
+                }
+
+                // add td to table
+                   
+                sola_save_letter();
+            }
+        });
+    }
+  
+  function sola_add_style_to_letter(){
+        jQuery(".style-editor-input").each(function(){
+            
+            jQuery(jQuery(this).attr("element")).css(jQuery(this).attr("css"),jQuery(this).attr("value"));
+        });
+    }
+  
+  function sola_save_letter(redirect){
+        
+        
+        
+        jQuery(".header-right").css("background", "");
+        //jQuery(this).prop( "disabled", true );
+        sola_add_style_to_letter();
+        var sola_nl_html = jQuery("#sola_newsletter_preview").html();
+        jQuery("#sola_nl_save_text").html('Saving...');
+        var styles = [];
+        var auto_options = [];
+        //jQuery('#auto_options_form :input').serialize();
+        
+        
+        jQuery("#auto_options_form input").each(function() {
+            if (jQuery(this).attr("name") === "automatic_layout") {
+                if (jQuery(this).is(':checked')) {
+                    var attributes = {};
+                    attributes[jQuery(this).attr("name")] = jQuery(this).attr("value");
+                    auto_options.push(attributes);
+                }
+            } else if (jQuery(this).attr("name") === "automatic_options_checkboxes[]") {
+                if (jQuery(this).is(':checked')) {
+                    var attributes = {};
+                    attributes[jQuery(this).attr("value")] = 1;
+                    auto_options.push(attributes);
+                } else {
+                    var attributes = {};
+                    attributes[jQuery(this).attr("value")] = 0;
+                    auto_options.push(attributes);
+                }
+            } else {
+                var attributes = {};
+                attributes[jQuery(this).attr("name")] = jQuery(this).attr("value")
+                auto_options.push(attributes);
+            }
+            
+        });
+        jQuery(".style-editor-input").each(function() {
+            
+            var attributes = {};
+            jQuery.each(this.attributes, function() {
+              // this.attributes is not a plain object, but an array
+              // of attribute nodes, which contain both the name and value
+              
+              if(this) {
+                attributes[this.name] = this.value;
+              }
+            });
+            
+            attributes["the_value"] = jQuery(this).attr("value");
+            attributes["array_name"] = jQuery(this).closest('.style_element_wrapper').attr('array_name');
+            styles.push(attributes);
+        });
+        
+        var data = {
+            action: 'save_template',
+            security: sola_nl_nonce,
+            styles: styles,
+            camp_id: camp_id,
+            sola_html: sola_nl_html,
+            auto_options: auto_options
+        };
+       
+        
+        jQuery.ajax({
+            data: data,
+            url: ajaxurl,
+            method: 'POST',
+            success: function(response) {
+                var temp_html = response.replace(/\\(.)/mg, "$1");
+                //jQuery("#sola_newsletter_wrapper").html(temp_html);
+                sola_nl_make_sortable();
+                var now = new Date();
+                now.toString();
+                jQuery("#sola_nl_save_text").html('Last saved at '+now);
+                //jQuery("#sola_nl_save_temp_btn").prop( "disabled", false );
+                //console.log(response);
+                if(redirect){
+                    var the_data = data.auto_options; 
+//                    console.log(the_data);
+                    window.location.href = redirect;
+                }
+                return true;
+            }
+            
+            
+        });
+        
+        
+        
+    }

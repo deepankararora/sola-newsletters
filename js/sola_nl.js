@@ -31,8 +31,120 @@ jQuery(document).ready(function() {
     jQuery("#sola_nl_schedule_send_btn").click(function() {
         jQuery(".schedule_send_block").toggle();
     });
-        
     
+    
+//    jQuery("#standard_newsletter").attr('checked', 'checked');
+    jQuery("#custom-newsletter-block").hide();
+    jQuery("#shortcodes-desc").hide();
+    
+    jQuery('#custom_newsletter').click(function() {
+        if(jQuery('#custom_newsletter').is(':checked')) { 
+            jQuery("#custom-newsletter-block").show();
+            jQuery("#shortcodes-desc").show();
+        }
+    });
+    jQuery('#standard_newsletter').click(function() {
+        if(jQuery('#standard_newsletter').is(':checked')) { 
+            jQuery("#custom-newsletter-block").hide();
+            jQuery("#shortcodes-desc").hide();
+        }
+    });
+
+
+    jQuery('#sola-nl-action').change(function () {
+        var selectedId = jQuery('option:selected', this).attr('id');
+        if (selectedId === 'new-post') {            
+            jQuery('#sola-nl-role').hide();
+            jQuery('#sola-nl-time-after').hide();
+            jQuery('#sola-nl-custom-time').hide();
+            jQuery('#sola-nl-role').hide();
+            jQuery('#sola-nl-days').hide();
+            jQuery('#sola-nl-time').hide();
+            jQuery('#sola-nl-monthly-every').hide();
+            jQuery('#sola-nl-list-row').show();
+            jQuery('#sola-nl-time-slot').show();
+        } 
+        if (selectedId === 'new-sub') {
+            
+            jQuery('#sola-nl-role').hide();
+            jQuery('#sola-nl-time-slot').hide();
+            jQuery('#sola-nl-role').hide();
+            jQuery('#sola-nl-days').hide();
+            jQuery('#sola-nl-time').hide();
+            jQuery('#sola-nl-monthly-every').hide();
+            jQuery('#sola-nl-monthly-day').hide();
+            jQuery('#sola-nl-list-row').hide();
+            jQuery('#sola-nl-custom-time').hide();
+            jQuery('#sola-nl-time-after').show();
+        }
+        if(selectedId === 'new-user') {
+            
+            jQuery('#sola-nl-custom-time').hide();
+            jQuery('#sola-nl-time-slot').hide();
+            jQuery('#sola-nl-role').hide();
+            jQuery('#sola-nl-days').hide();
+            jQuery('#sola-nl-time').hide();
+            jQuery('#sola-nl-monthly-every').hide();
+            jQuery('#sola-nl-list-row').hide();
+            jQuery('#sola-nl-role').show();
+            jQuery('#sola-nl-custom-time').hide();
+            jQuery('#sola-nl-time-after').show();
+        }
+    });
+    
+    jQuery('#sola-nl-time-after').change(function () {
+        var selectedId = jQuery('option:selected', this).attr('id');
+        if (selectedId === 'sola-nl-after-immediate') {
+            jQuery('#sola-nl-custom-time').hide();
+        } 
+        if(selectedId === 'sola-nl-after-weeks' || selectedId === 'sola-nl-after-days' || selectedId === 'sola-nl-after-hours' || selectedId === 'sola-nl-after-minutes')
+            jQuery('#sola-nl-custom-time').show();
+    });
+    
+    
+    jQuery('#sola-nl-time-slot').change(function () {
+        var selectedId = jQuery('option:selected', this).attr('id');
+        if(selectedId === 'time-slot-immediately'){
+            jQuery('#sola-nl-time').hide();
+            jQuery('#sola-nl-days').hide();
+            jQuery('#sola-nl-monthly-every').hide();
+            jQuery('#sola-nl-monthly-day').hide();
+        }
+        if (selectedId === 'time-slot-daily') {
+            jQuery('#sola-nl-time').show();
+            jQuery('#sola-nl-days').hide();
+        }
+        if(selectedId === 'time-slot-weekly'){
+            jQuery('#sola-nl-monthly-day').hide();
+            jQuery('#sola-nl-monthly-every').hide();
+            jQuery('#sola-nl-days').show();
+            jQuery('#sola-nl-time').show();
+        }
+        if(selectedId === 'time-slot-monthly-on'){
+            jQuery('#sola-nl-days').hide();
+            jQuery('#sola-nl-monthly-every').hide();
+            jQuery('#sola-nl-monthly-day').show();
+            jQuery('#sola-nl-time').show();
+        }
+        if(selectedId === 'time-slot-monthly-every'){
+            jQuery('#sola-nl-monthly-day').hide();
+            jQuery('#sola-nl-days').show();
+            jQuery('#sola-nl-time').show();
+            jQuery('#sola-nl-monthly-every').show();
+        }
+    });
+
+//    jQuery('#sola-nl-time-after').change(function () {
+//        var selectedId = jQuery('option:selected', this).attr('id');
+//        if (selectedId == '') {
+//            jQuery('#sola-nl-time').hide();
+//            jQuery('#sola-nl-days').hide();
+//            jQuery('#sola-nl-time-slot').hide();
+//            jQuery('#sola-nl-monthly-every').hide();
+//            jQuery('#sola-nl-monthly-day').hide();
+//        }
+//    });
+
     
     //Send A Test Emial -test if mail is working
     jQuery("body").on("click", ".sola_send_test_mail", function(){      
@@ -44,6 +156,9 @@ jQuery(document).ready(function() {
         var smtp_user = jQuery("#sola_nl_username").val();
         var smtp_pass = jQuery("#sola_nl_password").val();
         var smtp_encrypt = jQuery("input[name=encryption]:radio:checked").val();
+
+
+        
         
         if (jQuery('#sola_nl_to_mail_test_debug').is(':checked')) { var smtp_debug = "on"; } else { var smtp_debug = false; }
         if (jQuery('#radio_button_1').is(':checked')) { var wpmail = 'wpmail'; } else { var wpmail = false; }
@@ -71,21 +186,39 @@ jQuery(document).ready(function() {
     //send preview mail
     jQuery("body").on("click", ".sola_send_preview", function(){
         jQuery(this).prop("disabled", true);
-        var data = {
-            action: "preview_mail",
-            to: jQuery("#sola_nl_to_mail_test").val(),
-            security:sola_nl_nonce,
-            body:jQuery("#sola_newsletter_preview").html(),
-            camp_id:camp_id
-        };
-        jQuery.post(ajaxurl, data, function(response){
-           alert(response);
-           jQuery(".sola_send_preview").prop("disabled", false);
-        });
+        sola_save_letter();
+        setTimeout(function() {
+            var data = {
+                action: "preview_mail",
+                to: jQuery("#sola_nl_to_mail_test").val(),
+                security:sola_nl_nonce,
+                body:jQuery("#sola_newsletter_preview").html(),
+                camp_id:camp_id,
+                cache: false
+            };
+            jQuery.post(ajaxurl, data, function(response){
+               alert(response);
+               jQuery(".sola_send_preview").prop("disabled", false);
+            });
+          }, 2000);
+        
     });
     
+    
     jQuery( "#sendform" ).submit(function( event ) {
-        if(!confirm("Are you sure you want to send your campaign")){
+//        console.log(event);
+        if(jQuery('.schedule_send_block').css('display') == 'table-row'){
+            if(!confirm("Are you sure you want to schedule your campaign?")){
+                event.preventDefault();
+            }
+        } else {
+            if(!confirm("Are you sure you want to send your campaign?")){
+                event.preventDefault();
+            }
+        }                 
+      });
+      jQuery( "#saveform" ).submit(function( event ) {
+        if(!confirm("Are you sure you want to save your campaign?")){
             event.preventDefault();
         }         
       });
@@ -190,5 +323,55 @@ jQuery(document).ready(function() {
             } 
         
     });
-});
 
+    jQuery("#layout-1").attr('checked', true);
+    jQuery("#automatic-layout-1").click(function(){
+        jQuery("#automatic-layout-2").removeClass('active');
+        jQuery("#automatic-layout-3").removeClass('active');
+        jQuery("#automatic-layout-4").removeClass('active');
+        jQuery(this).addClass('active');
+        jQuery("#layout-1").attr('checked', true);
+        jQuery("#layout-2").attr('checked', false);
+        jQuery("#layout-3").attr('checked', false);
+        jQuery("#layout-4").attr('checked', false);
+//        console.log(this);
+    });
+    jQuery("#automatic-layout-2").click(function(){
+        jQuery("#automatic-layout-1").removeClass('active');
+        jQuery("#automatic-layout-3").removeClass('active');
+        jQuery("#automatic-layout-4").removeClass('active');
+        jQuery(this).addClass('active');
+        jQuery("#layout-2").attr('checked', true);
+        jQuery("#layout-1").attr('checked', false);
+        jQuery("#layout-3").attr('checked', false);
+        jQuery("#layout-4").attr('checked', false);
+//        console.log(this);
+    });
+    jQuery("#automatic-layout-3").click(function(){
+        jQuery("#automatic-layout-2").removeClass('active');
+        jQuery("#automatic-layout-1").removeClass('active');
+        jQuery("#automatic-layout-4").removeClass('active');
+        jQuery(this).addClass('active');
+        jQuery("#layout-3").attr('checked', true);
+        jQuery("#layout-2").attr('checked', false);
+        jQuery("#layout-1").attr('checked', false);
+        jQuery("#layout-4").attr('checked', false);
+//        console.log(this);
+    });
+    jQuery("#automatic-layout-4").click(function(){
+        jQuery("#automatic-layout-2").removeClass('active');
+        jQuery("#automatic-layout-3").removeClass('active');
+        jQuery("#automatic-layout-1").removeClass('active');
+        jQuery(this).addClass('active');
+        jQuery("#layout-4").attr('checked', true);
+        jQuery("#layout-2").attr('checked', false);
+        jQuery("#layout-3").attr('checked', false);
+        jQuery("#layout-1").attr('checked', false);
+//        console.log(this);
+    });
+    
+    jQuery("#auto-content").click(function(){
+        
+    });
+
+});

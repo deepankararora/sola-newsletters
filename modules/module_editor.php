@@ -726,3 +726,314 @@ function wp_new_excerpt($text) {
 }
 remove_filter('get_the_excerpt', 'wp_trim_excerpt');
 add_filter('get_the_excerpt', 'wp_new_excerpt');
+
+function sola_nl_automatic_post_default_template($theme_id = 1) {
+    if ($theme_id == 2) {
+        return stripslashes("
+
+
+        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" id=\"sola_newsletter_wrapper\" width=\"100%\">
+            <tr>
+                <td style=\"padding: 30px 20px 100px 20px;\" width=\"100%\">
+                    <table align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table\" style=\"border-collapse: separate; max-width:600px;\" width=\"100%\">
+                        <tr>
+                            <td style=\"text-align: center; padding-bottom: 20px\">
+                                <p><a href=\"[browser_view]\" title=\"[browser_view_text]\">[browser_view_text]</a></p>
+                            </td>
+                        </tr>
+                    </table>
+                    <table id=\"sola_nl_newsletter_background\" align=\"center\" class=\"sola_table\" style=\"border-collapse: separate; max-width: 600px;\" width=\"100%\">
+                        <tr>
+                            <td>
+                                <table id=\"sola_nl_sidebar_left\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table \"  style=\"border-collapse: separate; max-width: 200px; float:left; height: 100%; width: 100%;\" >
+                                    <tr>
+                                        <td class=\"sortable-list\" style=\"padding:20px\">
+                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table sortable-item\" width=\"100%\">
+                                                <tr>
+                                                    <td class=\"editable\" id=\"sola_10\">
+                                                        <h3 style=\"text-align:center;\">Sidebar</h3>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table sortable-item\" width=\"100%\">
+                                                <tr>
+                                                    <td class=\"editable\" id=\"sola_11\">
+
+                                                        <h4><img class=\"nl_img\" width=\"45px\" src=\"".plugins_url()."/sola-newsletters/images/sola_logo_2.jpg\"/> Content</h4>
+                                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <table align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table\" id=\"\" style=\"border-collapse: separate; max-width: 390px; width:100%; display:inline;\" >
+                                    <tr>
+                                        <td class=\"sortable-list\" style=\"padding:20px\">
+
+                                             <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table sortable-item\" width=\"100%\">
+                                                <tr>
+                                                    <td class=\"editable\" id=\"sola_30\">
+                                                        <h1 style=\"text-align:center;\">".get_option('blogname')."</h1>
+
+                                                        <p style=\"font-style: italic; text-align: center\">".get_option('blogdescription')."</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table sortable-item\" width=\"100%\">
+                                                <tr>
+                                                    <td class=\"editable\" id=\"sola_40\">
+                                                        <img src=\"".plugins_url()."/sola-newsletters/images/hr/hr-11.png\" style=\"display:block;  margin-left:auto; margin-right:auto; \"width=\"100%\"/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+
+                                            <table id=\"sola_nl_automatic_container\" style=\"width:96%; border:1px solid #CCC; margin-left:auto; margin-right:auto; margin-top: 5px; margin-bottom: 5px; -webkit-box-shadow: 2px 2px 11px 0px rgba(50, 50, 50, 0.7); -moz-box-shadow: 2px 2px 11px 0px rgba(50, 50, 50, 0.7); box-shadow: 2px 2px 11px 0px rgba(50, 50, 50, 0.7);\" height=\"125\" align=\"center\" valign=\"middle\">
+                                            <tbody>
+                                            <tr>
+                                                <td align=\"center\" valign=\"middle\">
+                                                    <i class=\"fa fa-5x fa-file-text-o\"></i>
+                                                    <br>".__("AUTOMATIC CONTENT","sola")."
+                                                    <br />".__("Please use the \"Options\" panel (top left) to change the settings for the automatic content settings","sola")."
+                                                    <br />
+                                                    <a href='http://solaplugins.com/documentation/sola-newsletters-documentation/creating-an-automatic-newsletter-for-new-content/' target='_blank' class='canclick'>".__("Need help? Read the documenation.","sola")."</a>
+                                                    <br />
+                                                    <span style='color: red; font-weight: bold; '>".__("Please note that only posts published after this campaign has been created, will be included in your automatic campaigns", "sola")."</span>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <table align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table\" style=\"border-collapse: separate; max-width:100%\" width=\"100%\">
+                        <tr>
+                            <td style=\"padding:20px\">
+                                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table\" width=\"100%\">
+                                    <tr>
+                                        <td align=\"center\" id=\"sola_10\">
+                                            <p><a href=\"[unsubscribe_href]\" title=\"[unsubscribe_text]\">[unsubscribe_text]</a></p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    ");
+    } else {
+    return stripslashes("
+        <table id=\"sola_newsletter_wrapper\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"background-color: rgb(51, 62, 72);\"><tbody><tr><td width=\"100%\" style=\" padding: 30px 20px 100px 20px;\"><table align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table\" width=\"100%\" style=\"border-collapse: separate; max-width:600px;\"><tbody><tr><td style=\"text-align: center; padding-bottom: 20px;\"><p><a title=\"[browser_view_text]\" href=\"[browser_view]\" style=\"font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: rgb(235, 104, 82); font-weight: bold; text-decoration: underline;\">[browser_view_text]</a></p></td></tr></tbody></table><table id=\"sola_nl_newsletter_background\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table\" width=\"100%\" style=\"border-collapse: separate; max-width: 600px; font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: rgb(51, 62, 72); border: 0px solid rgb(255, 255, 255); border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; background-color: rgb(255, 255, 255);\"><tbody><tr><td class=\"sortable-list  ui-sortable\" style=\"padding:20px;\"><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table sortable-item\" width=\"100%\"><tbody><tr><td class=\"editable\" id=\"sola_10\"><h1 style=\"text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 30px; color: rgb(51, 62, 72); font-weight: bold;\">".get_option('blogname')."</h1><p style=\"text-align:center;\"><i>".get_option('blogdescription')."</i></p></td></tr></tbody></table><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table sortable-item\" width=\"100%\"><tbody><tr><td class=\"editable\" id=\"sola_20\"><img src=\"".plugins_url()."/sola-newsletters/images/hr/hr-11.png\" style=\"display:block; margin-left:auto; margin-right:auto; \" width=\"100%\"></td></tr></tbody></table><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table sortable-item\" width=\"100%\"><tbody><tr><td class=\"editable\" id=\"sola_30\"><h1 style=\"text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 30px; color: rgb(51, 62, 72); font-weight: bold;\">Double Click to edit this text</h1></td></tr></tbody></table><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table sortable-item\" width=\"100%\"><tbody><tr><td class=\"editable\" id=\"sola_40\"><img src=\"".plugins_url()."/sola-newsletters/images/hr/hr-11.png\" style=\"display:block; margin-left:auto; margin-right:auto; \" width=\"100%\"></td></tr></tbody></table><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table sortable-item\" width=\"100%\"><tbody><tr><td class=\"editable\" id=\"1408513278546\"><table id=\"sola_nl_automatic_container\" style=\"width:96%; border:1px solid #CCC; margin-left:auto; margin-right:auto; margin-top: 5px; margin-bottom: 5px; -webkit-box-shadow: 2px 2px 11px 0px rgba(50, 50, 50, 0.7); -moz-box-shadow: 2px 2px 11px 0px rgba(50, 50, 50, 0.7); box-shadow: 2px 2px 11px 0px rgba(50, 50, 50, 0.7);\" height=\"125\" align=\"center\" valign=\"middle\"><tbody><tr><td align=\"center\" valign=\"middle\"><i class=\"fa fa-5x fa-file-text-o\"></i><br>".__("AUTOMATIC CONTENT","sola")."<br />".__("Please use the \"Options\" panel (top left) to change the settings for the automatic content settings","sola")."<br /><a href='http://solaplugins.com/documentation/sola-newsletters-documentation/creating-an-automatic-newsletter-for-new-content/' target='_blank' class='canclick'>".__("Need help? Read the documenation.","sola")."</a><br /><span style='color: red; font-weight: bold; '>".__("Please note that only posts published after this campaign has been created, will be included in your automatic campaigns", "sola")."</span></td></tr></tbody></table></td></tr></tbody></table><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table sortable-item\" width=\"100%\"><tbody><tr><td class=\"editable\" id=\"sola_60\"><img src=\"".plugins_url()."/sola-newsletters/images/hr/hr-11.png\" style=\"display:block; margin-left:auto; margin-right:auto;\" width=\"100%\"></td></tr></tbody></table></td></tr></tbody></table><table align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table\" width=\"100%\" style=\"border-collapse: separate; max-width:100%;\"><tbody><tr><td style=\"padding:20px;\"><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table \" width=\"100%\"><tbody><tr><td id=\"sola_14\" align=\"center\"><p><a href=\"[unsubscribe_href]\" title=\"[unsubscribe_text]\" style=\"font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: rgb(235, 104, 82); font-weight: bold; text-decoration: underline;\">[unsubscribe_text]</a> </p></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table>    
+    ");
+    }
+     
+}
+
+function sola_nl_automatic_subscriber_default_template($theme_id = 1){
+    if ($theme_id == 2) {
+        return stripslashes("
+
+
+        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" id=\"sola_newsletter_wrapper\" width=\"100%\">
+            <tr>
+                <td style=\"padding: 30px 20px 100px 20px;\" width=\"100%\">
+                    <table align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table\" style=\"border-collapse: separate; max-width:600px;\" width=\"100%\">
+                        <tr>
+                            <td style=\"text-align: center; padding-bottom: 20px\">
+                                <p><a href=\"[browser_view]\" title=\"[browser_view_text]\">[browser_view_text]</a></p>
+                            </td>
+                        </tr>
+                    </table>
+                    <table id=\"sola_nl_newsletter_background\" align=\"center\" class=\"sola_table\" style=\"border-collapse: separate; max-width: 600px;\" width=\"100%\">
+                        <tr>
+                            <td>
+                                <table id=\"sola_nl_sidebar_left\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table \"  style=\"border-collapse: separate; max-width: 200px; float:left; height: 100%; width: 100%;\" >
+                                    <tr>
+                                        <td class=\"sortable-list\" style=\"padding:20px\">
+                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table sortable-item\" width=\"100%\">
+                                                <tr>
+                                                    <td class=\"editable\" id=\"sola_10\">
+                                                        <h3 style=\"text-align:center;\">Sidebar</h3>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table sortable-item\" width=\"100%\">
+                                                <tr>
+                                                    <td class=\"editable\" id=\"sola_11\">
+
+                                                        <h4><img class=\"nl_img\" width=\"45px\" src=\"".plugins_url()."/sola-newsletters/images/sola_logo_2.jpg\"/> Content</h4>
+                                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <table align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table\" id=\"\" style=\"border-collapse: separate; max-width: 390px; width:100%; display:inline;\" >
+                                    <tr>
+                                        <td class=\"sortable-list\" style=\"padding:20px\">
+
+                                             <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table sortable-item\" width=\"100%\">
+                                                <tr>
+                                                    <td class=\"editable\" id=\"sola_30\">
+                                                        <h1 style=\"text-align:center;\">".get_option('blogname')."</h1>
+
+                                                        <p style=\"font-style: italic; text-align: center\">".get_option('blogdescription')."</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table sortable-item\" width=\"100%\">
+                                                <tr>
+                                                    <td class=\"editable\" id=\"sola_40\">
+                                                        <img src=\"".plugins_url()."/sola-newsletters/images/hr/hr-11.png\" style=\"display:block;  margin-left:auto; margin-right:auto; \"width=\"100%\"/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+
+                                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table sortable-item\" width=\"100%\">
+                                                <tr>
+                                                    <td class=\"editable\" id=\"sola_40\">
+                                                        <p>&nbsp;</p>
+                                                        <h2 style=\"font-family: Arial, Helvetica, sans-serif; font-size: 25px; color: rgb(51, 62, 72); font-weight: bold; text-align:center;\">".__("Welcome!", "sola")."</h2><p>&nbsp;</p><p style=' text-align:center;'>".__("Thank you for subscribing to our newsletter.", "sola")."</p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <table align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table\" style=\"border-collapse: separate; max-width:100%\" width=\"100%\">
+                        <tr>
+                            <td style=\"padding:20px\">
+                                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table\" width=\"100%\">
+                                    <tr>
+                                        <td align=\"center\" id=\"sola_10\">
+                                            <p><a href=\"[unsubscribe_href]\" title=\"[unsubscribe_text]\">[unsubscribe_text]</a></p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    ");
+    } else {
+        return stripslashes("
+            <table id=\"sola_newsletter_wrapper\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"background-color: rgb(51, 62, 72);\"><tbody><tr><td width=\"100%\" style=\" padding: 30px 20px 100px 20px;\"><table align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table\" width=\"100%\" style=\"border-collapse: separate; max-width:600px;\"><tbody><tr><td style=\"text-align: center; padding-bottom: 20px;\"><p><a title=\"[browser_view_text]\" href=\"[browser_view]\" style=\"font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: rgb(235, 104, 82); font-weight: bold; text-decoration: underline;\">[browser_view_text]</a></p></td></tr></tbody></table><table id=\"sola_nl_newsletter_background\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table\" width=\"100%\" style=\"border-collapse: separate; max-width: 600px; font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: rgb(51, 62, 72); border: 0px solid rgb(255, 255, 255); border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; background-color: rgb(255, 255, 255);\"><tbody><tr><td class=\"sortable-list  ui-sortable\" style=\"padding:20px;\"><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table sortable-item\" width=\"100%\"><tbody><tr><td class=\"editable\" id=\"sola_10\"><h1 style=\"text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 30px; color: rgb(51, 62, 72); font-weight: bold;\">".get_option('blogname')."</h1><p style=\"text-align:center;\"><i>".get_option('blogdescription')."</i></p></td></tr></tbody></table><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table sortable-item\" width=\"100%\"><tbody><tr><td class=\"editable\" id=\"sola_20\"><img src=\"".plugins_url()."/sola-newsletters/images/hr/hr-11.png\" style=\"display:block; margin-left:auto; margin-right:auto; \" width=\"100%\"></td></tr></tbody></table><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table sortable-item\" width=\"100%\"><tbody><tr><td class=\"editable\" id=\"1411981491820\"><p style=\"display:block; height:15px;\">&nbsp;</p></td></tr></tbody></table><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table sortable-item\" width=\"100%\"><tbody><tr class=\"\"><td class=\"editable\" id=\"1411981437395\"><p>&nbsp;</p><h2 style=\"font-family: Arial, Helvetica, sans-serif; font-size: 25px; color: rgb(51, 62, 72); font-weight: bold; text-align:center;\">".__("Welcome!", "sola")."</h2><p>&nbsp;</p><p style='text-align:center;'>".__("Thank you for subscribing to our newsletter.", "sola")."</p></td></tr></tbody></table><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table sortable-item\" width=\"100%\"><tbody><tr><td class=\"editable\" id=\"sola_100\"><img src=\"".plugins_url()."/sola-newsletters/images/hr/hr-11.png\" style=\"display:block; margin-left:auto; margin-right:auto;\" width=\"100%\"></td></tr></tbody></table></td></tr></tbody></table><table align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table\" width=\"100%\" style=\"border-collapse: separate; max-width:100%;\"><tbody><tr><td style=\"padding:20px;\"><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table \" width=\"100%\"><tbody><tr><td id=\"sola_14\" align=\"center\"><p><a href=\"[unsubscribe_href]\" title=\"[unsubscribe_text]\" style=\"font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: rgb(235, 104, 82); font-weight: bold; text-decoration: underline;\">[unsubscribe_text]</a> </p></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table>        
+        ");
+    }
+}
+
+function sola_nl_automatic_user_default_template($theme_id = 1){
+    if ($theme_id == 2) {
+        return stripslashes("
+
+
+        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" id=\"sola_newsletter_wrapper\" width=\"100%\">
+            <tr>
+                <td style=\"padding: 30px 20px 100px 20px;\" width=\"100%\">
+                    <table align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table\" style=\"border-collapse: separate; max-width:600px;\" width=\"100%\">
+                        <tr>
+                            <td style=\"text-align: center; padding-bottom: 20px\">
+                                <p><a href=\"[browser_view]\" title=\"[browser_view_text]\">[browser_view_text]</a></p>
+                            </td>
+                        </tr>
+                    </table>
+                    <table id=\"sola_nl_newsletter_background\" align=\"center\" class=\"sola_table\" style=\"border-collapse: separate; max-width: 600px;\" width=\"100%\">
+                        <tr>
+                            <td>
+                                <table id=\"sola_nl_sidebar_left\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table \"  style=\"border-collapse: separate; max-width: 200px; float:left; height: 100%; width: 100%;\" >
+                                    <tr>
+                                        <td class=\"sortable-list\" style=\"padding:20px\">
+                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table sortable-item\" width=\"100%\">
+                                                <tr>
+                                                    <td class=\"editable\" id=\"sola_10\">
+                                                        <h3 style=\"text-align:center;\">Sidebar</h3>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table sortable-item\" width=\"100%\">
+                                                <tr>
+                                                    <td class=\"editable\" id=\"sola_11\">
+
+                                                        <h4><img class=\"nl_img\" width=\"45px\" src=\"".plugins_url()."/sola-newsletters/images/sola_logo_2.jpg\"/> Content</h4>
+                                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <table align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table\" id=\"\" style=\"border-collapse: separate; max-width: 390px; width:100%; display:inline;\" >
+                                    <tr>
+                                        <td class=\"sortable-list\" style=\"padding:20px\">
+
+                                             <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table sortable-item\" width=\"100%\">
+                                                <tr>
+                                                    <td class=\"editable\" id=\"sola_30\">
+                                                        <h1 style=\"text-align:center;\">".get_option('blogname')."</h1>
+
+                                                        <p style=\"font-style: italic; text-align: center\">".get_option('blogdescription')."</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table sortable-item\" width=\"100%\">
+                                                <tr>
+                                                    <td class=\"editable\" id=\"sola_40\">
+                                                        <img src=\"".plugins_url()."/sola-newsletters/images/hr/hr-11.png\" style=\"display:block;  margin-left:auto; margin-right:auto; \"width=\"100%\"/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+
+                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table sortable-item\" width=\"100%\">
+                                                <tr>
+                                                    <td class=\"editable\" id=\"sola_40\">
+                                                        <p>&nbsp;</p>
+                                                        <h1 style=\"font-family: Arial, Helvetica, sans-serif; font-size: 30px; color: rgb(51, 62, 72); font-weight: bold; text-align: center;\">".__("Dear User", "sola")."</h1><p style='text-align: center;'>".__("You have been added as a registered user on our site.", "sola")."</p><p style='text-align: center;'>&nbsp;</p>
+                                                </td>
+                                            </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <table align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table\" style=\"border-collapse: separate; max-width:100%\" width=\"100%\">
+                        <tr>
+                            <td style=\"padding:20px\">
+                                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table\" width=\"100%\">
+                                    <tr>
+                                        <td align=\"center\" id=\"sola_10\">
+                                            <p><a href=\"[unsubscribe_href]\" title=\"[unsubscribe_text]\">[unsubscribe_text]</a></p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    ");
+    } else {
+        return stripslashes("      
+            <table id=\"sola_newsletter_wrapper\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"background-color: rgb(51, 62, 72);\"><tbody><tr><td width=\"100%\" style=\" padding: 30px 20px 100px 20px;\"><table align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table\" width=\"100%\" style=\"border-collapse: separate; max-width:600px;\"><tbody><tr><td style=\"text-align: center; padding-bottom: 20px;\"><p><a title=\"[browser_view_text]\" href=\"[browser_view]\" style=\"font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: rgb(235, 104, 82); font-weight: bold; text-decoration: underline;\">[browser_view_text]</a></p></td></tr></tbody></table><table id=\"sola_nl_newsletter_background\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table\" width=\"100%\" style=\"border-collapse: separate; max-width: 600px; font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: rgb(51, 62, 72); border: 0px solid rgb(255, 255, 255); border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; background-color: rgb(255, 255, 255);\"><tbody><tr><td class=\"sortable-list  ui-sortable\" style=\"padding:20px;\"><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table sortable-item\" width=\"100%\"><tbody><tr><td class=\"editable\" id=\"sola_10\"><h1 style=\"text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 30px; color: rgb(51, 62, 72); font-weight: bold;\">".get_option('blogname')."</h1><p style=\"text-align:center;\"><i>".get_option('blogdescription')."</i></p></td></tr></tbody></table><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table sortable-item\" width=\"100%\"><tbody><tr><td class=\"editable\" id=\"sola_20\"><img src=\"".plugins_url()."/sola-newsletters/images/hr/hr-11.png\" style=\"display:block; margin-left:auto; margin-right:auto; \" width=\"100%\"></td></tr></tbody></table><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table sortable-item\" width=\"100%\"><tbody><tr><td class=\"editable\" id=\"1411983113980\"><p style=\"display:block; height:15px;\">&nbsp;</p></td></tr></tbody></table><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table sortable-item\" width=\"100%\"><tbody><tr class=\"\"><td class=\"editable\" id=\"sola_30\"><p>&nbsp;</p><h1 style=\"font-family: Arial, Helvetica, sans-serif; font-size: 30px; color: rgb(51, 62, 72); font-weight: bold; text-align: left; text-align: center;\">".__("Dear User", "sola")."</h1><p style='text-align: center;'>".__("You have been added as a registered user on our site.", "sola")."</p><p style='text-align: center;'>&nbsp;</p></td></tr></tbody></table><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table sortable-item\" width=\"100%\"><tbody><tr><td class=\"editable\" id=\"sola_40\"><img src=\"".plugins_url()."/sola-newsletters/images/hr/hr-11.png\" style=\"display:block; margin-left:auto; margin-right:auto; \" width=\"100%\"></td></tr></tbody></table></td></tr></tbody></table><table align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table\" width=\"100%\" style=\"border-collapse: separate; max-width:100%;\"><tbody><tr><td style=\"padding:20px;\"><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"sola_table \" width=\"100%\"><tbody><tr><td id=\"sola_14\" align=\"center\"></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table>    
+        ");
+    }
+}

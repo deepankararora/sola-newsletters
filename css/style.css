@@ -293,3 +293,18 @@ line-height: 30px;
     text-align: center;
 }
 
+.add-box img{
+    max-width: 100%;
+}
+.sidebar .content .add-box{
+    cursor: pointer;
+}
+.sidebar .content .active{
+    webkit-box-shadow: 0px 0px 7px 2px rgb(109,173,101) !important;
+    -moz-box-shadow: 0px 0px 7px 2px rgb(109,173,101) !important;
+    box-shadow: 0px 0px 7px 2px rgb(109,173,101) !important;
+}
+
+.automatic_entry{
+    background-color: antiquewhite;
+}

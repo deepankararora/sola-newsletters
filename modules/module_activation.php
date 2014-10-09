@@ -7,7 +7,8 @@ function sola_nl_activate() {
   add_option("sola_nl_email_note", $admin_email);
   add_option("sola_nl_notifications", "1");
   add_option("sola_nl_sig","$sig");
-  add_option("sola_nl_unsubscribe","Unsubscribe");
+  add_option("sola_nl_unsubscribe", __("Unsubscribe", "sola"));
+  add_option("sola_nl_browser_text", __("Not Displaying? View In Browser", "sola"));
   add_option("sola_nl_sent_from","$admin_email");
   add_option("sola_nl_sent_from_name","$blogname");
   add_option("sola_nl_reply_to","$admin_email");
@@ -95,6 +96,8 @@ function sola_nl_handle_db() {
          sub_key mediumtext NOT NULL,
          created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
          status tinyint(1) NOT NULL DEFAULT '1', 
+         sola_nl_mail_sent tinyint(1) NOT NULL DEFAULT '0',
+         sola_nl_mail_sending_time datetime NOT NULL,
          PRIMARY KEY  (sub_id),
          UNIQUE KEY sub_email (sub_email)
        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ;
@@ -146,6 +149,9 @@ function sola_nl_handle_db() {
         theme_id int(11) NOT NULL,
         schedule_date datetime NOT NULL,
         styles longtext NOT NULL,
+        type tinyint(1) NOT NULL,
+        action tinyint(1) NOT NULL,
+        automatic_data LONGTEXT NOT NULL,
       PRIMARY KEY  (camp_id)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ; 
    ";
@@ -263,7 +269,7 @@ function sola_nl_add_default_editor_style(){
     global $sola_nl_themes_table;
     $letter_1 = sola_nl_default_letter();
     $styles = sola_nl_default_styles_array();
-    $style_version = 1;
+    $style_version = 1.1;
     $wpdb->query( 
 	$wpdb->prepare( 
 		"
@@ -348,7 +354,7 @@ function sola_nl_default_letter() {
     $letter.= '<table align="center"  cellpadding="0" cellspacing="0" class="sola_table" width="100%" style="border-collapse: separate; max-width:600px;">';
     $letter.= '<tr>';
     $letter.= '<td style="text-align: center; padding-bottom: 20px;">';
-    $letter.= '<p><a title="'.__('View In Browser').'" href="[browser_view]">Not Displaying? View In Browser</a></p>';
+    $letter.= '<p><a title="'.__('View In Browser').'" href="[browser_view]">[browser_view_text]</a></p>';
     $letter.= '</td>';
     $letter.= '</tr>';
     $letter.= '</table>';

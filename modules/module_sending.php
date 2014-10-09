@@ -9,24 +9,32 @@ function sola_nl_preview_mail(){
     global $sola_nl_camp_tbl;
 
     extract($_POST);
-    //var_dump($_POST);
-
+    
+    
     if (isset($body) && isset($to)) {
         $body =  sola_nl_mail_body($body,0,$camp_id);
         $sql = "SELECT * FROM `$sola_nl_camp_tbl` WHERE `camp_id` = '$camp_id'";
         $result = $wpdb->get_row($sql);
         $body = do_shortcode($body);
         $body = sola_nl_replace_links($body,0,$camp_id);
-        $test_mail = sola_mail($camp_id ,$to, $result->subject." Preview", $body);
+
+        if($result->type == 2 && $result->action == 3){
+//            $letter = sola_nl_get_letter($camp_id);
+//            var_dump($camp_id);
+            $inserted_data = sola_nl_build_automatic_content($camp_id,false);
+//            var_dump($inserted_data);
+            $body = preg_replace('/<table id="sola_nl_automatic_container"(.*?)<\/table>/is', $inserted_data, $body);
+        }
+        
+        $test_mail = sola_mail($camp_id ,$to, do_shortcode($result->subject). __(" Preview", "sola"), $body);
 
         if (empty($test_mail['error'])) {
-            echo "Email Sent";
-
+            _e("Email Sent", "sola");
         } else {
             echo $test_mail['error'];
         }
     } else {
-        echo "Error";
+        _e("Error", "sola");
     }
 
 }
@@ -228,8 +236,12 @@ function sola_nl_replace_links($body, $sub_id, $camp_id){
             $link_name = $item->getAttribute('href');
         }
         if($old_href != "http://www.sola.com/"){
-            if(strpos($old_href, '?') == true){
-                $old_href.= "&utm_source=".get_option("sola_nl_utm_source")."&utm_medium=".get_option("sola_nl_utm_medium")."&utm_campaign=".$utm_camp;
+            if (function_exists("sola_nl_premium_activate")) {
+                if(strpos($old_href, '?') == true){
+                    $old_href.= "&utm_source=".get_option("sola_nl_utm_source")."&utm_medium=".get_option("sola_nl_utm_medium")."&utm_campaign=".$utm_camp;
+                } else {
+                    $old_href.= "?utm_source=".get_option("sola_nl_utm_source")."&utm_medium=".get_option("sola_nl_utm_medium")."&utm_campaign=".$utm_camp;
+                }
             }
 
             $data = array(
@@ -249,7 +261,6 @@ function sola_nl_replace_links($body, $sub_id, $camp_id){
 }
 
 function sola_mail($camp_id,$to,$subject,$body,$headers = false,$attachment = false,$textonly = false, $debug = false,$host = null, $port = null, $user = null, $pass = null, $wpmail = false, $test = false, $encryption = false) {
-
     global $wpdb;
     global $sola_nl_camp_tbl;
 
@@ -379,8 +390,12 @@ function sola_nl_done_sending_camp($camp_id){
             ), 
             array( '%d' ) 
         );
-        $body = "Hi Admin\r\nYour mail campaign has finished sending.\n\rSola Newsletter Plugin";
-        sola_nl_send_notification("Mail Send Complete", $body);
+        $camp = sola_nl_get_camp_details($camp_id);
+        if ($camp->type != 2) {
+            /* only run if not an automatic campaign or else users will get mail send complete email incorrectly */
+            $body = __("Hi Admin\r\nYour mail campaign has finished sending.\n\rSola Newsletter Plugin", 'sola');
+            sola_nl_send_notification(__("Mail Send Complete", 'sola'), $body);
+        }
     } else {
         $limit = get_option('sola_nl_send_limit_qty');
         $wpdb->update(
@@ -409,7 +424,7 @@ function sola_nl_test_mail_2(){
     //var_dump($_POST);
 
 
-        $body = "<p>Yippee. Your server settings are correct!</p>"
+        $body = "<p>Your email settings are correct.</p>"
                 . "<p>This Mail was sent using Sola Newsletters</p>";
 
         if ($smtp_debug == "on") { $debug = true; } else { $debug = false; }
@@ -471,7 +486,7 @@ function sola_check_send_mail_time($type){
     $current_date = date("Y-m-d H:i:s",current_time('timestamp'));    
     
     
-    $sql = "SELECT * FROM `$sola_nl_camp_tbl` WHERE `schedule_date` < '$current_date' AND `status` = '$type' LIMIT 1";
+    $sql = "SELECT * FROM `$sola_nl_camp_tbl` WHERE `schedule_date` < '$current_date' AND `status` = '$type' AND `type` != '2' LIMIT 1";
     $campaign = $wpdb->get_row($sql);
        
     if($campaign){
@@ -549,6 +564,7 @@ function sola_next_send_time_left($camp_id){
     return $time_left;
 }
 function sola_cron_send($camp_id = false) {
+    
     $debug_start = (float) array_sum(explode(' ',microtime()));
 
     global $wpdb;
@@ -558,10 +574,14 @@ function sola_cron_send($camp_id = false) {
     global $sola_global_subid;
     global $sola_global_campid;
     
+    /*
+     * Sends mail to new users and subscribers.
+     */
+    custom_auto_mail_send();
+    
     if (!$camp_id) {
         $camp_id = sola_check_send_mail_time(3);
     }
-//    var_dump($camp_id);
 
     if ($camp_id) {
         $limit = sola_get_camp_limit($camp_id);
@@ -571,7 +591,7 @@ function sola_cron_send($camp_id = false) {
 
             if (!get_option("sola_currently_sending")) {
                 if (get_option("sola_currently_sending") == "yes") {
-                    return "We are currently sending. Dont do anything";
+                    return __("We are currently sending. Dont do anything", "sola");
                 } else {
                     update_option("sola_currently_sending","yes");
                 }
@@ -582,11 +602,12 @@ function sola_cron_send($camp_id = false) {
             update_option("sola_currently_sending","yes");
 
             $subscribers = sola_nl_camp_subs($camp_id, $limit);
-            sola_return_error(new WP_Error( 'Notice', __( 'Campaign send initiated' ), 'Started sending '.count($subscribers).' mails for campaign '.$camp_id.' at '.date("Y-m-d H:i:s")));
             //var_dump($subscribers);
 
             $sql = "SELECT * FROM `$sola_nl_camp_tbl` WHERE `camp_id` = '$camp_id'";
             $camp = $wpdb->get_row($sql);
+            
+            if ($camp->type != 2) { sola_return_error(new WP_Error( 'Notice', __( 'Campaign send initiated' ), 'Started sending '.count($subscribers).' mails for campaign '.$camp_id.' at '.date("Y-m-d H:i:s"))); }
 
             if (isset($camp->reply_to)) { $reply = $camp->reply_to; }
             if (isset($camp->reply_to_name)) { $reply_name = stripslashes($camp->reply_to_name); }
@@ -634,7 +655,8 @@ function sola_cron_send($camp_id = false) {
                 $mail->Subject = $camp->subject;
                 $mail->SMTPDebug = 0;
             }           
-
+            
+//            var_dump($subscribers);
 
             if ($subscribers) {
 
@@ -642,20 +664,47 @@ function sola_cron_send($camp_id = false) {
                     set_time_limit(600);
                     $sub_id = $subscriber->sub_id;
                     $sub_email = $subscriber->sub_email;
-                    echo $sub_email;
+                    
+                    
+//                    echo $sub_email;
+                    
+                    var_dump('Subscriber ID '.$sub_id);
 
-
-                    $body = sola_nl_mail_body($camp->email, $sub_id, $camp->camp_id);
+                    $the_email = $camp->email;
+//                    global $sola_global_subid;
+                    
 
                     $sola_global_subid = $sub_id;
+//                    var_dump("HERE");
+//                    var_dump($sola_global_subid);
                     $sola_global_campid = $camp->camp_id;
-
-                    $body = do_shortcode($body);
-
-
-
-                    $body = sola_nl_replace_links($body, $sub_id, $camp->camp_id);
-
+                    
+                    $original_body = sola_nl_mail_body($the_email, $sub_id, $camp->camp_id);
+                    echo "<h1>original</h1>";
+                    echo $original_body;
+                    
+                    
+                    $final_body = do_shortcode($original_body);
+//                    echo "<h1>final</h1>";
+//                    echo $final_body;
+//                    
+//                    echo 'Sub ID '.$sub_id;
+//                    
+//                    var_dump($sub_id);
+//                    var_dump($sola_global_subid);
+//                    
+//                    echo 'Camp ID '.$camp_id;
+//                    echo 'Body';
+                    
+//                  echo $body;
+//                    $the_sub = sola_nl_get_subscriber('12');
+                    
+//                    echo sola_nl_unsubscribe_href();
+//                    var_dump($the_sub);                            
+                            
+                            
+                    $body = sola_nl_replace_links($final_body, $sub_id, $camp->camp_id);
+//                    exit();
 
                     /* ------ */    
 
@@ -740,9 +789,11 @@ function sola_cron_send($camp_id = false) {
         echo "<br />processing time: ". sprintf("%.4f", ($end-$debug_start))." seconds<br />";
 
         update_option("sola_currently_sending","no");
-        sola_return_error(new WP_Error( 'Notice', __( 'Campaign send ended' ), 'Ended sending campaign '.$camp_id.' at '.date("Y-m-d H:i:s") ));
-
+        if ($camp->type != 2) {
+            sola_return_error(new WP_Error( 'Notice', __( 'Campaign send ended' ), 'Ended sending campaign '.$camp_id.' at '.date("Y-m-d H:i:s") ));
+        }
         sola_nl_done_sending_camp($camp_id);
+
     } else { 
         echo "<br />nothing to send at this time<br />";
     }

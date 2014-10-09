@@ -77,6 +77,7 @@ function sola_nl_widget_add_sub(){
                 <p>Thank you for signing up. Please click on the following link to activate your subscription.</p>
                 <a href=''>Click Here</a>";
         $subject = get_option('sola_nl_confirm_subject');
+        $body = get_option('sola_nl_confirm_mail');
         sola_mail(0, $sub_email, $subject, $body);
         
         ?>
@@ -104,7 +105,7 @@ function sola_nl_sign_up_box(){
         </div>
         <div class="sola_sign_up_form_row">
             <label>
-                E-mail:
+                <?php _e('E-mail', 'sola'); ?>
             </label>
             <input type="email"  name="sub_email"/>
         </div>

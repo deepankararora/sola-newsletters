@@ -1,23 +1,26 @@
 === Sola Newsletters ===
-Contributors: SolaPlugins, NickDuncan, MukDaGr8, Jarryd Long
+Contributors: SolaPlugins, NickDuncan, Jarryd Long
 Donate link: http://solaplugins.com
-Tags: newsletter, newsletters, email newsletters, email subscription, email, emailing, email signup, newsletter signup, newsletter widget, subscribe widget, subscribers, newsletter widget, email newsletter, newsletter builder
+Tags: newsletter, newsletters, email newsletters, email subscription, email, emailing, email signup, newsletter signup, newsletter widget, subscribe widget, subscribers, newsletter widget, email newsletter, newsletter builder, automatic post notification, auto post notifications, autoresponder, autoresponders, auto-responder, post notification
 Requires at least: 3.6
 Tested up to: 4.0
 Stable tag: trunk
 License: GPLv2
 
-Create beautiful, modern newsletters quickly and easily and add a newsletter sign-up form to your website.
+Create newsletters, automatic post notifications and autoresponders that are modern and beautiful with Sola Newsletters.
 
 == Description ==
 
-Create beautiful newsletters with our unique newsletter editor. Drag and drop images, text areas, buttons, social icons, posts and more. Add a signup widget to your website, manage your subscribers, and send fresh, modern newsletters all within your wordpress admin section.
+Create newsletters, automatic post notifications and autoresponders that are modern and beautiful with our unique newsletter editor. Drag and drop images, text areas, buttons, social icons, posts and more. Add a signup widget to your website, manage your subscribers, and send fresh, modern newsletters all within your wordpress admin area.
 
 We've spent over a year building this newsletter plugin and we're proud to finally release it. Sola Newsletters is still in BETA. Any feedback would be welcomed.
 
 = Features =
 * Super easy to use drag and drop newsletter editor
 * Send newsletters to 2500 subscribers
+* Send automatic post notifications when new posts are published
+* Create an autoresponder when new users register on your site
+* Create an autoresponder when someone subscribes to your newsletter
 * Easy subscriber management
 * Newsletter signup widget included
 * Add your latest posts in your newsletter by simply dragging them in
@@ -32,25 +35,29 @@ We've spent over a year building this newsletter plugin and we're proud to final
 * Get detailed statistics on who opened your newsletter and what links were clicked on
 * More newsletter themes
 * Google Analytics integration
-* Priority [support](http://support.solaplugins.com/) 
+* Priority [support](http://solaplugins.com/support-desk) 
 * Get the [Sola Newsletters Premium Version](http://solaplugins.com/plugins/sola-newsletters/?utm_source=wordpress&utm_medium=click&utm_campaign=readme) now
 
 = Coming Soon =
 * More newsletter themes
 * Bounce handling
-* Automatic newsletters & autoresponders
 * Detailed subscriber statistics
 * Subscriber segmentation
 
 = Translations =
 Get a free copy of the Sola Newsletters premium version in exchange for translating our plugin!
 
+* English
+* French (Katia - www.creaweb.fr)
+* Russian (Alexey Arkhipenko)
+* Spanish
+
 
 == Installation ==
 
 1. Once activated, click the "Newsletters" link in your left navigation
 2. Create a new newsletter campaign and follow the on screen instructions
-
+3. Drag the Newsletter Signup widget to your desired widget area
 
 == Frequently Asked Questions ==
 
@@ -76,6 +83,14 @@ Once installed and activated, a link should appear in your left navigation panel
 * Drag "Sola Newsletters Subscribe Widget" to the sidebar of your choice
 * Ensure that you have selected the list you would like to add your subscribers to in "Newsletters->Settings->Sign Up"
 
+= How do I create an automatic post notification campaign? =
+* Click on "New campaign" and then select "Custom Newsletter"
+* Select either "When I publish a new post", "When someone subscribes to my list" or "When a new user is added to my site"
+* Select the relevant time intervals and select a list, insert a subject and click "Next"
+* Select a layout
+* In the Editor, ensure that you select the correct options in the "Options" tab (top left)
+
+
 == Screenshots ==
 
 1. Use our unique and powerful Newsletter Editor to build beautiful newsletters with ease
@@ -91,19 +106,39 @@ Not applicable.
 
 == Changelog ==
 
+= 3.0 2014-10-09 =
+* New Features:
+*  You can now create automatic post notifications on an immediate, daily or weekly interval
+*  You can now create auto-responders for when a user or subscriber is added to your site
+*  A new drag-and-drop 'Automatic Content' element has been added to the editor
+*  Comprehensive Automatic Content options have been added
+*  You can now change the View In Browser Text
+* 
+* Improvements:
+*  More strings are now translatable
+* 
+* Bug Fixes:
+*  Viewing subscribers by list issue fixed
+*  Absolute URLS are now kept when editing an image within TinyMCE
+* 
+* New Languages Added:
+* French (Thank you Katia from Creaweb)
+* Russian (Thank you Alexey Arkhipenko)
+* Spanish
+
 = 2.3 2014-07-22 = 
 * New features:
-* - You can now view the average newsletter open rate from all past campaigns
-* - You can now see the newsletter open rate for that specific campaign
-* - You can now view the total number of unique newsletter opens per campaign
-* - You can now see what newsletter links each subscriber clicked on
-* - You can now see which newsletter subscribers clicked on a specific link
-* - Newsletter styles have version numbers
+*  You can now view the average newsletter open rate from all past campaigns
+*  You can now see the newsletter open rate for that specific campaign
+*  You can now view the total number of unique newsletter opens per campaign
+*  You can now see what newsletter links each subscriber clicked on
+*  You can now see which newsletter subscribers clicked on a specific link
+*  Newsletter styles have version numbers
 * Improvements:
-* - Newsletter statistics
-* - Changed how newsletter styles are saved in db
+*  Newsletter statistics
+*  Changed how newsletter styles are saved in db
 * Bug fixes:
-* - Tinymce click issue
+*  Tinymce click issue
 
 = 2.2 2014-07-11 =
 * You can now schedule newsletters to be sent

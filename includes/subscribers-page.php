@@ -27,9 +27,12 @@ $order_url = "&order=".$order."&orderBy=".$orderBy;
 if(isset($_GET['subscriber'])){
     $subscriber_search = $_GET['subscriber'];
     $subscribers = sola_nl_get_subscribers('', $limit, $current_page, $order, $orderBy, $subscriber_search);
-} else{
-    $subscriber_search = "";
-    $subscribers = sola_nl_get_subscribers('', $limit, $current_page, $order, $orderBy, $subscriber_search);
+} else if(isset($_GET['list_id'])){
+    $subscribers = sola_nl_get_subscribers($_GET['list_id'], $limit, $current_page, $order, $orderBy);
+} else if (isset($_GET['list_id']) && isset($_GET['subscriber'])){
+    $subscribers = sola_nl_get_subscribers($_GET['list_id'], $limit, $current_page, $order, $orderBy, $subscriber_search);
+}else {
+    $subscribers = sola_nl_get_subscribers('', $limit, $current_page, $order, $orderBy);
 }
 $total_rows = sola_nl_get_total_subs();
 $total_pages = ceil($total_rows/$limit);

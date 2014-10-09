@@ -1,4 +1,5 @@
-<?php $sola_nl_ajax_nonce = wp_create_nonce("sola_nl");
+<?php 
+$sola_nl_ajax_nonce = wp_create_nonce("sola_nl");
 $camp_details = sola_nl_get_camp_details($_GET['camp_id']);
 $theme_id = $camp_details->theme_id;
 $styles = $camp_details->styles;
@@ -12,14 +13,24 @@ $styles = $camp_details->styles;
     var camp_id = <?php echo $_GET['camp_id'] ?>;
 </script>
 
+<?php
 
+$camp_type = maybe_unserialize($camp_details->automatic_data);
+
+if(isset($camp_type['action'])) { $auto_camp_type = $camp_type['action']; } else { $auto_camp_type = '2'; } ;
+
+
+?>
 
 <div class="sola-content-fixed">
-    <div class="sola-header-content ">
+    <div class="sola-header-content ">        
         <div class="sola-sidebar-header">
             <ul>
-                <li class="active editor_options_header" did="editor-content"><?php _e("Content","sola"); ?></li>
-                <li class="editor_options_header" did="editor-styles"><?php _e("Style","sola"); ?></li>
+                <li class="active editor_options_header <?php if($auto_camp_type == 3){ echo 'automatic'; } else { echo 'manual'; } ?>" did="editor-content" id="content-options"><?php _e("Content","sola"); ?></li>
+                <li class="editor_options_header <?php if($auto_camp_type == 3){ echo 'automatic'; } else { echo 'manual'; } ?>" did="editor-styles" id="style-options"><?php _e("Style","sola"); ?></li>
+                <?php if ($camp_details->type == '2' && $auto_camp_type == 3) { ?>
+                    <li class="editor_options_header <?php if($auto_camp_type == 3){ echo 'automatic'; } else { echo 'manual'; } ?>" did="editor-automatic" id="automatic-options"><?php _e("Options","sola"); ?></li>
+                <?php } ?>
             </ul>
             
         </div>
@@ -27,18 +38,23 @@ $styles = $camp_details->styles;
             <div class="next-button">
                 <a id="sola_nl_next_temp_btn" class='button-primary sola_nl_preview_btn' ><?php _e("Next","sola"); ?></a>
             </div>
-            <div id='sola_nl_save_text' ><?php if ($_SERVER['REMOTE_ADDR'] == "127.0.0.1") { echo "<span style='color:red'>"; _e("You are currently using the plugin on your localhost. Various elements such as images will NOT show up in your test or final email as they reference your hard drive which is not accessible via the web to others"); echo "</span>"; } ?></div>
+            <div id='sola_nl_save_text' ><?php if ($_SERVER['REMOTE_ADDR'] == "127.0.0.1") { echo "<span style='color:red'>". __("You are currently using the plugin on your localhost. Various elements such as images will NOT show up in your test or final email as they reference your hard drive which is not accessible via the web to others", 'sola'). "</span>"; } ?></div>
         </div>
     </div>
     <div class="sidebar ">
         
         <div id="editor_options">
             <div id="editor-content" class="content">
+                <?php if ($camp_details->type == '2' && $auto_camp_type == 3) { ?>
+                <div class="add-box sola_addable_item" type="automatic_content" id="auto-content">
+                    <h3><?php _e("Content","sola"); ?></h3>
+                    <i class="fa fa-5x fa-file-text-o"></i>
+                </div>
+                <?php } ?>
                 <div class="add-box sola_addable_item" type="text">
                     <h3><?php _e("Text","sola"); ?></h3>
                     <i class="fa fa-5x fa-font"></i>
                 </div>
-                
                 <div class="add-box sola_show_editior_div">
                     <div class="add-box-title">
                         <h3><?php _e("Button","sola"); ?></h3>
@@ -50,7 +66,7 @@ $styles = $camp_details->styles;
                             <label>
                                 <?php _e("Button Text","sola"); ?>
                             </label>
-                            <input type="text" class="form-control" id="sola_nl_btn_text" value="Put Your Text Here"/>
+                            <input type="text" class="form-control" id="sola_nl_btn_text" value="<?php _e('Put Your Text Here', 'sola'); ?>"/>
                         </div>
                         <div class="form-group">
                             <label>
@@ -58,7 +74,7 @@ $styles = $camp_details->styles;
                             </label>
                             <input type="text" class="form-control" id="sola_nl_btn_link" placeholder="http://www.linkhere.com"/>
                         </div>
-                        <div class="sola_addable_item" type="btn" ><a href="" style="text-decoration:none; display: block; " class="sola_nl_btn"  id="sola_nl_btn">Put Your Text Here</a></div>
+                        <div class="sola_addable_item" type="btn" ><a href="" style="text-decoration:none; display: block; " class="sola_nl_btn"  id="sola_nl_btn"><?php _e('Put Your Text Here', 'sola'); ?></a></div>
                     </div>
                 </div>
                 
@@ -89,7 +105,7 @@ $styles = $camp_details->styles;
                                          value="<?php echo get_the_excerpt(); ?>" 
                                          feat_image="<?php echo $sola_feat_image_url ?>" 
                                          title="<?php the_title(); ?>"
-                                         post_url="<?php echo get_permalink() ?>">
+                                         post_url="<?php echo get_permalink(); ?>">
                                              <?php the_title(); ?>
                                     </div>
                                     <?php $i++ ?>
@@ -108,7 +124,7 @@ $styles = $camp_details->styles;
                     <div class="sola-extra-content">
                         <center>
                             <label for="upload_image">
-                                <input id="upload_image_button" class="button" type="button" value="Choose Image" />
+                                <input id="upload_image_button" class="button" type="button" value="<?php _e('Choose Image', 'sola'); ?>" />
                             </label>
                         </center>    
                         <hr/>
@@ -167,7 +183,7 @@ $styles = $camp_details->styles;
                             foreach ($folders as $folder) {
                                 if($folder != "." && $folder != ".."){
                                     if(is_dir($dir."/".$folder)){?>
-                                        <div class="sola_addable_item sola_sub_addable_item <?php if($i == 1) {?>first<?php } ?>" type="social_icons" style="padding: 5px 0; text-align: center">
+                                        <div class="sola_addable_item sola_sub_addable_item <?php if($i == 1) {?>first<?php } ?>" type="social_icons" style="padding: 5px 0; text-align: center;">
                                         <?php  $i++;
                                         foreach($social_links as $social_name=>$social_link){
                                             if($social_link != ""){ ?>
@@ -185,7 +201,7 @@ $styles = $camp_details->styles;
                             }
                         } else { ?>
                             <div style="padding-right: 10px">
-                                <?php _e("Please go into Sola Settings and Add links to your social Networks","sola-newsletters"); ?>
+                                <?php _e("Please go into Sola Settings and Add links to your social Networks","sola"); ?>
                             </div> <?php
                         }
                            
@@ -193,13 +209,83 @@ $styles = $camp_details->styles;
                     </div>
                 </div>
                 <div style="clear: both"></div>
+                
+              
+                
+                
             </div>
             
             <div id="editor-styles" class="styles" style="display:none">
                 <?php sola_get_style_editor($theme_id, $styles) ?>
             </div>
+            <?php if ($camp_details->type == '2' && $auto_camp_type == 3) { ?>
             
-            
+            <div id="editor-automatic" class="content" style="display: none; text-align: left; margin: 5px;">
+                <form name="automatic_options_form" id="auto_options_form">
+                    <div style="text-align: center;">                        
+                        <div class="add-box active" id="automatic-layout-1">
+                            <input type="radio" name="automatic_layout" style="display: none;" value="layout-1" id="layout-1"/>
+                            <img title="<?php _e('Layout 1', 'sola'); ?>" src="<?php echo PLUGIN_DIR.'/images/automatic-post-layout-1.png'; ?>">
+                        </div>
+                        <div class="add-box" id="automatic-layout-2">
+                            <input type="radio" name="automatic_layout" style="display: none;" value="layout-2" id="layout-2"/>
+                            <img title="<?php _e('Layout 2', 'sola'); ?>" src="<?php echo PLUGIN_DIR.'/images/automatic-post-layout-2.png'; ?>">
+                        </div>
+                        <div class="add-box" id="automatic-layout-3">
+                            <input type="radio" name="automatic_layout" style="display: none;" value="layout-3" id="layout-3"/>
+                            <img title="<?php _e('Layout 3', 'sola'); ?>" src="<?php echo PLUGIN_DIR.'/images/automatic-post-layout-3.png'; ?>">
+                        </div>
+                        <div class="add-box" id="automatic-layout-4">
+                            <input type="radio" name="automatic_layout" style="display: none;" value="layout-4" id="layout-4"/>
+                            <img title="<?php _e('Layout 4', 'sola'); ?>" src="<?php echo PLUGIN_DIR.'/images/automatic-post-layout-4.png'; ?>">
+                        </div>
+                    </div>
+                    <div class="automatic-layouts" id="auto_options" style="margin: 8px 5px;">
+                
+                        <p style="margin-top: 15px; ">                        
+                            <input type="number" min="1" id="automatic_options_posts" name="automatic_options_posts" style="width: 50px;" value="1"/>
+                            <label for="automatic_options_posts"><?php _e('Number of Posts', 'sola'); ?></label>
+                        </p> 
+                        <p>                        
+                            <input type="number" min="1" max="3" id="automatic_options_columns" name="automatic_options_columns" style="width: 50px;" value="1"/>
+                            <label for="automatic_options_posts"><?php _e('Number of Posts Per Row', 'sola'); ?></label>
+                        </p> 
+                        <p>                        
+                            <input type="number" min="1" id="automatic_post_length" name="automatic_post_length" style="width: 50px;" value="255"/>
+                            <label for="automatic_post_length"><?php _e('Length Of Excerpt (chars)', 'sola'); ?></label>
+                        </p> 
+                        <p>
+                            <input type="checkbox" name="automatic_options_checkboxes[]" value="automatic_title" checked/>
+                            <label for="automatic_title"><?php _e('Include Title', 'sola'); ?></label>
+                        </p>
+                        <p>
+                            <input type="checkbox" name="automatic_options_checkboxes[]" value="automatic_content" checked/>
+                            <label for="automatic_content"><?php _e('Include Content', 'sola'); ?></label>
+                        </p>
+                        <p>
+                            <input type="checkbox" name="automatic_options_checkboxes[]" value="automatic_readmore" checked/>
+                            <label for="automatic_readmore"><?php _e('Include "Read More" Link', 'sola'); ?></label>
+                        </p>
+                        <p>
+                            <input type="checkbox" name="automatic_options_checkboxes[]" value="automatic_image" checked/>
+                            <label for="automatic_image"><?php _e('Include Image', 'sola'); ?></label>
+                        </p>                       
+                        <p>
+                            <input type="checkbox" name="automatic_options_checkboxes[]" value="automatic_author" checked/>
+                            <label for="automatic_author"><?php _e('Include Author', 'sola'); ?></label>
+                        </p>
+                        <p>
+                            <input type="checkbox" name="automatic_options_checkboxes[]" value="automatic_post_date" checked/>
+                            <label for="automatic_post_date"><?php _e('Include Post Date', 'sola'); ?></label>
+                        </p>
+                        
+                    </div>
+                    <div style='text-align: center;'>
+                        <strong style='color: red;'><?php _e('This functionality is still in Beta. If you experience any issues please contact ', 'sola'); ?><a href='http://solaplugins.com/support-desk/' target='_BLANK'><?php _e('support', 'sola'); ?></a></strong>
+                    </div>
+                </form>
+            </div>
+            <?php } ?>
         </div>
         <div id="sola_nl_send_test">
             <input type="email" value="<?php echo get_option('admin_email')?>" class="sola-input" id="sola_nl_to_mail_test" />
@@ -210,18 +296,10 @@ $styles = $camp_details->styles;
 </div>
 
 <div id="sola_newsletter_preview"> 
-    
-    
         <?php       
-        
-        $letter = sola_nl_get_letter($_GET['camp_id'], $theme_id);
-        echo $letter;
-        
-
+            $letter = sola_nl_get_letter($_GET['camp_id'], $theme_id);
+            echo $letter;
         ?>
-    
-        
-
 </div>
 
 
