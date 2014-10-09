@@ -48,7 +48,7 @@ We've spent over a year building this newsletter plugin and we're proud to final
 Get a free copy of the Sola Newsletters premium version in exchange for translating our plugin!
 
 * English
-* French (Katia - www.creaweb.fr)
+* French (Katia - creaweb.fr)
 * Russian (Alexey Arkhipenko)
 * Spanish
 
