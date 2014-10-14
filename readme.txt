@@ -90,7 +90,6 @@ Once installed and activated, a link should appear in your left navigation panel
 * Select a layout
 * In the Editor, ensure that you select the correct options in the "Options" tab (top left)
 
-
 == Screenshots ==
 
 1. Use our unique and powerful Newsletter Editor to build beautiful newsletters with ease
@@ -98,13 +97,22 @@ Once installed and activated, a link should appear in your left navigation panel
 3. Import your subscribers from a CSV file or by simply copying and pasting into the text box provided
 4. Preview what your newsletter will look like on desktops, tablets and phones
 5. Add a newsletter signup widget to your site
-
+6. Send new post notifications with ease. Set up your standard template and new post notifications will be sent automatically.
 
 == Upgrade Notice ==
 
 Not applicable.
 
 == Changelog ==
+
+= 3.0.1 2014-10-14 =
+* Improvements: 
+* Links changed to new documentation (New Help Desk solaplugins.com/support-desk)
+* 
+* Bug Fixes:
+* Could not create a campaign due to a missing column
+* Could not confirm your subscription when signing up
+* View In Browser link stopped working in the preview mail
 
 = 3.0 2014-10-09 =
 * New Features:

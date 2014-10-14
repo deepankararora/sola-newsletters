@@ -3,12 +3,21 @@
 Plugin Name: Sola Newsletters
 Plugin URI: http://www.solaplugins.com
 Description: Create beautiful email newsletters in a flash with Sola Newsletters.
-Version: 3.0
+Version: 3.0.1
 Author: SolaPlugins
 Author URI: http://www.solaplugins.com
 */
 
 /*
+ * 3.0.1
+ * Improvements: 
+ * Links changed to new documentation (New Help Desk solaplugins.com/support-desk)
+ * 
+ * Bug Fixes:
+ * Could not create a campaign due to a missing column. Fixed when updating or installing new
+ * Could not confirm your subscription when signing up
+ * View In Browser Link stopped working in the preview mail
+ * 
  * 3.0
  * New Features:
  *  - You can now create automatic post notifications on an immediate, daily or weekly interval
@@ -48,6 +57,7 @@ Author URI: http://www.solaplugins.com
  * - Tinymce click issue
  * 
  */
+
 ob_start();
 global $sola_nl_version;
 global $sola_nl_p_version;
@@ -74,7 +84,7 @@ define("SOLA_PLUGIN_NAME","Sola Newsletters");
 
 global $sola_nl_version;
 global $sola_nl_version_string;
-$sola_nl_version = "3.0";
+$sola_nl_version = "3.0.1";
 $sola_nl_version_string = "";
 
 
@@ -235,7 +245,7 @@ function sola_init() {
 
 function sola_nl_update_control() {
     global $sola_nl_version;
-    if(get_option('solag_nl_first_time') === false){
+    if(get_option('sola_nl_first_time') === false){
         if (get_option("sola_nl_version") != $sola_nl_version) {
             sola_nl_handle_db();
             if (get_option("sola_nl_confirm_subject") == "") {  
@@ -249,8 +259,45 @@ function sola_nl_update_control() {
             if (get_option("sola_nl_browser_text") == "") {
                   add_option("sola_nl_browser_text", __("Not Displaying? View In Browser", "sola"));
             }
-            
             update_option("sola_nl_version",$sola_nl_version);
+            
+            /* Version 3.0 updates */
+            global $wpdb;
+            global $sola_nl_camp_tbl;
+
+            /* Type Column Check */
+            $sql = " SHOW COLUMNS FROM $sola_nl_camp_tbl WHERE `Field` = 'type'";
+            $results = $wpdb->get_results($sql);
+            if(!$results){    
+                $sql = "
+                    ALTER TABLE `$sola_nl_camp_tbl` ADD `type` tinyint(1) NOT NULL ;
+                ";
+                $wpdb->query($sql);
+            }
+            /* Action Column Check */
+            $sql = " SHOW COLUMNS FROM $sola_nl_camp_tbl WHERE `Field` = 'action'";
+            $results = $wpdb->get_results($sql);
+            if(!$results){    
+                $sql = "
+                    ALTER TABLE `$sola_nl_camp_tbl` ADD `action` tinyint(1) NOT NULL ;
+                ";
+                $wpdb->query($sql);
+            }
+
+            /* Automatic Data Column Check */
+            $sql = " SHOW COLUMNS FROM $sola_nl_camp_tbl WHERE `Field` = 'automatic_data'";
+            $results = $wpdb->get_results($sql);
+            if(!$results){    
+                $sql = "
+                    ALTER TABLE `$sola_nl_camp_tbl` ADD `automatic_data` LONGTEXT NOT NULL ;
+                ";
+                $wpdb->query($sql);
+            }
+
+            
+            
+            
+            
         }
     }
 }
@@ -1701,6 +1748,8 @@ function sola_nl_wp_post_data(){
                 }
                 $wpdb->update($sola_nl_subs_tbl, array("status" => 1, "sola_nl_mail_sending_time" => $time) , array( "sub_key" => $_GET["sub_key"]));
             }
+        } else {
+            $wpdb->update($sola_nl_subs_tbl, array("status" => 1, "sola_nl_mail_sent" => 1) , array( "sub_key" => $_GET["sub_key"]));
         }
     }
     

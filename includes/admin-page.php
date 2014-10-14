@@ -35,22 +35,6 @@ $order_url = "&order=".$order."&orderBy=".$orderBy;
 $total_rows = sola_nl_total_camps();
 $total_pages = ceil($total_rows/$limit);
 
-global $sola_nl_camp_subs_tbl;
-global $wpdb;
-
-
-
-//
-//$auto = sola_nl_build_automatic_content(3,false);
-//
-//var_dump($auto);
-
-
-//custom_auto_mail_send();
-
-//sola_cron_send();
-
-//echo sola_nl_automatic_post_default_template();
 ?>
 
 <div class="wrap">   

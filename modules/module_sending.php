@@ -7,14 +7,17 @@ function sola_nl_preview_mail(){
 
     global $wpdb;
     global $sola_nl_camp_tbl;
-
+    global $sola_global_campid;
     extract($_POST);
     
     
     if (isset($body) && isset($to)) {
+        $sola_global_campid = $camp_id;
+
         $body =  sola_nl_mail_body($body,0,$camp_id);
         $sql = "SELECT * FROM `$sola_nl_camp_tbl` WHERE `camp_id` = '$camp_id'";
         $result = $wpdb->get_row($sql);
+        
         $body = do_shortcode($body);
         $body = sola_nl_replace_links($body,0,$camp_id);
 
@@ -26,7 +29,7 @@ function sola_nl_preview_mail(){
             $body = preg_replace('/<table id="sola_nl_automatic_container"(.*?)<\/table>/is', $inserted_data, $body);
         }
         
-        $test_mail = sola_mail($camp_id ,$to, do_shortcode($result->subject). __(" Preview", "sola"), $body);
+        $test_mail = sola_mail($camp_id ,$to, do_shortcode($result->subject). __(" Preview", "sola"), do_shortcode($body));
 
         if (empty($test_mail['error'])) {
             _e("Email Sent", "sola");

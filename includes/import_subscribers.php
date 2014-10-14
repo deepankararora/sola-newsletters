@@ -44,7 +44,7 @@
                     <br />
                     <?php _e("Expected time delays: two to three minutes per every 1000 subscribers","sola"); ?>
                     <br />
-                    <?php _e("For more information, please visit ","sola"); ?><a href="https://solaplugins.zendesk.com/hc/en-us/articles/200637921-Uploading-subscribers-via-CSV" title="Help with uploading CSV files">https://solaplugins.zendesk.com/hc/en-us/articles/200637921-Uploading-subscribers-via-CSV</a>
+                    <?php _e("For more information, please visit ","sola"); ?><a href="http://solaplugins.com/documentation/sola-newsletters-documentation/uploading-subscribers-via-csv/" title="Help with uploading CSV files">http://solaplugins.com/documentation/sola-newsletters-documentation/uploading-subscribers-via-csv/</a>
                 </p>
             </td>
          </tr>      
