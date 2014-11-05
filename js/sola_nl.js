@@ -47,6 +47,7 @@ jQuery(document).ready(function() {
         if(jQuery('#standard_newsletter').is(':checked')) { 
             jQuery("#custom-newsletter-block").hide();
             jQuery("#shortcodes-desc").hide();
+            jQuery("#sola-nl-list-row").show();
         }
     });
 
@@ -263,7 +264,7 @@ jQuery(document).ready(function() {
     });
     
     //Jarryd
-    
+//    jQuery(".preview_container table").attr('id', 'sola_newsletter_wrapper');
     jQuery(".preview_button_button").click(function (){	
         
         var width = jQuery(this).attr('window_width');
@@ -275,7 +276,9 @@ jQuery(document).ready(function() {
             jQuery('#sola_newsletter_preview').css("width", width);
             jQuery("#sola_newsletter_preview").fadeIn();
         }); 
+        
     });
+    
 //    jQuery("#preview_desktop").removeClass("active");
 //    jQuery("#preview_desktop").click(function(){
 //        jQuery("#preview_desktop").removeClass();
@@ -370,8 +373,20 @@ jQuery(document).ready(function() {
 //        console.log(this);
     });
     
-    jQuery("#auto-content").click(function(){
+    jQuery('#sola_n_html').ace({ theme: 'twilight', lang: 'html' });
+
+    /* Custom HTML Template */
+    jQuery("#html_container").hide();
+    jQuery("#sola_nl_preview_custom_html").click(function(){
+        jQuery("#html_container").empty();
+        var encoded = jQuery("#sola_n_html").val();
+        var html = jQuery.parseHTML(encoded);
         
+        jQuery("#html_container").append(html);
+    
+        jQuery("#html_container").fadeIn(200);
+       
     });
 
 });
+

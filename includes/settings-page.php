@@ -112,10 +112,21 @@ $sola_nl_ajax_nonce = wp_create_nonce("sola_nl");
                     </td>
                 </tr>
             </table>
+            <hr/>
+            <table width="100%"> 
+                <tr>
+                    <td width="250px;">
+                        <label><?php _e('Enable Link Tracking Globally', 'sola'); ?></label>
+                        <p class='description' style='padding:10px;'><?php _e('Enable link tracking for all links in your newsletters. By disabling this, you will not be able to see statistics for any link clicks.', 'sola'); ?></p>
+                    </td>
+                    <td>
+                        <input type="checkbox" class='sola-input' value="1" name="sola_nl_enable_link_tracking" <?php if(get_option("sola_nl_enable_link_tracking") == 1) { echo 'checked'; } ?>/>
+                    </td>
+                </tr>
+            </table>
         </div>
         <div id="tabs-2">
             <h2><?php _e("How To Send Your Mail","sola"); ?></h2>
-                                   
             <div style="float: left; width:40%">
                 <table>
                    <tr>

@@ -3,9 +3,15 @@
 <div id="icon-options-general" class="icon32 icon32-posts-post"><br></div><h2><?php _e("Live Preview","sola") ?></h2>
 
 <div class="preview_actions">
+    <?php if($camp->type == '3'){ ?>
+        <div class="return_editor">
+            <a title="<?php _e('Return To Editor', 'sola'); ?>" class="button-primary" href="admin.php?page=sola-nl-menu&action=custom_template&camp_id=<?php  echo $_GET['camp_id'] ?>"><?php _e('Return To Editor' ,'sola'); ?></a>
+        </div>
+    <?php } else { ?>
     <div class="return_editor">
         <a title="<?php _e('Return To Editor', 'sola'); ?>" class="button-primary" href="admin.php?page=sola-nl-menu&action=editor&camp_id=<?php  echo $_GET['camp_id'] ?>"><?php _e('Return To Editor' ,'sola'); ?></a>
     </div>
+    <?php } ?>
     <div class="confirm_camp">
         <a title="<?php _e('Confirm Campaign', 'sola'); ?>" class="button-primary sola_nl_next_btn" href="admin.php?page=sola-nl-menu&action=confirm_camp&camp_id=<?php  echo $_GET['camp_id'] ?>"><?php _e('Confirm Campaign', 'sola'); ?></a>
     </div>

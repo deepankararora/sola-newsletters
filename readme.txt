@@ -33,6 +33,8 @@ We've spent over a year building this newsletter plugin and we're proud to final
 = Premium Features =
 * Send to more than 2500 subscribers
 * Get detailed statistics on who opened your newsletter and what links were clicked on
+* Create custom HTML newsletters by copying and pasting HTML into the editor
+* Enable/disable newsletter link tracking
 * More newsletter themes
 * Google Analytics integration
 * Priority [support](http://solaplugins.com/support-desk) 
@@ -84,11 +86,21 @@ Once installed and activated, a link should appear in your left navigation panel
 * Ensure that you have selected the list you would like to add your subscribers to in "Newsletters->Settings->Sign Up"
 
 = How do I create an automatic post notification campaign? =
-* Click on "New campaign" and then select "Custom Newsletter"
+* Click on "New campaign" and then select "Automatic Newsletter"
 * Select either "When I publish a new post", "When someone subscribes to my list" or "When a new user is added to my site"
 * Select the relevant time intervals and select a list, insert a subject and click "Next"
 * Select a layout
 * In the Editor, ensure that you select the correct options in the "Options" tab (top left)
+* Finish your campaign
+* Your automatic post notification or autoresponder will now be queued
+
+= How does the Custom HTML Newsletter function work? =
+* When creating a custom HTML newsletter campaign, any HTML that is pasted into the editor will be sent as is. The only element that can change before being sent are the links, should you have "link tracking" enabled in your settings.
+
+= How do I update my Pro version of Sola Newsletters? =
+* Please log in to http://solaplugins.com/my-account/ and select the relevant download
+* Delete your current Pro version of Sola Newsletters Pro (you wont lose any campaigns or settings)
+* Upload the ZIP file you just downloaded and activate the plugin
 
 == Screenshots ==
 
@@ -104,6 +116,16 @@ Once installed and activated, a link should appear in your left navigation panel
 Not applicable.
 
 == Changelog ==
+
+= 3.0.2 2014-11-05 =
+* New Features: 
+*  You can now use your own custom HTML newsletter
+*  You can now enable/disable newsletter link tracking globally
+* Bug Fixes: 
+*  Lists would not show when creating new newsletter campaign after clicking certain automatic options.
+* Improvements:
+*  Update control implemented in Pro version
+*  Spanish translation updated
 
 = 3.0.1 2014-10-14 =
 * Improvements: 

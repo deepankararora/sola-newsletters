@@ -3,12 +3,22 @@
 Plugin Name: Sola Newsletters
 Plugin URI: http://www.solaplugins.com
 Description: Create beautiful email newsletters in a flash with Sola Newsletters.
-Version: 3.0.1
+Version: 3.0.2
 Author: SolaPlugins
 Author URI: http://www.solaplugins.com
 */
 
-/*
+/* 3.0.2
+ * New Features: 
+ *  - You can now use your own custom HTML 
+ *  - You can now enable/disable link tracking globally
+ * 
+ * Bug Fixes: 
+ *  - Lists would not show when creating new campaign after clicking certain automatic options.
+ * 
+ * Improvements:
+ *  - Update control implemented in Pro version
+ * 
  * 3.0.1
  * Improvements: 
  * Links changed to new documentation (New Help Desk solaplugins.com/support-desk)
@@ -84,7 +94,7 @@ define("SOLA_PLUGIN_NAME","Sola Newsletters");
 
 global $sola_nl_version;
 global $sola_nl_version_string;
-$sola_nl_version = "3.0.1";
+$sola_nl_version = "3.0.2";
 $sola_nl_version_string = "";
 
 
@@ -259,6 +269,11 @@ function sola_nl_update_control() {
             if (get_option("sola_nl_browser_text") == "") {
                   add_option("sola_nl_browser_text", __("Not Displaying? View In Browser", "sola"));
             }
+            /* Link tracking check */
+            if(get_option('sola_nl_enable_link_tracking') == ""){
+                add_option('sola_nl_enable_link_tracking', 1);
+            } 
+
             update_option("sola_nl_version",$sola_nl_version);
             
             /* Version 3.0 updates */
@@ -292,8 +307,7 @@ function sola_nl_update_control() {
                     ALTER TABLE `$sola_nl_camp_tbl` ADD `automatic_data` LONGTEXT NOT NULL ;
                 ";
                 $wpdb->query($sql);
-            }
-
+            }                        
             
             
             
@@ -547,8 +561,8 @@ function sola_nl_wp_head() {
             }
         }
         
-    }
-   
+    }        
+       
    if (isset($_POST['sola_nl_edit_subscriber'])) {
       $sola_nl_check = sola_nl_update_subscriber();
       
@@ -654,7 +668,11 @@ function sola_nl_wp_head() {
       $sola_nl_check = sola_nl_add_camp();      
       if ( is_wp_error($sola_nl_check) ) { sola_return_error($sola_nl_check); }
       else  {
-          $template_page = site_url()."/wp-admin/admin.php?page=sola-nl-menu&action=theme&camp_id=$sola_nl_check";
+          if(isset($_POST['campaign_type']) && $_POST['campaign_type'] == '3'){
+            $template_page = site_url()."/wp-admin/admin.php?page=sola-nl-menu&action=custom_template&camp_id=$sola_nl_check";
+          } else {
+            $template_page = site_url()."/wp-admin/admin.php?page=sola-nl-menu&action=theme&camp_id=$sola_nl_check";
+          }
          //$new_camp_page = site_url()."/wp-admin/admin.php?page=sola-nl-menu&action=editor&camp_id=$sola_nl_check";
          ob_end_clean();
          header("location:".$template_page);
@@ -727,12 +745,13 @@ function sola_nl_wp_head() {
         sola_nl_feedback_head();
         echo "<div class=\"updated\"><p>". __("Thank You for your feedback!","sola")."</p></div>";        
     }
-    if(function_exists('sola_nl_register_pro_version')){
-        global $sola_nl_pro_version;
-        if($sola_nl_pro_version <= 2.2){
-            echo "<div class='error'><p>".__("You are using an outdated version of Sola Newsletters Premium. Please update Sola Newsletters Premium using your Plugins panel", "sola")."</p></div>";
-        }
-    }
+
+//    if(function_exists('sola_nl_register_pro_version')){
+//        global $sola_nl_pro_version;
+//        if($sola_nl_pro_version <= 2.2){
+//            echo "<div class='error'><p>".__("You are using an outdated version of Sola Newsletters Premium. Please update Sola Newsletters Premium using your Plugins panel", "sola")."</p></div>";
+//        }
+//    }
 }
 
 function sola_nl_admin_javascript() {
@@ -795,7 +814,15 @@ function sola_nl_admin_menu_layout() {
         } else {
             include('includes/campaign_theme.php');
         }
+    } else if ($_GET['page'] == 'sola-nl-menu' && $_GET['action'] == 'custom_template'){
+        if(function_exists('sola_nl_register_pro_version')){
+            include (PLUGIN_URL_PRO.'/includes/custom_template_pro.php');
+        } else {
+//            include('includes/campaign_theme.php');
+        }
     }
+        
+        
 }
 
 function sola_nl_admin_menu_layout_display() {
@@ -827,11 +854,12 @@ function sola_nl_add_admin_stylesheet() {
         }
     }
     if(isset($_GET['page'])){
-       if(($_GET['page'] == "sola-nl-menu" || $_GET['page'] != "sola-nl-menu-settings") && isset($_GET['action']) && $_GET['action'] != 'preview' ){
+       if(($_GET['page'] == "sola-nl-menu" || $_GET['page'] != "sola-nl-menu-settings") && isset($_GET['action']) && $_GET['action'] != 'preview' || isset($_GET['action']) && $_GET['custom_template']){
             wp_register_style( 'sola_nl_jquery_css_theme', plugins_url('/css/jquery-ui.theme.css', __FILE__) );
             wp_enqueue_style( 'sola_nl_jquery_css_theme' );
             wp_register_style( 'sola_nl_jquery_css', plugins_url('/css/jquery-ui.css', __FILE__) );
             wp_enqueue_style( 'sola_nl_jquery_css' );
+            
         }     
     }
     if (is_rtl()) {
@@ -866,14 +894,27 @@ function sola_nl_admin_scripts_basic() {
         }
     }
 
-    if (isset($_GET['page']) && ($_GET['page'] == "sola-nl-menu-settings" || $_GET['page'] == "sola-nl-menu" || $_GET['page'] == "sola-nl-menu-subscribers" || (isset($_GET['action']) && $_GET['action'] == "preview") || (isset($_GET['action']) && $_GET['action'] == "confirm_camp") || (isset($_GET['action']) && $_GET['action'] == 'new_campaign'))){
+    if (isset($_GET['page']) && ($_GET['page'] == "sola-nl-menu-settings" || $_GET['page'] == "sola-nl-menu" || $_GET['page'] == "sola-nl-menu-subscribers" || (isset($_GET['action']) && $_GET['action'] == "preview") || (isset($_GET['action']) && $_GET['action'] == "confirm_camp") || (isset($_GET['action']) && $_GET['action'] == 'new_campaign') || isset($_GET['action']) && $_GET['custom_template'])){
         wp_enqueue_script('jquery-ui-core');
         wp_enqueue_script( 'jquery-ui-tabs');
         wp_enqueue_script('jquery-ui-datepicker');
+        wp_enqueue_script( 'jquery-ui-dialog');        
         wp_register_script('sola-nl-tabs', plugins_url('js/sola_nl_tabs.js',__FILE__), array('jquery-ui-core'), '', true);
         wp_enqueue_script('sola-nl-tabs');
         wp_register_script('sola-nl-js', plugins_url('js/sola_nl.js',__FILE__), array('jquery'), '', false);
         wp_enqueue_script('sola-nl-js');
+        
+        
+        wp_register_script('ace', plugins_url('js/ace/ace.js',__FILE__));
+        wp_enqueue_script('ace');
+        wp_register_script('ace-theme-twilight', plugins_url('js/ace/theme-twilight.js',__FILE__));
+        wp_enqueue_script('ace-theme-twilight');
+        wp_register_script('ace-mode-html', plugins_url('js/ace/mode-html.js',__FILE__));
+        wp_enqueue_script('ace-mode-html');
+        wp_register_script('jquery-ace', plugins_url('js/jquery-ace.js',__FILE__), array('jquery'), '', false);
+        wp_enqueue_script('jquery-ace');
+        
+
     }
 }
 
@@ -1175,10 +1216,11 @@ function sola_nl_update_settings(){
    update_option("sola_nl_send_limit_qty", $sola_nl_send_limit_qty);
    update_option("sola_nl_send_limit_time", $sola_nl_send_limit_time);
    update_option("sola_nl_browser_text", $sola_nl_browser_text);
+   update_option("sola_nl_enable_link_tracking", $sola_nl_enable_link_tracking);
+   
    return true;
 }
 function sola_nl_add_camp_list($list_ids, $camp_id){
-//    var_dump('running sola_nl_add_camp_list');
    global $wpdb;
    global $sola_nl_camp_list_tbl;
    $wpdb->delete( $sola_nl_camp_list_tbl, array( 'camp_id' => $camp_id )); // Delete all assciated to this campaign
@@ -1215,50 +1257,48 @@ function sola_nl_add_camp(){
         $type =  $_POST['sola_nl_time_slot'];
         $the_current_time = current_time('timestamp'); 
         
-        
-        
         if($type == 1){
-              //Daily
-            
-                if (strtotime(date("Y-m-d",$the_current_time)." ".$custom_time.":00") > $the_current_time) {
-                    $time = date('Y-m-d H:i:s', strtotime(date("Y-m-d",$the_current_time)." ".$custom_time.":00"));
-                } else {
-                    $time = date('Y-m-d H:i:s', strtotime('+1 day '.$custom_time.':00', $the_current_time));
-                }
-          } else if ($type == 2){
-              //Weekly
-              if($day == 1) { $chosen_day = 'Monday'; } 
-              else if ($day == 2) { $chosen_day = 'Tuesday'; }
-              else if ($day == 3) { $chosen_day = 'Wednesday'; }
-              else if ($day == 4) { $chosen_day = 'Thursday'; }
-              else if ($day == 5) { $chosen_day = 'Friday'; }
-              else if ($day == 6) { $chosen_day = 'Saturday'; }
-              else if ($day == 7) { $chosen_day = 'Sunday'; }
+            //Daily
+            if (strtotime(date("Y-m-d",$the_current_time)." ".$custom_time.":00") > $the_current_time) {
+                $time = date('Y-m-d H:i:s', strtotime(date("Y-m-d",$the_current_time)." ".$custom_time.":00"));
+            } else {
+                $time = date('Y-m-d H:i:s', strtotime('+1 day '.$custom_time.':00', $the_current_time));
+            }
+        } else if ($type == 2){
+            //Weekly
+            if($day == 1) { $chosen_day = 'Monday'; } 
+            else if ($day == 2) { $chosen_day = 'Tuesday'; }
+            else if ($day == 3) { $chosen_day = 'Wednesday'; }
+            else if ($day == 4) { $chosen_day = 'Thursday'; }
+            else if ($day == 5) { $chosen_day = 'Friday'; }
+            else if ($day == 6) { $chosen_day = 'Saturday'; }
+            else if ($day == 7) { $chosen_day = 'Sunday'; }
 
-              $time = date('Y-m-d H:i:s', strtotime($chosen_day.' '.$custom_time.':00', $the_current_time));
-          } else {
-              $time = date('Y-m-d H:i:s', current_time('timestamp'));
-          }
-          $automated = array(
-                'type' => $_POST['sola_nl_time_slot'],
-                'action' => $_POST['sola_nl_action'],
-                'data' => array(
-                        'day' => $_POST['sola_nl_days'],
-                        'time' => $_POST['sola_nl_time'],
-                        'daynum' => $_POST['sola_nl_monthly_day'],
-                        'timeafter' => $_POST['sola_nl_time_after'],
-                        'timeqty' => $_POST['sola_nl_custom_time'],
-                        'role' => $_POST['sola_nl_roles']
-                ),
-                'automatic_layout' => 'layout-1',
-                'automatic_options_posts' => '1',
-                'automatic_options_columns' => '1',
-                'automatic_image' => '1',
-                'automatic_author' => '1',
-                'automatic_title' => '1',
-                'automatic_content' => '1',
-                'automatic_readmore' => '1',
-                'automatic_scheduled_date' => $time
+            $time = date('Y-m-d H:i:s', strtotime($chosen_day.' '.$custom_time.':00', $the_current_time));
+        } else {
+            $time = date('Y-m-d H:i:s', current_time('timestamp'));
+        }
+
+        $automated = array(
+            'type' => $_POST['sola_nl_time_slot'],
+            'action' => $_POST['sola_nl_action'],
+            'data' => array(
+                'day' => $_POST['sola_nl_days'],
+                'time' => $_POST['sola_nl_time'],
+                'daynum' => $_POST['sola_nl_monthly_day'],
+                'timeafter' => $_POST['sola_nl_time_after'],
+                'timeqty' => $_POST['sola_nl_custom_time'],
+                'role' => $_POST['sola_nl_roles']
+            ),
+            'automatic_layout' => 'layout-1',
+            'automatic_options_posts' => '1',
+            'automatic_options_columns' => '1',
+            'automatic_image' => '1',
+            'automatic_author' => '1',
+            'automatic_title' => '1',
+            'automatic_content' => '1',
+            'automatic_readmore' => '1',
+            'automatic_scheduled_date' => $time
         );
         if($campaign_type == '1'){
             $checker = $wpdb->insert( $sola_nl_camp_tbl, array( 
@@ -1269,7 +1309,7 @@ function sola_nl_add_camp(){
                     'styles' => sola_nl_default_styles_array(),
                     'action' => 0
             )); 
-        } else {
+        } else if ($campaign_type == '2'){
             $checker = $wpdb->insert( $sola_nl_camp_tbl, array( 
                     'camp_id' => '', 
                     'subject' => $subject,
@@ -1278,10 +1318,19 @@ function sola_nl_add_camp(){
                     'styles' => sola_nl_default_styles_array(),
                     'action' => $sola_nl_action
             ));
+        } else if ($campaign_type == '3'){
+            $checker = $wpdb->insert( $sola_nl_camp_tbl, array( 
+                    'camp_id' => '', 
+                    'subject' => $subject,
+                    'type' => $campaign_type, 
+                    'automatic_data' => '',
+                    'styles' => '',
+                    'action' => 0
+                ));
         }
         if($checker){
             $camp_id = $wpdb->insert_id;
-            if($campaign_type == '1'){
+            if($campaign_type == '1' || $campaign_type == '3'){
                 sola_nl_add_camp_list($sub_list, $camp_id);
             } else if ($campaign_type == '2' && $sola_nl_action == '3'){
                 sola_nl_add_camp_list($sub_list, $camp_id);
@@ -1574,6 +1623,7 @@ function sola_nl_add_subs_to_camp($camp_id){
 //    exit();
     }
 }
+
 function sola_nl_total_camp_subs($camp_id){
     global $wpdb;
     global $sola_nl_camp_subs_tbl;
@@ -2777,3 +2827,4 @@ function custom_auto_mail_send(){
         }
     }
 }
+

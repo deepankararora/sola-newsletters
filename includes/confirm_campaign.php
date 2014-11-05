@@ -48,8 +48,9 @@ $limit_time = get_option('sola_nl_send_limit_time');
                                <p class="description" style='display:none;'><?php echo $list->list_description ?></p>
                         <?php }
                         } else {
-                            $lists = sola_nl_get_lists();                            
+                            $lists = sola_nl_get_lists(); 
                             foreach($lists as $list){ 
+                                $check = sola_nl_check_if_selected_list_camp($list->list_id, $camp->camp_id);
                                 ?>
                                 <input type="checkbox" name="sub_list[]" <?php if(sola_nl_check_if_selected_list_camp($list->list_id, $camp->camp_id)){ echo "checked"; } ?> value="<?php echo $list->list_id ?>"/>
                                 <label><?php echo $list->list_name ?> (<?php echo sola_nl_total_list_subscribers($list->list_id) ?>)</label>
@@ -100,7 +101,11 @@ $limit_time = get_option('sola_nl_send_limit_time');
                 <tr style="height:20px;"><td></td><td></td></tr>
                 <tr>
                     <td colspan="2">
-                        <a title="<?php _e("Return To Editor","sola");?>" class="button" href="admin.php?page=sola-nl-menu&action=editor&camp_id=<?php  echo $_GET['camp_id'] ?>"><?php _e("Return To Editor","sola"); ?></a> 
+                        <?php if($camp->type == 3){ ?>
+                            <a title="<?php _e("Return To Editor","sola");?>" class="button" href="admin.php?page=sola-nl-menu&action=custom_template&camp_id=<?php  echo $_GET['camp_id'] ?>"><?php _e("Return To Editor","sola"); ?></a> 
+                        <?php } else { ?>
+                            <a title="<?php _e("Return To Editor","sola");?>" class="button" href="admin.php?page=sola-nl-menu&action=editor&camp_id=<?php  echo $_GET['camp_id'] ?>"><?php _e("Return To Editor","sola"); ?></a> 
+                        <?php } ?>
                           <?php _e("or","sola"); ?>
                         
                         <?php if ($camp->type == '2') { ?>

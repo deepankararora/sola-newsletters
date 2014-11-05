@@ -1,60 +1,59 @@
 <?php
 function sola_nl_activate() {
-  sola_nl_handle_db();
-  $blogname = get_option("blogname");
-  $sig = __("This mail was created using the Sola Newsletters WordPress Plugin and was sent from","sola")." $blogname.\r\n<a href='http://solaplugins.com/plugins/sola-newsletters/' target='_BLANK'>solaplugins.com</a>";
-  $admin_email = get_option( 'admin_email' );
-  add_option("sola_nl_email_note", $admin_email);
-  add_option("sola_nl_notifications", "1");
-  add_option("sola_nl_sig","$sig");
-  add_option("sola_nl_unsubscribe", __("Unsubscribe", "sola"));
-  add_option("sola_nl_browser_text", __("Not Displaying? View In Browser", "sola"));
-  add_option("sola_nl_sent_from","$admin_email");
-  add_option("sola_nl_sent_from_name","$blogname");
-  add_option("sola_nl_reply_to","$admin_email");
-  add_option("sola_nl_reply_to_name", $blogname);
-  add_option("sola_nl_send_method", "1");
-  add_option("sola_nl_host",'');
-  add_option("sola_nl_username");
-  add_option("sola_nl_password",'');
-  add_option("sola_nl_port",'');
-  add_option("sola_nl_sign_up_title","Newsletter");
-  add_option("sola_nl_sign_up_btn","Subscribe");
-  add_option("sola_currently_sending","no");
-  $array = serialize(array( 0 => 1));
-  add_option("sola_nl_sign_up_lists",$array);
-  add_option("sola_nl_encryption", "");
-  add_option("sola_nl_utm_source","newsletter");
-  add_option("sola_nl_utm_medium","email");
-  $content = __("Thank you for signing up to our newsletter.","sola");
-  $page_id = sola_nl_create_page('nl-confirm-signup','Newsletter Sign Up Confirmation',$content);
-  add_option("sola_nl_confirm_page","$page_id");
-  $content = __("We're sad to see you go.","sola");
-  $page_id = sola_nl_create_page('nl-unsubscribe-page','Newsletter Unsubscription', $content);
-  add_option("sola_nl_unsubscribe_page","$page_id");
-  add_option("sola_nl_social_links", array(
-      "twitter"=>"",
-      "facebook"=>"",
-      "pinterest"=>"",
-      "linkedin"=>"",
-      "google-plus"=>""
-  ));
-  add_option("sola_nl_hosting_provider", 0);
-  add_option("sola_nl_send_limit_qty", 20);
-  add_option("sola_nl_send_limit_time", 600);
-  $confirmation_subject = __("Thank You For Subscribing","sola");
-  add_option("sola_nl_confirm_subject", $confirmation_subject);
-  $confirmation_mail = __("Hey [sub_name]!\n\rThank you for signing up to our newsletter.\n\rPlease click on this [confirm_link]link[/confirm_link] to activate your subscription.\n\rKind Regards\n\r","sola");
-  add_option("sola_nl_confirm_mail", $confirmation_mail);
-  $confirmation_thank_you = __("Thank You for signing up. You will receive a confirmation mail shortly.");
-  add_option("sola_nl_confirm_thank_you", $confirmation_thank_you);
-  $sola_cron_timestamp = wp_next_scheduled( 'sola_cron_send_hook' );
-   if( $sola_cron_timestamp == false ){
-      wp_schedule_event( time(), 'every_minute', 'sola_cron_send_hook' );  
-  }
-  add_option("solag_nl_first_time", true);
-    
-
+    sola_nl_handle_db();
+    $blogname = get_option("blogname");
+    $sig = __("This mail was created using the Sola Newsletters WordPress Plugin and was sent from","sola")." $blogname.\r\n<a href='http://solaplugins.com/plugins/sola-newsletters/' target='_BLANK'>solaplugins.com</a>";
+    $admin_email = get_option( 'admin_email' );
+    add_option("sola_nl_email_note", $admin_email);
+    add_option("sola_nl_notifications", "1");
+    add_option("sola_nl_sig","$sig");
+    add_option("sola_nl_unsubscribe", __("Unsubscribe", "sola"));
+    add_option("sola_nl_browser_text", __("Not Displaying? View In Browser", "sola"));
+    add_option("sola_nl_sent_from","$admin_email");
+    add_option("sola_nl_sent_from_name","$blogname");
+    add_option("sola_nl_reply_to","$admin_email");
+    add_option("sola_nl_reply_to_name", $blogname);
+    add_option("sola_nl_send_method", "1");
+    add_option("sola_nl_host",'');
+    add_option("sola_nl_username");
+    add_option("sola_nl_password",'');
+    add_option("sola_nl_port",'');
+    add_option("sola_nl_sign_up_title","Newsletter");
+    add_option("sola_nl_sign_up_btn","Subscribe");
+    add_option("sola_currently_sending","no");
+    $array = serialize(array( 0 => 1));
+    add_option("sola_nl_sign_up_lists",$array);
+    add_option("sola_nl_encryption", "");
+    add_option("sola_nl_utm_source","newsletter");
+    add_option("sola_nl_utm_medium","email");
+    $content = __("Thank you for signing up to our newsletter.","sola");
+    $page_id = sola_nl_create_page('nl-confirm-signup','Newsletter Sign Up Confirmation',$content);
+    add_option("sola_nl_confirm_page","$page_id");
+    $content = __("We're sad to see you go.","sola");
+    $page_id = sola_nl_create_page('nl-unsubscribe-page','Newsletter Unsubscription', $content);
+    add_option("sola_nl_unsubscribe_page","$page_id");
+    add_option("sola_nl_social_links", array(
+        "twitter"=>"",
+        "facebook"=>"",
+        "pinterest"=>"",
+        "linkedin"=>"",
+        "google-plus"=>""
+    ));
+    add_option("sola_nl_hosting_provider", 0);
+    add_option("sola_nl_send_limit_qty", 20);
+    add_option("sola_nl_send_limit_time", 600);
+    $confirmation_subject = __("Thank You For Subscribing","sola");
+    add_option("sola_nl_confirm_subject", $confirmation_subject);
+    $confirmation_mail = __("Hey [sub_name]!\n\rThank you for signing up to our newsletter.\n\rPlease click on this [confirm_link]link[/confirm_link] to activate your subscription.\n\rKind Regards\n\r","sola");
+    add_option("sola_nl_confirm_mail", $confirmation_mail);
+    $confirmation_thank_you = __("Thank You for signing up. You will receive a confirmation mail shortly.");
+    add_option("sola_nl_confirm_thank_you", $confirmation_thank_you);
+    $sola_cron_timestamp = wp_next_scheduled( 'sola_cron_send_hook' );
+     if( $sola_cron_timestamp == false ){
+        wp_schedule_event( time(), 'every_minute', 'sola_cron_send_hook' );  
+    }
+    add_option("solag_nl_first_time", true);
+    add_option("sola_nl_enable_link_tracking", 1);
 
   
 }

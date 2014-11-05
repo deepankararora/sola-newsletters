@@ -54,6 +54,18 @@ $total_pages = ceil($total_rows/$limit);
             <input type="submit" name="" id="search-submit" class="button" value="Search Campaigns">
         </p>        
     </form>
+    <?php 
+    if (function_exists("sola_nl_register_pro_version")) { 
+    global $sola_nl_pro_version;
+    if (floatval($sola_nl_pro_version) < 2.4) { ?>
+    <div id='message' class='updated' style='padding:10px;'>
+        <span style='font-weight:bold;'>
+            <?php _e("You are using an outdated Pro version. Please log in to your account on <a href='http://solaplugins.com' target='_BLANK'>http://solaplugins.com</a> and download the latest version","sola"); ?> (version 2.4)
+        </span>
+    </div>
+    <?php } } ?>
+    
+    
     <form id="sola_nl_camp_form" method="post">
         <div class="tablenav top">
             <div class="alignleft">

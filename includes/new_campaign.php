@@ -14,11 +14,6 @@ if (isset($camp->automatic_data)) {
     $automatic_data = false;
 }
 
-
-    
-
-
-//var_dump($automatic_data);
 ?>
 <div class="wrap">    
    <div id="icon-edit" class="icon32 icon32-posts-post"><br></div>
@@ -35,8 +30,26 @@ if (isset($camp->automatic_data)) {
                <td>
                    <h4>
                         <input type="radio" name="campaign_type" id="standard_newsletter" value="1" <?php if($camp && $camp->type != 2) { echo 'checked=checked'; } ?>/><?php _e('Standard Newsletter', 'sola'); ?>
-                        &nbsp;
-                        <input type="radio" name="campaign_type" id="custom_newsletter" value="2" <?php if($camp && $camp->type == 2) { echo 'checked=checked'; } ?>/><?php _e('Custom Newsletter (Beta)', 'sola'); ?>
+                        &nbsp; <br />
+                        <input type="radio" name="campaign_type" id="custom_newsletter" value="2" <?php if($camp && $camp->type == 2) { echo 'checked=checked'; } ?>/><?php _e('Automatic Newsletter (Beta)', 'sola'); ?>
+                        &nbsp; <br />
+                        <?php 
+                        if(function_exists('sola_nl_register_pro_version')){ 
+                            global $sola_nl_pro_version;
+                            if (floatval($sola_nl_pro_version) > 2.3) { ?>
+                                <input type="radio" name="campaign_type" id="custom_html" value="3" <?php if($camp && $camp->type == 3) { echo 'checked=checked'; } ?>/><?php _e('Custom HTML (Advanced)', 'sola'); ?>
+
+                            <?php } else {
+                               $pro_link = "<em><a href=\"http://solaplugins.com/my-account/\" target=\"_BLANK\">".__('Please upgrade your Pro version by logging into your account and downloading the latest version (2.4)', 'sola')."</a></em>"; 
+                            ?><input type="radio" disabled/><?php echo __('Custom HTML (Advanced) ', 'sola').$pro_link; 
+                            }
+                        } else {
+                            $pro_link = "<a href=\"http://solaplugins.com/plugins/sola-newsletters/?utm_source=plugin&utm_medium=link&utm_campaign=sola_nl_custom_html\" target=\"_BLANK\">".__('Premium Version Only', 'sola')."</a>"; 
+                            ?><input type="radio" disabled/><?php echo __('Custom HTML (Advanced) ', 'sola').$pro_link; ?>
+
+                            <?php
+                        }
+                                ?>
                    </h4>                   
                </td>
             </tr>
@@ -132,7 +145,6 @@ if (isset($camp->automatic_data)) {
                    </select>
                </td>
             </tr>
-            
             <tr>
                <td width="250px">
                   <label><h3><?php _e('Subject', 'sola'); ?></h3></label>
@@ -173,7 +185,6 @@ if (isset($camp->automatic_data)) {
                   <?php } }  ?>
                </td>
             </tr>                        
-            
             <tr>
                <td>
                    <?php if(isset($_GET["camp_id"])){ ?>

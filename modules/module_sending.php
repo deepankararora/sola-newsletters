@@ -195,12 +195,14 @@ function sola_nl_mail_body($body, $sub_id, $camp_id){
 
 
 }
-function sola_nl_replace_links($body, $sub_id, $camp_id){
-
+function sola_nl_replace_links($body, $sub_id, $camp_id){        
+    
     global $wpdb;
     global $sola_nl_link_tracking_table;
     global $sola_nl_camp_tbl;
 
+    $enable_link_tracking = get_option('sola_nl_enable_link_tracking');
+    
     @$dom = new DOMDocument;
 
     @$dom->loadHTML($body);
@@ -239,12 +241,16 @@ function sola_nl_replace_links($body, $sub_id, $camp_id){
             $link_name = $item->getAttribute('href');
         }
         if($old_href != "http://www.sola.com/"){
-            if (function_exists("sola_nl_premium_activate")) {
-                if(strpos($old_href, '?') == true){
-                    $old_href.= "&utm_source=".get_option("sola_nl_utm_source")."&utm_medium=".get_option("sola_nl_utm_medium")."&utm_campaign=".$utm_camp;
-                } else {
-                    $old_href.= "?utm_source=".get_option("sola_nl_utm_source")."&utm_medium=".get_option("sola_nl_utm_medium")."&utm_campaign=".$utm_camp;
+            if(isset($enable_link_tracking) && $enable_link_tracking){
+                if (function_exists("sola_nl_premium_activate")) {
+                    if(strpos($old_href, '?') == true){
+                        $old_href.= "&utm_source=".get_option("sola_nl_utm_source")."&utm_medium=".get_option("sola_nl_utm_medium")."&utm_campaign=".$utm_camp;
+                    } else {
+                        $old_href.= "?utm_source=".get_option("sola_nl_utm_source")."&utm_medium=".get_option("sola_nl_utm_medium")."&utm_campaign=".$utm_camp;
+                    }
                 }
+            } else {
+                $old_href .= "";
             }
 
             $data = array(
@@ -257,10 +263,14 @@ function sola_nl_replace_links($body, $sub_id, $camp_id){
             $wpdb->insert($sola_nl_link_tracking_table, $data );
             $link_id = $wpdb->insert_id;
             //echo $old_href;
-            $item->setAttribute('href', SITE_URL."?action=sola_nl_redirect&sola_link_id=".$link_id);
+            if(isset($enable_link_tracking) && $enable_link_tracking){
+                $item->setAttribute('href', SITE_URL."?action=sola_nl_redirect&sola_link_id=".$link_id);
+            } else {
+                $item->setAttribute('href', $old_href);
+            }
         }
     }
-    return $dom->saveHTML();            
+    return $dom->saveHTML();      
 }
 
 function sola_mail($camp_id,$to,$subject,$body,$headers = false,$attachment = false,$textonly = false, $debug = false,$host = null, $port = null, $user = null, $pass = null, $wpmail = false, $test = false, $encryption = false) {
