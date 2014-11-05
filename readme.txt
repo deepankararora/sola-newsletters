@@ -54,7 +54,6 @@ Get a free copy of the Sola Newsletters premium version in exchange for translat
 * Russian (Alexey Arkhipenko)
 * Spanish
 
-
 == Installation ==
 
 1. Once activated, click the "Newsletters" link in your left navigation
