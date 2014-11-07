@@ -79,7 +79,7 @@ Once installed and activated, a link should appear in your left navigation panel
 * The next screen will help you visualize how your newsletter will appear on mobile phones, tablets and desktop computers. Click "Confirm campaign".
 * Ensure that all your settings are correct and then press "Send now". Your newsletter will now be queued and will be sent according to the email settings you have set in "Newsletter->Settings->Email Settings" 
 
-= How do I add a subscribe to newsletter widget? =
+= How do I add a "subscribe to newsletter" widget? =
 * Click on Appearance->Widgets in your left navigation
 * Drag "Sola Newsletters Subscribe Widget" to the sidebar of your choice
 * Ensure that you have selected the list you would like to add your subscribers to in "Newsletters->Settings->Sign Up"
@@ -101,6 +101,9 @@ Once installed and activated, a link should appear in your left navigation panel
 * Delete your current Pro version of Sola Newsletters Pro (you wont lose any campaigns or settings)
 * Upload the ZIP file you just downloaded and activate the plugin
 
+= What is the CAN-SPAM Act? =
+Sola Newsletters strongly suggests that you follow the CAN-SPAM Act. We have included a copy of the CAN-SPAM Act as well as a compliance guide for businesses. Ensure you have read this before creating and sending any newsletters. Sola Newsletters takes no responsibility for any misuse of the CAN SPAM Act.
+
 == Screenshots ==
 
 1. Use our unique and powerful Newsletter Editor to build beautiful newsletters with ease
@@ -109,12 +112,18 @@ Once installed and activated, a link should appear in your left navigation panel
 4. Preview what your newsletter will look like on desktops, tablets and phones
 5. Add a newsletter signup widget to your site
 6. Send new post notifications with ease. Set up your standard template and new post notifications will be sent automatically.
+7. (Pro) Custom HTML Newsletters. Paste your own Newsletter HTML code for your campaign.
+8. (Pro) Newsletter statistics for each campaign. View detailed statistics about each newsletter campaign.
 
 == Upgrade Notice ==
 
 Not applicable.
 
 == Changelog ==
+
+= 3.0.3 2014-11-07 Low Priority =
+* Fixed PHP notices
+* Added a CAN-SPAM Act compliance guide for businesses in the settings page
 
 = 3.0.2 2014-11-05 =
 * New Features: 

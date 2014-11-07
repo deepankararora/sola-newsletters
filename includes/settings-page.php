@@ -27,7 +27,8 @@ $sola_nl_ajax_nonce = wp_create_nonce("sola_nl");
           <li><a href="#tabs-4"><?php _e("Social Links","sola") ?></a></li>
           <li><a href="#tabs-5"><?php _e("Analytics","sola") ?></a></li>
           <li><a href="#tabs-6"><?php _e("Cron Setup (Advanced)","sola") ?></a></li>
-          <?php if (function_exists("sola_nl_register_pro_version")) { } else { ?><li><a href="#tabs-7"><?php _e("Go Premium", "sola") ?></a></li><?php } ?>
+          <li><a href="#tabs-7"><?php _e("CAN-SPAM Act","sola"); ?></a></li>
+          <?php if (function_exists("sola_nl_register_pro_version")) { } else { ?><li><a href="#tabs-8"><?php _e("Go Premium", "sola") ?></a></li><?php } ?>
       </ul>
       <div id="tabs-1">
             <table width='100%'>
@@ -448,10 +449,17 @@ $sola_nl_ajax_nonce = wp_create_nonce("sola_nl");
                 echo "<br /><strong>".__("Server time now","sola"). ":</strong> " . date("Y-m-d H:i:s");
             ?>
         </div>
+        <div id="tabs-7">
+            <?php include("can-spam-act.php"); ?>
+        </div>    
+            
+            
+            
+        
         
         <?php if (function_exists("sola_nl_register_pro_version")) { } else { ?>
         
-            <div id="tabs-7">
+            <div id="tabs-8">
                 <center>
                     <h1 style="font-size: 50px; font-weight: 300"><?php _e("Why Go","sola")?> <strong style="color: #ec6851;"><?php _e("Premium?","sola")?></strong></h1>
                 </center>

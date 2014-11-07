@@ -3,12 +3,16 @@
 Plugin Name: Sola Newsletters
 Plugin URI: http://www.solaplugins.com
 Description: Create beautiful email newsletters in a flash with Sola Newsletters.
-Version: 3.0.2
+Version: 3.0.3
 Author: SolaPlugins
 Author URI: http://www.solaplugins.com
 */
 
-/* 3.0.2
+/* 3.0.3
+ * Fixed PHP notices
+ * Added a CAN-SPAM Act compliance guide for businesses in the settings page
+ * 
+ * 3.0.2
  * New Features: 
  *  - You can now use your own custom HTML 
  *  - You can now enable/disable link tracking globally
@@ -94,7 +98,7 @@ define("SOLA_PLUGIN_NAME","Sola Newsletters");
 
 global $sola_nl_version;
 global $sola_nl_version_string;
-$sola_nl_version = "3.0.2";
+$sola_nl_version = "3.0.3";
 $sola_nl_version_string = "";
 
 
@@ -894,7 +898,7 @@ function sola_nl_admin_scripts_basic() {
         }
     }
 
-    if (isset($_GET['page']) && ($_GET['page'] == "sola-nl-menu-settings" || $_GET['page'] == "sola-nl-menu" || $_GET['page'] == "sola-nl-menu-subscribers" || (isset($_GET['action']) && $_GET['action'] == "preview") || (isset($_GET['action']) && $_GET['action'] == "confirm_camp") || (isset($_GET['action']) && $_GET['action'] == 'new_campaign') || isset($_GET['action']) && $_GET['custom_template'])){
+    if (isset($_GET['page']) && ($_GET['page'] == "sola-nl-menu-settings" || $_GET['page'] == "sola-nl-menu" || $_GET['page'] == "sola-nl-menu-subscribers" || (isset($_GET['action']) && $_GET['action'] == "preview") || (isset($_GET['action']) && $_GET['action'] == "confirm_camp") || (isset($_GET['action']) && $_GET['action'] == 'new_campaign') || isset($_GET['action']) && isset($_GET['custom_template']))){
         wp_enqueue_script('jquery-ui-core');
         wp_enqueue_script( 'jquery-ui-tabs');
         wp_enqueue_script('jquery-ui-datepicker');
