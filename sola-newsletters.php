@@ -3,12 +3,18 @@
 Plugin Name: Sola Newsletters
 Plugin URI: http://www.solaplugins.com
 Description: Create beautiful email newsletters in a flash with Sola Newsletters.
-Version: 3.0.3
+Version: 3.0.4
 Author: SolaPlugins
 Author URI: http://www.solaplugins.com
 */
 
-/* 3.0.3
+/* 3.0.4 - 2015-01-20 - Medium Priority
+ * Newsletter editor bug fixes:
+ * - Fixed bug that caused images to be dragged in incorrectly
+ * - Fixed bug that caused image dividers to be dragged in incorrectly
+ * - Fixed button bug in WP4.1
+ * 
+ * 3.0.3
  * Fixed PHP notices
  * Added a CAN-SPAM Act compliance guide for businesses in the settings page
  * 
@@ -36,7 +42,7 @@ Author URI: http://www.solaplugins.com
  * New Features:
  *  - You can now create automatic post notifications on an immediate, daily or weekly interval
  *  - You can now create auto-responders for when a user or subscriber is added to your site
- *  - A new drag-and-drop 'Automatic Content' element has been added to the editor
+ *  A new drag-and-drop 'Automatic Content' element has been added to the editor
  *  - Comprehensive Automatic Content options have been added
  *  - You can now change the View In Browser Text
  * 
@@ -98,7 +104,7 @@ define("SOLA_PLUGIN_NAME","Sola Newsletters");
 
 global $sola_nl_version;
 global $sola_nl_version_string;
-$sola_nl_version = "3.0.3";
+$sola_nl_version = "3.0.4";
 $sola_nl_version_string = "";
 
 

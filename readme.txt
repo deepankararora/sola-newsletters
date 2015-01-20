@@ -3,7 +3,7 @@ Contributors: SolaPlugins, NickDuncan, Jarryd Long
 Donate link: http://solaplugins.com
 Tags: newsletter, newsletters, email newsletters, email subscription, email, emailing, email signup, newsletter signup, newsletter widget, subscribe widget, subscribers, newsletter widget, email newsletter, newsletter builder, automatic post notification, auto post notifications, autoresponder, autoresponders, auto-responder, post notification
 Requires at least: 3.6
-Tested up to: 4.0
+Tested up to: 4.1
 Stable tag: trunk
 License: GPLv2
 
@@ -120,6 +120,11 @@ Sola Newsletters strongly suggests that you follow the CAN-SPAM Act. We have inc
 Not applicable.
 
 == Changelog ==
+* 3.0.4 - 2015-01-20 - Medium Priority
+* Newsletter editor bug fixes:
+*  Fixed bug that caused images to be dragged in incorrectly
+*  Fixed bug that caused image dividers to be dragged in incorrectly
+*  Fixed button bug in WP4.1
 
 = 3.0.3 2014-11-07 Low Priority =
 * Fixed PHP notices
