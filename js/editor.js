@@ -239,34 +239,57 @@ jQuery(document).ready( function() {
 //        sola_is_editing = false;
 //    });   
     
-    
-    
-   
-   /*albert change - 19 january 2015*/
-    
+    /* Nick - 2015-01-21 - Modified the way we connect with the sortable list so that it pushes the correct values through. WP4.1 changed this somehow - perhaps a newer version of jQuery? */
     jQuery('.sola_addable_item').draggable({
-        helper:"clone",
-        connectToSortable: ".sortable-list",
-        start:function(event,ui)
-        {
-          
-          var current_html=jQuery(ui.helper).html();
-          var text_of_link=jQuery(this).children().html();
-          var new_text_of_link='<p contenteditable="true" title="Click to edit the text" onclick="this.focus();">'+jQuery(this).children().html()+'</p>';
-          var new_html_to_use=current_html.replace(text_of_link,new_text_of_link);
-          var insert_html='<div class="link_buttons_holder">'+new_html_to_use+'</div>';
-          jQuery(ui.helper).html(insert_html);
-          
-        },
-        stop:function(event,ui)
-        {
+        helper: function(e) {
+            
+            var t_attr = jQuery(this).attr('type');
             jQuery("#sola_nl_save_text").empty();
             jQuery(".header-right").css("background", "url('../wp-content/plugins/sola-newsletters/images/editor-header.jpg') center no-repeat");
-            return jQuery('<div>').addClass('editable').text('Drag to the newsletter');
             
-        }
-        
+            if (t_attr == "text") {
+                return jQuery('<div type="text">').addClass('editable').text('Drag to the newsletter');
+            }
+            if (t_attr == "btn") {
+                return jQuery('<div type="btn">').addClass('editable').html(jQuery(this).html());
+            }
+            if (t_attr == "blog_post") {
+                
+                var post = jQuery(this).attr('value');
+                var feat_image = jQuery(this).attr('feat_image');
+                var title = jQuery(this).attr("title");
+                var post_url = jQuery(this).attr("post_url");
+                return jQuery('<div type="blog_post" title="'+title+'" post_url="'+post_url+'" feat_image="'+feat_image+'" value="'+post+'">').addClass('editable');
+            }
+        },
+        connectToSortable: ".sortable-list",
     });
+   
+   /*albert change - 19 january 2015*/
+//    
+//    jQuery('.sola_addable_item').draggable({
+//        helper:"clone",
+//        connectToSortable: ".sortable-list",
+//        start:function(event,ui)
+//        {
+//          
+//          var current_html=jQuery(ui.helper).html();
+//          var text_of_link=jQuery(this).children().html();
+//          var new_text_of_link='<p contenteditable="true" title="Click to edit the text" onclick="this.focus();">'+jQuery(this).children().html()+'</p>';
+//          var new_html_to_use=current_html.replace(text_of_link,new_text_of_link);
+//          var insert_html='<div class="link_buttons_holder">'+new_html_to_use+'</div>';
+//          jQuery(ui.helper).html(insert_html);
+//          
+//        },
+//        stop:function(event,ui)
+//        {
+//            jQuery("#sola_nl_save_text").empty();
+//            jQuery(".header-right").css("background", "url('../wp-content/plugins/sola-newsletters/images/editor-header.jpg') center no-repeat");
+//            return jQuery('<div>').addClass('editable').text('Drag to the newsletter');
+//            
+//        }
+//        
+//    });
     
     /* -------------------------------------------------------------- */
    

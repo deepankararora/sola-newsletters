@@ -3,12 +3,15 @@
 Plugin Name: Sola Newsletters
 Plugin URI: http://www.solaplugins.com
 Description: Create beautiful email newsletters in a flash with Sola Newsletters.
-Version: 3.0.4
+Version: 3.0.5
 Author: SolaPlugins
 Author URI: http://www.solaplugins.com
 */
 
-/* 3.0.4 - 2015-01-20 - Medium Priority
+/* 3.0.5 - 2015-01-21 - Medium priority
+ * Additional bug fixes in the newsletter editor in conjunction with changes made in WordPress 4.1
+ * 
+ * 3.0.4 - 2015-01-20 - Medium Priority
  * Newsletter editor bug fixes:
  * - Fixed bug that caused images to be dragged in incorrectly
  * - Fixed bug that caused image dividers to be dragged in incorrectly
@@ -104,7 +107,7 @@ define("SOLA_PLUGIN_NAME","Sola Newsletters");
 
 global $sola_nl_version;
 global $sola_nl_version_string;
-$sola_nl_version = "3.0.4";
+$sola_nl_version = "3.0.5";
 $sola_nl_version_string = "";
 
 

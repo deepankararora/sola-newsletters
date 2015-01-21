@@ -120,7 +120,11 @@ Sola Newsletters strongly suggests that you follow the CAN-SPAM Act. We have inc
 Not applicable.
 
 == Changelog ==
-* 3.0.4 - 2015-01-20 - Medium Priority
+
+= 3.0.5 - 2015-01-21 - Medium priority =
+* Additional bug fixes in the newsletter editor in conjunction with changes made in WordPress 4.1
+
+= 3.0.4 - 2015-01-20 - Medium Priority =
 * Newsletter editor bug fixes:
 *  Fixed bug that caused images to be dragged in incorrectly
 *  Fixed bug that caused image dividers to be dragged in incorrectly

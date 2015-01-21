@@ -308,3 +308,13 @@ line-height: 30px;
 .automatic_entry{
     background-color: antiquewhite;
 }
+
+body div div.mce-tinymce,body div div.mce-container,body div div.mce-panel
+{
+    width:100%;
+}
+
+body div div.mce-tinymce div,body div div.mce-container div,body div div.mce-panel div
+{
+    width:auto;
+}
