@@ -506,10 +506,14 @@ function sola_nl_action_callback() {
                 $result = $wpdb->get_row($sql);
                 $sub_key =  $result->sub_key;
                 $sub_id=$result->sub_id;
-                $list_id=$_REQUEST['ddl_lists_widget'];
                 
-                $query='INSERT INTO '.$sola_nl_subs_list_tbl.' (sub_id,list_id) VALUES ('.$sub_id.','.$list_id.')';  
-                $result = $wpdb->query($query);
+                if(isset($_REQUEST['ddl_lists_widget'])&&trim($_REQUEST['ddl_lists_widget'])!=="")
+                {
+                    $list_id=$_REQUEST['ddl_lists_widget'];
+                    $query='INSERT INTO '.$sola_nl_subs_list_tbl.' (sub_id,list_id) VALUES ('.$sub_id.','.$list_id.')';  
+                    $result = $wpdb->query($query);
+                }
+                
                 
                 $page_url = get_permalink( get_option("sola_nl_confirm_page"));
                 
