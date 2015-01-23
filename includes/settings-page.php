@@ -329,6 +329,15 @@ $sola_nl_ajax_nonce = wp_create_nonce("sola_nl");
                 </tr>
                 <tr>
                     <td>
+                        <label><?php _e("Allow users to select which list they would like to be added to","sola") ?>:</label>
+                    </td>
+                    <td>
+                        <input class="sola-input" type="checkbox" name="sola_nl_use_list" value="1" id="sola_nl_use_list" <?php if(get_option("sola_nl_use_list")){ echo 'checked'; } ?>/>
+                    </td>
+                </tr>
+                                
+                <tr id="sola_nl_list_of_lists">
+                    <td>
                         <label><?php _e("List","sola") ?>:</label>
                         <p class="description" style='padding:10px;'><?php _e("Select lists that subscribers will be associated with","sola"); ?></p>
                     </td>
@@ -345,7 +354,7 @@ $sola_nl_ajax_nonce = wp_create_nonce("sola_nl");
                             $lists = sola_nl_get_lists();
                             foreach($lists as $list){
                                 $list_id = $list->list_id;?>
-                                <input type="checkbox" name="sola_nl_sign_up_sub_list[]" <?php if(in_array($list_id, $sign_up_list)) echo "checked" ?> value="<?php echo $list->list_id ?>"/>
+                                <input type="checkbox" name="sola_nl_sign_up_sub_list[]" <?php if(is_array($sign_up_list)&&in_array($list_id, $sign_up_list)) echo "checked" ?> value="<?php echo $list->list_id ?>"/>
                                 <label><?php echo $list->list_name ?> (<?php echo sola_nl_total_list_subscribers($list->list_id) ?>)</label>
                                 <p class="description" style='padding:10px;'><?php echo $list->list_description ?></p>
                         <?php } ?>

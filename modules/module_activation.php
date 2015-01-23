@@ -55,6 +55,7 @@ function sola_nl_activate() {
     add_option("solag_nl_first_time", true);
     add_option("sola_nl_enable_link_tracking", 1);
 
+    add_option("sola_nl_use_list", 0);
   
 }
 

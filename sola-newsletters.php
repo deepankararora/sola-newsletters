@@ -3,12 +3,24 @@
 Plugin Name: Sola Newsletters
 Plugin URI: http://www.solaplugins.com
 Description: Create beautiful email newsletters in a flash with Sola Newsletters.
-Version: 3.0.5
+Version: 3.0.6
 Author: SolaPlugins
 Author URI: http://www.solaplugins.com
 */
 
-/* 3.0.5 - 2015-01-21 - Medium priority
+
+
+
+
+
+
+
+/*3.0.6 - 2015-01-23 - Medium priority
+ * The dragging of the social widget changed
+ * APC cache warning removed
+ * A person can now select the mailing list to subscribe to when subscribing
+ *
+ * 3.0.5 - 2015-01-21 - Medium priority
  * Additional bug fixes in the newsletter editor in conjunction with changes made in WordPress 4.1
  * 
  * 3.0.4 - 2015-01-20 - Medium Priority
@@ -107,7 +119,7 @@ define("SOLA_PLUGIN_NAME","Sola Newsletters");
 
 global $sola_nl_version;
 global $sola_nl_version_string;
-$sola_nl_version = "3.0.5";
+$sola_nl_version = "3.0.6";
 $sola_nl_version_string = "";
 
 
@@ -287,6 +299,10 @@ function sola_nl_update_control() {
                 add_option('sola_nl_enable_link_tracking', 1);
             } 
 
+            if(get_option('sola_nl_use_list') == ""){
+                add_option('sola_nl_use_list', 0);
+            }
+            
             update_option("sola_nl_version",$sola_nl_version);
             
             /* Version 3.0 updates */
@@ -489,6 +505,12 @@ function sola_nl_action_callback() {
                 $sql = "SELECT * FROM `$sola_nl_subs_tbl` WHERE `sub_email` = '$sub_email'";
                 $result = $wpdb->get_row($sql);
                 $sub_key =  $result->sub_key;
+                $sub_id=$result->sub_id;
+                $list_id=$_REQUEST['ddl_lists_widget'];
+                
+                $query='INSERT INTO '.$sola_nl_subs_list_tbl.' (sub_id,list_id) VALUES ('.$sub_id.','.$list_id.')';  
+                $result = $wpdb->query($query);
+                
                 $page_url = get_permalink( get_option("sola_nl_confirm_page"));
                 
                 $body = do_shortcode(nl2br(get_option("sola_nl_confirm_mail")));
@@ -544,10 +566,13 @@ function sola_nl_wp_head() {
    
      // check for apc-object-cache.php (godaddy)
 
-    $checker = get_dropins();
-    if (isset($checker['object-cache.php'])) {
-	echo "<div id=\"message\" class=\"error\"><p>".__("Please note: <strong>Sola Newsletters will not function correctly while using APC Object Cache.</strong> We have found that GoDaddy hosting packages automatically include this with their WordPress hosting packages. Please email GoDaddy and ask them to remove the object-cache.php from your wp-content/ directory.","sola")."</p></div>";
-    }
+//    $checker = get_dropins();
+    
+    /* albert 22 jan 2015 */
+    
+//    if (isset($checker['object-cache.php'])) {
+//	echo "<div id=\"message\" class=\"error\"><p>".__("Please note: <strong>Sola Newsletters will not function correctly while using APC Object Cache.</strong> We have found that GoDaddy hosting packages automatically include this with their WordPress hosting packages. Please email GoDaddy and ask them to remove the object-cache.php from your wp-content/ directory.","sola")."</p></div>";
+//    }
     
     
     if (isset($_POST['sola_nl_send_feedback'])) {
@@ -1012,7 +1037,12 @@ function sola_nl_add_single_subscriber($status = 1){
         if($sub_email){
            $sub_key = wp_hash_password( $sub_email );
            $sola_nl_sub_check = $wpdb->insert( $sola_nl_subs_tbl, array( 'sub_id' => '', 'sub_name' => $sub_name, 'sub_email' => $sub_email, 'sub_key' => $sub_key , "status" => $status ) ) ;
-           sola_nl_add_sub_list($sub_list, $wpdb->insert_id);
+           
+           if(isset($sub_list))
+           {
+               sola_nl_add_sub_list($sub_list, $wpdb->insert_id);
+           }
+           
            if($sola_nl_sub_check == false){ 
                     return new WP_Error( 'db_query_error', 
 			__( 'Could not add subscriber', 'sola' ), $wpdb->last_error );
@@ -1035,9 +1065,14 @@ function sola_nl_add_sub_list($list_ids, $sub_id){
    global $wpdb;
    global $sola_nl_subs_list_tbl;
    $wpdb->delete( $sola_nl_subs_list_tbl, array( 'sub_id' => $sub_id )); // Delete all assciated to this subscriber
-   foreach($list_ids as $list_id){
-      $wpdb->insert( $sola_nl_subs_list_tbl, array( 'id' => '', 'list_id' => $list_id, 'sub_id' => $sub_id)); // add each one again
+   
+   if($list_ids!==null)
+   {
+       foreach($list_ids as $list_id){
+        $wpdb->insert( $sola_nl_subs_list_tbl, array( 'id' => '', 'list_id' => $list_id, 'sub_id' => $sub_id)); // add each one again
+       }
    }
+   
 }
 function sola_nl_add_list(){
    global $wpdb;
@@ -1214,12 +1249,17 @@ function sola_nl_update_settings(){
    update_option("sola_nl_username",$sola_nl_username);
    update_option("sola_nl_password",$sola_nl_password);
    update_option("sola_nl_port",$sola_nl_port);
-   update_option("sola_nl_sign_up_title", $sola_nl_sign_up_title);
+   update_option("sola_nl_sign_up_title", $sola_nl_sign_up_title);   
    update_option("sola_nl_sign_up_btn","$sola_nl_sign_up_btn");
    if (isset($sola_nl_utm_source)) { update_option("sola_nl_utm_source",$sola_nl_utm_source); }
    if (isset($sola_nl_utm_medium)) { update_option("sola_nl_utm_medium",$sola_nl_utm_medium); }
    //var_dump($_POST['sola_nl_sign_up_sub_list']);
-   update_option("sola_nl_sign_up_lists", serialize($_POST['sola_nl_sign_up_sub_list']));
+   
+    if(isset($_POST['sola_nl_sign_up_sub_list']))
+    {
+       update_option("sola_nl_sign_up_lists", maybe_serialize($_POST['sola_nl_sign_up_sub_list']));
+    }
+   
    update_option("sola_nl_social_links", $social_links);
    update_option("sola_nl_encryption", $encryption);
    update_option("sola_nl_confirm_subject",$sola_nl_confirm_subject);   
@@ -1230,6 +1270,12 @@ function sola_nl_update_settings(){
    update_option("sola_nl_send_limit_time", $sola_nl_send_limit_time);
    update_option("sola_nl_browser_text", $sola_nl_browser_text);
    update_option("sola_nl_enable_link_tracking", $sola_nl_enable_link_tracking);
+   
+   if(isset($sola_nl_use_list) && $sola_nl_use_list == 1){
+       update_option('sola_nl_use_list', 1);
+   } else {
+       update_option('sola_nl_use_list', 0);
+   }
    
    return true;
 }

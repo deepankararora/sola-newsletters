@@ -388,5 +388,48 @@ jQuery(document).ready(function() {
        
     });
 
+
+
+
+
+    /*run on click and on page load - page load to determine display of listing options*/
+    //signup_widget.lists.determine_list_manipulation();
+    
+    //jQuery('#sola_nl_use_list').click(function()
+    //{
+      //  signup_widget.lists.determine_list_manipulation();
+    //});
+
+    /* - -------------------------------------- - - */
+
+
 });
 
+/*
+
+var signup_widget={
+    lists:{
+        determine_list_manipulation:function()
+        {
+            if(jQuery('#sola_nl_list_of_lists').is(':visible'))
+            {
+                signup_widget.lists.hide();
+            }
+            else
+            {
+                signup_widget.lists.show();
+            }
+        },
+        show:function()
+        {
+            jQuery('#sola_nl_list_of_lists').show();
+        },
+        hide:function()
+        {
+            jQuery('#sola_nl_list_of_lists').hide();
+            jQuery('#sola_nl_list_of_lists :checkbox').removeAttr('checked');
+        }
+    }
+};
+
+*/

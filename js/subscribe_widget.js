@@ -34,5 +34,43 @@ jQuery(function(){
         });
 
     });
+    
+    
+    
+    jQuery('#ddl_lists_widget').unbind('change').on('change',function()
+    {
+        var list_id=jQuery(this).val();
+        if(list_id!=='')
+        {
+            manipulate_form.show_list_description(list_id);
+        }
+        else
+        {
+            manipulate_form.hide_all_lists();
+        }
+    });
+    
+    
+    
+    
+    
+    
+    
+    
 });
+
+var manipulate_form={
+    show_list_description:function(id)
+    {
+        this.hide_all_lists();
+        jQuery('#list_description_display_'+id).attr('style','display:block;');
+    },
+    hide_all_lists:function()
+    {
+        jQuery('.hidden_list_descriptions').attr('style','display:none;');
+    }
+};
+
+
+
 

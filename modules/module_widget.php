@@ -25,7 +25,10 @@ class sola_nl_widget extends WP_Widget {
         echo $args['before_title'] . $title . $args['after_title'];
 
         // This is where you run the code and display the output
-        sola_nl_sign_up_box();
+        echo sola_nl_sign_up_box();
+        
+        
+        
         echo $args['after_widget'];
     }
 
@@ -89,12 +92,102 @@ function sola_nl_widget_add_sub(){
         if ( is_wp_error($check) ) sola_return_error($check);
     }
 }
-function sola_nl_sign_up_box(){
+function sola_nl_sign_up_box()
+{
+    $sola_nl_ajax_nonce = wp_create_nonce("sola_nl");
+    $option=get_option("sola_nl_sign_up_title");
+    $hidden_list_description='';
+    
+    
+    
+    $out='<div id="sola_nl_sign_up_box_'.rand() .'" class="sola_nl_sign_up_box">
+    <div id="sola_nl_title">
+        <h3>'.$option.'</h3>
+    </div>
+    <form  class="sola_nl_sub_form">
+        <div class="sola_sign_up_form_row">
+            <label>
+                '. __("Name","sola") .':
+            </label>
+            <input type="text"  name="sub_name"/>
+        </div>
+        <div class="sola_sign_up_form_row">
+            <label>
+                '. __('E-mail', 'sola').'
+            </label>
+            <input type="email"  name="sub_email"/>
+        </div>
+        <div style="display:none">
+            <input name="action" value="sola_nl_sign_up_add_sub" type="hidden"/>
+            <input name="security" value="'.$sola_nl_ajax_nonce.'" type="hidden"/>';
+            
+    
+        
+        $out.='</div>';
+        
+        $out.='<br/>';
+        
+        if(get_option('sola_nl_use_list')){
+            $lists = sola_nl_get_lists();
+
+            $out.='<select name="ddl_lists_widget" id="ddl_lists_widget">';
+            $out.='<option value="" selected="selected"> - Available lists - </option>';
+
+            foreach ($lists as $list) {
+
+                $list_id = $list->list_id;
+                $list_description = $list->list_description;
+                $list_name = $list->list_name;
+
+                $out.='<option value="' . $list_id . '">' . $list_name . '</option>';
+                $hidden_list_description.='<div class="hidden_list_descriptions" id="list_description_display_' . $list_id . '" style="display:none;"> ' . $list_description . ' </div>';
+            }
+            $out.='</select>';
+        } else {
+            /* Choose the default list - old way */
+            
+        }
+
+
+
+
+
+
+
+    $out.=$hidden_list_description;
+        $out.='<br/><br/>';
+        
+        
+        
+        
+        $out.='<div>
+            <input type="submit" value="'. __(get_option("sola_nl_sign_up_btn"), "sola") .'">
+        </div>
+        
+    </form>
+</div>';
+
+return $out;
+        
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+/*    
     $sola_nl_ajax_nonce = wp_create_nonce("sola_nl");
     ?>
 <div id="sola_nl_sign_up_box_<?php echo rand() ?>" class="sola_nl_sign_up_box">
     <div id="sola_nl_title">
-        <h3><?php _e(get_option("sola_nl_sign_up_title"),"sola")?></h3>
+        <h3><?php __(get_option("sola_nl_sign_up_title"),"sola")?></h3>
     </div>
     <form  class="sola_nl_sub_form">
         <div class="sola_sign_up_form_row">
@@ -125,6 +218,7 @@ function sola_nl_sign_up_box(){
         
     </form>
 </div>
-    <?php
+    <?php 
+ */
 }
 add_shortcode('sola_nl_sign_up', 'sola_nl_sign_up_box');

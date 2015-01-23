@@ -318,3 +318,15 @@ body div div.mce-tinymce div,body div div.mce-container div,body div div.mce-pan
 {
     width:auto;
 }
+
+body div.hidden_list_descriptions{
+    
+    margin-left:0px;
+    margin-top:15px;
+    padding:15px;
+    display:block; /*this will be applied and if the browser supports the other display value then it will be used*/
+    display:inline-table;
+    border:1px solid grey;
+    border-radius:2px;
+    width:98%;
+}

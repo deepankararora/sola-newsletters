@@ -83,6 +83,7 @@ body{
     overflow: hidden;
     overflow-y: auto;
     padding-bottom: 20px;
+    height:420px;
 }
 
 .sidebar .content{

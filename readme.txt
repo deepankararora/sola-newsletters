@@ -121,6 +121,13 @@ Not applicable.
 
 == Changelog ==
 
+
+= 3.0.6 - 2015-01-23 - Medium priority =
+* The dragging of the social widget bug fixed in newsletter editor
+* APC cache warning removed
+* A person can now select the newsletter mailing list when subscribing
+
+
 = 3.0.5 - 2015-01-21 - Medium priority =
 * Additional bug fixes in the newsletter editor in conjunction with changes made in WordPress 4.1
 
