@@ -120,7 +120,20 @@ Sola Newsletters strongly suggests that you follow the CAN-SPAM Act. We have inc
 Not applicable.
 
 == Changelog ==
-
+= 4.0.0 - 2015-02-06 - Medium priority =
+* Major improvements to the newsletter editor
+*  You can now add tables to your newsletters (2 columns, 3 columns and 4 columns)
+*  Improved drag and drop functionality
+*  Image bug fixes (plugin no longer adds an image to a newsletter as width:100%, but rather max-width:100%)
+*  Fixed height issue for left sidebar in the newsletter editor
+*  Usability improvements in the newsletter editor
+* Theme functionality
+*  We have finally introduced newsletter theme/layout functionality
+*  You can now create your own layouts to sell on our website
+*  You can now acquire new themes by visiting the Sola Newsletters website (solaplugins.com)
+* Other changes
+*  A Valentines Day newsletter theme is now available for purchase on our website
+*  Many bug fixes
 
 = 3.0.6 - 2015-01-23 - Medium priority =
 * The dragging of the social widget bug fixed in newsletter editor

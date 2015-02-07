@@ -1,5 +1,5 @@
 <?php
-session_start();
+@session_start();
 // checks if any camps to send via ajax
 
 
@@ -681,7 +681,7 @@ function sola_cron_send($camp_id = false) {
                     
 //                    echo $sub_email;
                     
-                    var_dump('Subscriber ID '.$sub_id);
+                    //var_dump('Subscriber ID '.$sub_id);
 
                     $the_email = $camp->email;
 //                    global $sola_global_subid;

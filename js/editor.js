@@ -83,7 +83,7 @@ jQuery(document).ready( function() {
      
 
     sola_nl_make_sortable();
-    
+    sola_add_toolbars();
     
     
     jQuery(".editable").hover(function(){ 
@@ -126,7 +126,7 @@ jQuery(document).ready( function() {
                 jQuery("#"+did).html(content).removeClass("noPad").bind("dblclick", replaceHTML);
                 //jQuery("#"+did).parent().addClass('sortable-item');
                 jQuery("#"+did).parent().removeClass('notdrag');
-                jQuery('#sola_toolbar').remove();
+                // here 1 jQuery('#sola_toolbar').remove();
                 sola_is_editing = false;
                 sola_save_letter();
             }
@@ -143,7 +143,7 @@ jQuery(document).ready( function() {
             jQuery("#"+did).html(content).removeClass("noPad").bind("dblclick", replaceHTML);
             jQuery("#"+did).parent().addClass('sortable-item');
             jQuery("#"+did).parent().removeClass('notdrag');
-            jQuery('#sola_toolbar').remove();
+            //here 1jQuery('#sola_toolbar').remove();
             sola_is_editing = false;
             
             //alert('Please save changes first');
@@ -156,7 +156,7 @@ jQuery(document).ready( function() {
         //jQuery("#sola_nl_save_text").html('<strong style="color:red;">Changes Not Saved</strong>');
         sola_is_editing = true;
         sola_is_editing_id = jQuery(this).attr("id");
-        jQuery('#sola_toolbar').remove();
+        //here1jQuery('#sola_toolbar').remove();
 
         oldText = jQuery(this).html().replace(/"/g, '"');  
         //alert(oldText);
@@ -295,10 +295,28 @@ jQuery(document).ready( function() {
         
     });
     
+    
+    
+    
+    
+    
+    
     /* -------------------------------------------------------------- */
    
    
    
+   
+   
+   jQuery('.sola_addable_image').draggable({
+        helper: function(e) {
+            return jQuery('<div type="image" truesrc="'+jQuery(this).attr("truesrc")+'" thumbnail="'+jQuery(this).attr("thumbnail")+'">').addClass('editable').append("<img src='"+jQuery(this).attr("thumbnail")+"' />");
+        },
+        connectToSortable: ".sortable-list"
+    });
+       
+   
+       
+
    
    
    
@@ -314,24 +332,86 @@ jQuery(document).ready( function() {
 //        connectToSortable: ".sortable-list"
 //    });
     jQuery('.sola_addable_hr').draggable({
-                helper: function(e) {
-                    //console.log(jQuery(this).attr("truesrc"));
-                    var checker = jQuery('<div type="image_divider" truesrc="'+jQuery(this).attr("thumbnail")+'">').addClass('editable').append("<img src='"+jQuery(this).attr("thumbnail")+"' width='300px'/>");
-                    return checker;
-                },
-                connectToSortable: ".sortable-list"
-            });
-    
-    jQuery("body").on({
-        mouseenter: function () {
-            if (sola_is_editing === true) { return; }
-            jQuery(this).prepend("<div id='sola_toolbar'><i class='sola_tool_icon fa fa-trash-o' id='sola_tool_delete'></i></div>"); 
+        helper: function(e) {
+            //console.log(jQuery(this).attr("truesrc"));
+            var checker = jQuery('<div type="image_divider" truesrc="'+jQuery(this).attr("thumbnail")+'">').addClass('editable').append("<img src='"+jQuery(this).attr("thumbnail")+"' width='300px'/>");
+            return checker;
         },
-        mouseleave: function () {
-            if (sola_is_editing === true) { return; }
-             jQuery('#sola_toolbar').remove();
-        }
-    }, ".sortable-item"); //pass the element as an argument to .on
+        connectToSortable: ".sortable-list"
+    });
+    
+    
+    
+    
+//    var allsortables = jQuery('.sortable-item', jQuery("#sola_newsletter_wrapper"))
+//    var wtf = allsortables.filter(function(){
+//
+//
+//        var wid = jQuery(this).width();
+//        /* check if we have added the toolbar already */
+//        var cur_children = jQuery(this).children();
+//        //console.log(jQuery(this).children(".sola_tool"));
+//        console.log(jQuery(this).find(".sola_tool").selector.length);
+//       // console.log(cur_children);
+//        if (jQuery(this).find(".sola_tool").selector.length > 0) {
+//            /* do nothing */
+//            console.log("do nothing");
+//        } else {
+//            /* check if it is a sortable TD, if yes, add the TD MOVE handle */
+//            if (jQuery(this).parent().hasClass('sortable-list-2')) {
+//                 console.log("td sortable");
+//                 jQuery(this).prepend("<div id='sola_toolbar' class='sola_tool' style='width:"+wid+"px;'><i class='sola_tool_icon fa fa-arrows' id='sola_tool_move_td'></i> <i class='sola_tool_icon fa fa-trash-o' id='sola_tool_delete'></i></div>"); 
+//            } else if (jQuery(this).parent().hasClass('sortable-list')) {
+//                 console.log("normal list");
+//                 jQuery(this).prepend("<div id='sola_toolbar' class='sola_tool' style='width:"+wid+"px;'><i class='sola_tool_icon fa fa-arrows' id='sola_tool_move'></i> <i class='sola_tool_icon fa fa-trash-o' id='sola_tool_delete'></i></div>"); 
+//
+//            }
+//        }
+          
+          
+          ////          console.log(jQuery(this)[0].src);
+//          
+//          var currentsrc = jQuery(this)[0].src;
+//          var encodedData = window.btoa(jQuery(this)[0].src);
+//          newHTML = newHTML.replace(currentsrc, "data:image/jpg;base64,"+encodedData);
+//          console.log(encodedData);
+//        });
+//    
+    
+    
+    
+    
+    
+//    
+//    jQuery("body").on({
+//        mouseenter: function () {
+//            if (sola_is_editing === true) { return; }
+//            jQuery('#sola_toolbar').remove();
+//            var wid = jQuery(this).width();
+//            jQuery(this).prepend("<div id='sola_toolbar' style='width:"+wid+"px;'><i class='sola_tool_icon fa fa-arrows' id='sola_tool_move'></i> <i class='sola_tool_icon fa fa-trash-o' id='sola_tool_delete'></i></div>"); 
+//        },
+//        mouseleave: function () {
+//            if (sola_is_editing === true) { return; }
+//             jQuery('#sola_toolbar').remove();
+//        }
+//    }, ".sortable-list .sortable-item"); //pass the element as an argument to .on
+//    
+//      
+//     /* handle the dragging and sorting between TD elements in a table with multiple columns */
+//    jQuery("body").on({
+//        mouseenter: function () {
+//            if (sola_is_editing === true) { return; }
+//            jQuery('#sola_toolbar').remove();
+//            var wid = jQuery(this).width();
+//            jQuery(this).prepend("<div id='sola_toolbar' style='width:"+wid+"px;'><i class='sola_tool_icon fa fa-arrows' id='sola_tool_move_td'></i> <i class='sola_tool_icon fa fa-trash-o' id='sola_tool_delete'></i></div>"); 
+//        },
+//        mouseleave: function () {
+//            if (sola_is_editing === true) { return; }
+//             jQuery('#sola_toolbar').remove();
+//        }
+//    }, ".sortable-list-2 .sortable-item"); //pass the element as an argument to .on
+//    
+      
     
 /*  
     jQuery("body").on("mouseenter", ".sortable-item", function(){      
@@ -443,6 +523,7 @@ jQuery(document).ready( function() {
     // SEND TEST MAIL
     jQuery("body").on("click", ".sola_send_test_mail", function(){      
         jQuery(this).prop( "disabled", true );
+        sola_remove_toolbars();
         var sola_nl_body = jQuery("#sola_newsletter_wrapper").html();
         var sola_nl_to = jQuery("#sola_nl_to_mail_test").val();
         var camp_id = jQuery("#sola_newsletter_wrapper").attr("camp_id");
@@ -456,7 +537,8 @@ jQuery(document).ready( function() {
         
         //alert(data);
         jQuery.post(ajaxurl, data, function(response) {
-            
+            sola_add_toolbars();
+
             alert(response);
             
             jQuery(".sola_send_test_mail").prop( "disabled", false );
@@ -518,12 +600,8 @@ jQuery(document).ready( function() {
               jQuery('#images').append('<div type="image" truesrc="'+attachment.url+'" thumbnail="'+thumbnail+'" class="sola_addable_image" style="float:left; padding:3px; margin:3px;"><img src="'+thumbnail+'" /></div>');
               
             });
-            jQuery('.sola_addable_image').draggable({
-                helper: function(e) {
-                    return jQuery('<div type="image" truesrc="'+jQuery(this).attr("truesrc")+'" thumbnail="'+jQuery(this).attr("thumbnail")+'">').addClass('editable').append("<img src='"+jQuery(this).attr("thumbnail")+"' />");
-                },
-                connectToSortable: ".sortable-list"
-            });
+
+
             
         });
  
@@ -576,7 +654,7 @@ jQuery(document).ready( function() {
         jQuery("#"+did).html(oldText).removeClass("noPad").bind("dblclick", replaceHTML);  
         //jQuery("#"+did).parent().addClass('sortable-item');
         jQuery("#"+did).parent().removeClass('notdrag');
-        jQuery('#sola_toolbar').remove();
+        //here 1 jQuery('#sola_toolbar').remove();
         sola_is_editing = false;
     }
     
@@ -590,9 +668,24 @@ jQuery(document).ready( function() {
         jQuery("#sola_nl_btn").attr("href",jQuery(this).val());
     });
     
+    jQuery("#sola_nl_export_dialog").dialog({
+        autoOpen: false,
+        width: '25%',
+        height: 400
+        
+    });
+
+    jQuery(".sola_nl_open_export_dialog").click(function() {
+       sola_save_letter();
+       jQuery("#sola_nl_export_dialog").dialog("open");
+    });
+    
+    
   });
   
+jQuery(function() {
   
+});
   
   function sola_nl_make_sortable() {    
        
@@ -600,7 +693,8 @@ jQuery(document).ready( function() {
             connectWith: '#sola_newsletter_wrapper .sortable-list',
             cancel: ".notdrag",
             placeholder: 'placeholder',
-            
+            items: 'table',
+            handle: '#sola_tool_move',
             update: function (event, ui) {
                 var td_data = "";
                 var solaid = new Date().getTime();
@@ -613,7 +707,109 @@ jQuery(document).ready( function() {
                         td_data = jQuery("<p>Double Click to edit</p>");
                     } else if (ui.item.attr('type') === 'image'){
                         orig_html = ui.item.attr('truesrc');
-                        td_data = jQuery("<img class='nl_img' src='"+orig_html+"' style=\'width:100%;\'/>");
+                        td_data = jQuery("<img class='nl_img' src='"+orig_html+"' style=\'max-width:100%;\'/>");
+                    } else if (ui.item.attr('type') === 'table'){
+                        td_cnt = ui.item.attr('cols');
+                       
+                        if (td_cnt < 2 || td_cnt > 4) { td_cnt = 2; }
+                        
+                        if (td_cnt == 2) { 
+                            td_data = jQuery('<table border="0" cellpadding="0" cellspacing="0" class="sola_table " width="100%"><tbody><tr class="sortable-list-2"><td class="editable sortable-item sortable-list" width="50%" id="'+solaid+1+'"><table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%"><tbody><tr><td class="editable" id="'+solaid+2+'"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lobortis maximus felis, ac congue odio finibus eu. Quisque vel posuere felis. In hac habitasse platea dictumst.</p></td></tr></tbody></table></td><td class="editable sortable-item sortable-list" width="50%" id="'+solaid+3+'"><table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%"><tbody><tr><td class="editable" id="'+solaid+4+'"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lobortis maximus felis, ac congue odio finibus eu. Quisque vel posuere felis. In hac habitasse platea dictumst.</p></td></tr></tbody></table></td></tr></tbody></table>');
+                        }
+                        if (td_cnt == 3) {
+                            td_data = jQuery('<table border="0" cellpadding="0" cellspacing="0" class="sola_table " width="100%"><tbody><tr class="sortable-list-2"><td class="editable sortable-item sortable-list" width="33.3%" id="'+solaid+1+'"><table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%"><tbody><tr><td class="editable" id="'+solaid+2+'"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lobortis maximus felis, ac congue odio finibus eu. Quisque vel posuere felis. In hac habitasse platea dictumst.</p></td></tr></tbody></table></td><td class="editable sortable-item sortable-list" width="33.3%" id="'+solaid+3+'"><table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%"><tbody><tr><td class="editable" id="'+solaid+4+'"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lobortis maximus felis, ac congue odio finibus eu. Quisque vel posuere felis. In hac habitasse platea dictumst.</p></td></tr></tbody></table></td><td class="editable sortable-item sortable-list" width="33.3%" id="'+solaid+6+'"><table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%"><tbody><tr><td class="editable" id="'+solaid+7+'"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lobortis maximus felis, ac congue odio finibus eu. Quisque vel posuere felis. In hac habitasse platea dictumst.</p></td></tr></tbody></table></td></tr></tbody></table>');
+                        }
+                        if (td_cnt == 4) {
+                            td_data = jQuery('<table border="0" cellpadding="0" cellspacing="0" class="sola_table " width="100%"><tbody><tr class="sortable-list-2"><td class="editable sortable-item sortable-list" width="20%" id="'+solaid+1+'"><table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%"><tbody><tr><td class="editable" id="'+solaid+2+'"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lobortis maximus felis, ac congue odio finibus eu. Quisque vel posuere felis. In hac habitasse platea dictumst.</p></td></tr></tbody></table></td><td class="editable sortable-item sortable-list" width="20%" id="'+solaid+3+'"><table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%"><tbody><tr><td class="editable" id="'+solaid+4+'"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lobortis maximus felis, ac congue odio finibus eu. Quisque vel posuere felis. In hac habitasse platea dictumst.</p></td></tr></tbody></table></td><td class="editable sortable-item sortable-list" width="20%" id="'+solaid+6+'"><table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%"><tbody><tr><td class="editable" id="'+solaid+7+'"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lobortis maximus felis, ac congue odio finibus eu. Quisque vel posuere felis. In hac habitasse platea dictumst.</p></td></tr></tbody></table></td><td class="editable sortable-item sortable-list" width="20%" id="'+solaid+8+'"><table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%"><tbody><tr><td class="editable" id="'+solaid+9+'"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lobortis maximus felis, ac congue odio finibus eu. Quisque vel posuere felis. In hac habitasse platea dictumst.</p></td></tr></tbody></table></td></tr></tbody></table>');
+                        }
+                        
+                        
+                    } else if (ui.item.attr('type') === 'image_divider'){
+                        orig_html = ui.item.attr('truesrc');
+                        td_data = jQuery("<img src='"+orig_html+"' style=\'width:100%;\'/>");
+                    } else if (ui.item.attr('type') === 'divider'){
+                        orig_html = ui.item.attr('truesrc');
+                        td_data = jQuery("<p style='display:block; height:15px;'>&nbsp;</p>");
+                    } else if (ui.item.attr('type') === "automatic_content"){
+                        
+                        var feat_image = "[sola_nl_automatic_featured_image]";
+                        var title = "[sola_nl_automatic_title]";
+                        var post_url = "[sola_nl_automatic_url]";
+                        var post_content = "[sola_nl_automatic_content]";
+                        
+                        jQuery("#editor-content").hide();
+                        jQuery("#editor-styles").hide();
+                        jQuery("#content-options").removeClass('active');
+                        jQuery("#style-options").removeClass('active');
+                        jQuery("#automatic-options").addClass('active');
+                        jQuery("#editor-automatic").show();
+                        
+                        
+                        td_data = jQuery("<table id='sola_nl_automatic_container' style='width:96%; border:1px solid #CCC; margin-left:auto; margin-right:auto; margin-top: 5px; margin-bottom: 5px; -webkit-box-shadow: 2px 2px 11px 0px rgba(50, 50, 50, 0.7); -moz-box-shadow: 2px 2px 11px 0px rgba(50, 50, 50, 0.7); box-shadow: 2px 2px 11px 0px rgba(50, 50, 50, 0.7);' height='125' align='center' valign='middle'><tr><td align='center' valign='middle'><i class=\"fa fa-5x fa-file-text-o\"></i><br />AUTOMATIC CONTENT</td></tr></table>");
+                    }  else if (ui.item.attr('type') === "blog_post"){
+                        var post = ui.item.attr('value');
+                        var feat_image = ui.item.attr('feat_image');
+                        var title = ui.item.attr("title");
+                        var post_url = ui.item.attr("post_url");
+                        td_data = jQuery("<img src='"+feat_image+"' height='150px' style='margin:0 10px 0 0; float:left;'/><h3>"+title+"</h3><p>"+post+" <a title='Read More' href='"+post_url+"'>Read More</a></p>");
+                    } else if(ui.item.attr('type') === "social_icons"){
+                        td_data = ui.item.html();
+                        td.addClass("social-icons-div");
+                    } else if(ui.item.attr('type') === "btn"){
+                        
+                        td = jQuery('<td class="" id="'+solaid+'"></td>');
+                        td_data = ui.item.html();
+                    } 
+                    //add data to td element
+                    td.append(td_data);
+                    tr.append(td);
+                    table.append(tr);
+                    ui.item.replaceWith(table);
+                    
+                } else {
+                    // this is to move an exsiting item in the editor
+                }
+
+                sola_save_letter();
+            }
+        }).disableSelection();
+        
+        /* HANDLES MULTIPLE TD TABLES */
+        jQuery('.sortable-list-2').sortable({
+            axis: 'x',
+            helper: "clone",
+            placeholder: 'placeholder_td',
+            handle: '#sola_tool_move_td',
+            start: function(event, ui){
+                jQuery(".placeholder_td").css({width: jQuery(ui.item).width()});    
+            },
+            update: function (event, ui) {
+                sola_save_letter();
+            }
+        }).disableSelection();
+        
+         /* HANDLES THE DRAGGING OF OUTSIDE ELEMENTS INTO THE TABLES WITH MULTIPLE TDS */
+        jQuery('.sortable-list-inner-table').sortable({
+            axis: "x",
+            helper: "clone",
+            placeholder: 'placeholder_td',
+            handle: '#sola_tool_move_td',
+            start: function(event, ui){
+                jQuery(".placeholder_td").css({width: jQuery(ui.item).width()});    
+            },
+            update: function (event, ui) {
+                var td_data = "";
+                var solaid = new Date().getTime();
+                var table = jQuery('<table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%"></table>');
+                var tr = jQuery("<tr></tr>");
+                var td = jQuery('<td class="editable" id="'+solaid+'"></td>');
+                //this adds new items to the editor
+                if(ui.item.attr('type')){
+                    if(ui.item.attr('type') === "text"){
+                        td_data = jQuery("<p>Double Click to edit</p>");
+                    } else if (ui.item.attr('type') === 'image'){
+                        orig_html = ui.item.attr('truesrc');
+                        td_data = jQuery("<img class='nl_img' src='"+orig_html+"' style=\'max-width:100%;\'/>");
                     } else if (ui.item.attr('type') === 'image_divider'){
                         orig_html = ui.item.attr('truesrc');
                         td_data = jQuery("<img src='"+orig_html+"' style=\'width:100%;\'/>");
@@ -661,14 +857,17 @@ jQuery(document).ready( function() {
                     
                 } else {
                     // this is to move an exsiting item in the editor
-                    jQuery('#sola_toolbar').remove();
+                    //HERE1
+                    //jQuery('#sola_toolbar').remove();
                 }
 
                 // add td to table
                    
                 sola_save_letter();
             }
-        });
+        }).disableSelection();
+        
+        
     }
   
   function sola_add_style_to_letter(){
@@ -676,14 +875,46 @@ jQuery(document).ready( function() {
             
             jQuery(jQuery(this).attr("element")).css(jQuery(this).attr("css"),jQuery(this).attr("value"));
         });
-    }
-  
-  function sola_save_letter(redirect){
+}
+function sola_add_toolbars() {
+    jQuery( ".sortable-item" ).each(function() {
+       var wid = jQuery(this).width(); 
+       var cur_children = jQuery(this).children();
+       var elementType = jQuery(this).prop('tagName');
+       
+       if (elementType === "TABLE") { elementType = "&lt;table&gt;" }
+       if (elementType === "TD") { elementType = "&lt;column&gt;" }
+       
+        if (jQuery(this).find(".sola_tool").length > 0) {
+            /* do nothing */
+        } else {
+            /* check if it is a sortable TD, if yes, add the TD MOVE handle */
+            if (jQuery(this).parent().hasClass('sortable-list-2')) {
+                 /* td */
+                 jQuery(this).prepend("<div id='sola_toolbar' class='sola_tool toolbar_td' style='width:"+wid+"px;'><em>"+elementType+"</em><i class='sola_tool_icon fa fa-arrows' id='sola_tool_move_td'></i> <i class='sola_tool_icon fa fa-trash-o' id='sola_tool_delete'></i></div>"); 
+            } else if (jQuery(this).parent().hasClass('sortable-list')) {
+                 /* normal */
+                 jQuery(this).prepend("<div id='sola_toolbar' class='sola_tool' style='width:"+wid+"px;'><em>"+elementType+"</em><i class='sola_tool_icon fa fa-arrows' id='sola_tool_move'></i> <i class='sola_tool_icon fa fa-trash-o' id='sola_tool_delete'></i></div>"); 
+
+            }
+        }
+        
+    });
+    
+}
+function sola_remove_toolbars() {
+    jQuery('.sola_tool').remove();
+}
+
+function sola_save_letter(redirect){
         
         
         
         jQuery(".header-right").css("background", "");
         //jQuery(this).prop( "disabled", true );
+        
+        
+        sola_remove_toolbars();
         sola_add_style_to_letter();
         var sola_nl_html = jQuery("#sola_newsletter_preview").html();
         jQuery("#sola_nl_save_text").html('Saving...');
@@ -732,7 +963,49 @@ jQuery(document).ready( function() {
             attributes["array_name"] = jQuery(this).closest('.style_element_wrapper').attr('array_name');
             styles.push(attributes);
         });
+//        var newHTML;
+//        newHTML = sola_nl_html;
+//        
+//        var allImages = jQuery('img', jQuery("#sola_newsletter_preview"))
+//        var largeImages = allImages.filter(function(){
+//        
+//          console.log(jQuery(this));
+//          console.log(jQuery(this)[0].src);
+//          
+//          var currentsrc = jQuery(this)[0].src;
+//          var encodedData = window.btoa(jQuery(this)[0].src);
+//          newHTML = newHTML.replace(currentsrc, "data:image/jpg;base64,"+encodedData);
+//          console.log(encodedData);
+//        });
         
+        var sola_nl_main_array = [];
+        var d = new Date();
+
+        var month = d.getMonth()+1;
+        var day = d.getDate();
+
+        var date_output = d.getFullYear() + '/' +
+            (month<10 ? '0' : '') + month + '/' +
+            (day<10 ? '0' : '') + day;
+        
+        var sola_nl_theme_data = {};
+        sola_nl_theme_data["title"] = "title here";
+        sola_nl_theme_data["author"] = "Author";
+        sola_nl_theme_data["version"] = "1.0";
+        sola_nl_theme_data["author_url"] = "Author";
+        sola_nl_theme_data["licence"] = "GPLv3";
+        sola_nl_theme_data["date"] = date_output;
+        
+        
+//        sola_nl_main_array.push(sola_nl_theme_data);
+//        sola_nl_main_array.push(styles);
+//        sola_nl_main_array.push(sola_nl_html);
+//        var sola_nl_json_export = JSON.stringify(sola_nl_main_array);
+        
+        jQuery(".sola_nl_export_textarea_data").val(JSON.stringify(sola_nl_theme_data), null, " ");
+        jQuery(".sola_nl_export_textarea_styles").val(JSON.stringify(styles), null, " ");
+        jQuery(".sola_nl_export_textarea_html").val(sola_nl_html.trim());
+
         var data = {
             action: 'save_template',
             security: sola_nl_nonce,
@@ -741,6 +1014,8 @@ jQuery(document).ready( function() {
             sola_html: sola_nl_html,
             auto_options: auto_options
         };
+        
+        
        
         
         jQuery.ajax({
@@ -761,11 +1036,13 @@ jQuery(document).ready( function() {
 //                    console.log(the_data);
                     window.location.href = redirect;
                 }
+                sola_add_toolbars();
                 return true;
             }
             
             
         });
+        sola_add_toolbars();
         
         
         

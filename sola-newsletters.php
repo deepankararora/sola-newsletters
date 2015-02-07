@@ -3,19 +3,27 @@
 Plugin Name: Sola Newsletters
 Plugin URI: http://www.solaplugins.com
 Description: Create beautiful email newsletters in a flash with Sola Newsletters.
-Version: 3.0.6
+Version: 4.0.0
 Author: SolaPlugins
 Author URI: http://www.solaplugins.com
 */
 
-
-
-
-
-
-
-
-/*3.0.6 - 2015-01-23 - Medium priority
+/* 4.0.0 - 2015-02-06 - Medium priority
+ * Major improvements to the newsletter editor
+ *  You can now add tables to your newsletters (2 columns, 3 columns and 4 columns)
+ *  Improved drag and drop functionality
+ *  Image bug fixes (plugin no longer adds an image to a newsletter as width:100%, but rather max-width:100%)
+ *  Fixed height issue for left sidebar in the newsletter editor
+ *  Usability improvements in the newsletter editor
+ * Theme functionality
+ *  We have finally introduced newsletter theme/layout functionality
+ *  You can now create your own layouts to sell on our website
+ *  You can now acquire new themes by visiting the Sola Newsletters website (solaplugins.com)
+ * Other changes
+ *  A Valentines Day newsletter theme is now available for purchase on our website
+ *  Many bug fixes
+ * 
+ * 3.0.6 - 2015-01-23 - Medium priority
  * The dragging of the social widget changed
  * APC cache warning removed
  * A person can now select the mailing list to subscribe to when subscribing
@@ -71,11 +79,8 @@ Author URI: http://www.solaplugins.com
  * New Languages Added:
  *  - French (Thank you Katia from Creaweb again)
  *  - Russian (Thank you Alexey Arkhipenko)
- */
-
-
-
-/* 
+ * 
+ *  
  * v2.3
  * New features:
  * - You can now view the average newsletter open rate from all past campaigns
@@ -119,7 +124,7 @@ define("SOLA_PLUGIN_NAME","Sola Newsletters");
 
 global $sola_nl_version;
 global $sola_nl_version_string;
-$sola_nl_version = "3.0.6";
+$sola_nl_version = "4.0.1";
 $sola_nl_version_string = "";
 
 
@@ -277,6 +282,8 @@ function sola_init() {
     sola_nl_update_control();
     
 }
+
+add_action('init','sola_nl_update_control');
 
 function sola_nl_update_control() {
     global $sola_nl_version;
@@ -578,6 +585,37 @@ function sola_nl_wp_head() {
 //	echo "<div id=\"message\" class=\"error\"><p>".__("Please note: <strong>Sola Newsletters will not function correctly while using APC Object Cache.</strong> We have found that GoDaddy hosting packages automatically include this with their WordPress hosting packages. Please email GoDaddy and ask them to remove the object-cache.php from your wp-content/ directory.","sola")."</p></div>";
 //    }
     
+   
+   /* theme upload handling */
+   if (isset($_POST['sola_upload_theme_btn'])) {
+       if (is_array($_FILES['sola_theme_file'])) {
+            // You should also check filesize here. 
+            if ($_FILES['sola_theme_file']['size'] > 1000000) {
+                echo "File upload size too large";
+                return;
+            }
+            
+            WP_Filesystem();
+            $destination = wp_upload_dir();
+            $destination_path = $destination['basedir']."/sola/themes/";
+            $unzipfile = unzip_file( $_FILES['sola_theme_file']['tmp_name'], $destination_path);
+
+            if ( $unzipfile ) {
+               echo "<div class='updated'><p>".__('Theme uploaded successfully','sola')."<p></div>";
+            } else {
+               echo __('Cannot upload the theme. Please ensure WordPress has write permission to the Uploads folder','sola');
+            }
+
+        
+       } else {
+           
+       }
+        
+       
+       
+   }
+   
+   
     
     if (isset($_POST['sola_nl_send_feedback'])) {
         if(wp_mail("support@solaplugins.com", "Plugin feedback", "Name: ".$_POST['sola_nl_feedback_name']."\n\r"."Email: ".$_POST['sola_nl_feedback_email']."\n\r"."Website: ".$_POST['sola_nl_feedback_website']."\n\r"."Feedback:".$_POST['sola_nl_feedback_feedback'] )){
@@ -773,14 +811,32 @@ function sola_nl_wp_head() {
     }
     if(isset($_POST['sola_set_theme'])){
         
-        $sola_nl_check = sola_set_theme($_POST['theme_id'], $_POST['camp_id']);
-        if(is_wp_error($sola_nl_check)){
-            sola_return_error($sola_nl_check);
-        } else {
-            $editor = site_url()."/wp-admin/admin.php?page=sola-nl-menu&action=editor&camp_id=".$_POST["camp_id"];
-            header('location:'.$editor);
-            exit();
-        }
+        
+        
+//        if (isset($_POST['sola_nl_theme_data']) && $_POST['sola_nl_theme_data'] != '') {
+//            /* theyre using a free or purchased theme and are inserting the data */
+//            var_dump($_POST['sola_nl_theme_data']);
+//            $jsondata = json_decode(stripslashes($_POST['sola_nl_theme_data']));
+//            var_dump($jsondata);
+//            echo $jsondata[2];
+//            
+//            
+//            exit();
+//        }
+//        else {
+        
+            $theme_array = explode(",",$_POST['theme_id']);
+            
+            
+            $sola_nl_check = sola_set_theme($theme_array, $_POST['camp_id']);
+            if(is_wp_error($sola_nl_check)){
+                sola_return_error($sola_nl_check);
+            } else {
+                $editor = site_url()."/wp-admin/admin.php?page=sola-nl-menu&action=editor&camp_id=".$_POST["camp_id"];
+                header('location:'.$editor);
+                exit();
+            }
+//        }
         
     }
     if (isset($_POST['action']) && $_POST['action'] == 'sola_submit_find_us') {
@@ -896,7 +952,7 @@ function sola_nl_add_admin_stylesheet() {
         }
     }
     if(isset($_GET['page'])){
-       if(($_GET['page'] == "sola-nl-menu" || $_GET['page'] != "sola-nl-menu-settings") && isset($_GET['action']) && $_GET['action'] != 'preview' || isset($_GET['action']) && $_GET['custom_template']){
+       if(($_GET['page'] == "sola-nl-menu" || $_GET['page'] != "sola-nl-menu-settings") && isset($_GET['action']) && $_GET['action'] != 'preview' || isset($_GET['action']) && isset($_GET['custom_template'])){
             wp_register_style( 'sola_nl_jquery_css_theme', plugins_url('/css/jquery-ui.theme.css', __FILE__) );
             wp_enqueue_style( 'sola_nl_jquery_css_theme' );
             wp_register_style( 'sola_nl_jquery_css', plugins_url('/css/jquery-ui.css', __FILE__) );
@@ -1239,6 +1295,7 @@ function sola_nl_update_settings(){
    if(!$sola_nl_browser_text){
        $sola_nl_browser_text = __("Not Displaying? View In Browser", "sola");
    }
+   if (isset($_POST['sola_nl_api'])) { update_option("sola_nl_api",$_POST['sola_nl_api']); }
    update_option("sola_nl_email_note", $sola_nl_email_note);
    update_option("sola_nl_notifications", $sola_nl_notifications);
    //Signiture needs to be added
@@ -2175,14 +2232,51 @@ function sola_get_theme_basic(){
     $results = $wpdb->get_results($sql);
     return $results;
 }
-function sola_set_theme($theme_id, $camp_id){
+//function sola_set_theme($theme_id, $camp_id){
+//    global $sola_nl_camp_tbl;
+//    echo $sola_nl_camp_tbl;
+//    global $wpdb;
+//    $check = $wpdb->query( 
+//	$wpdb->prepare( 
+//            "UPDATE `$sola_nl_camp_tbl` SET `theme_id` = %d WHERE `camp_id` = %d LIMIT 1",
+//            $theme_id, $camp_id
+//        )
+//    );
+//    if($check === false){
+//        return new WP_Error( 'db_query_error', __( 'Could not execute query', 'sola'), $wpdb->last_error );
+//    } else {
+//        return true;
+//    }
+//}
+function sola_set_theme($theme_array, $camp_id) {
     global $sola_nl_camp_tbl;
-    echo $sola_nl_camp_tbl;
     global $wpdb;
+    
+    
+    
+    $theme_dir = $theme_array[0];
+    $theme_url = $theme_array[1];
+    
+    $site_url = get_site_url();
+    /* check for trailing forward slash */
+    if (substr($site_url, -1) != "/") { $site_url = $site_url."/"; }
+    
+   
+    $theme_name = basename($theme_dir);
+    $theme_data = sola_nl_get_theme_data($theme_dir);
+    
+    
+    $serialized_styles = maybe_serialize(sola_nl_save_style($theme_data['styles'],null));
+    
+    /* change reference of ../ and ./ to the actual URL of the theme */
+    $theme_html = $theme_data['html'];
+    $theme_html = str_replace("../", $site_url, $theme_html);
+    $theme_html = str_replace("./", $site_url, $theme_html);
+    
     $check = $wpdb->query( 
 	$wpdb->prepare( 
-            "UPDATE `$sola_nl_camp_tbl` SET `theme_id` = %d WHERE `camp_id` = %d LIMIT 1",
-            $theme_id, $camp_id
+            "UPDATE `$sola_nl_camp_tbl` SET `theme_data` = %s, `email` = %s, `styles` = %s WHERE `camp_id` = %d LIMIT 1",
+            json_encode($theme_array), $theme_html,$serialized_styles, $camp_id
         )
     );
     if($check === false){
@@ -2190,7 +2284,12 @@ function sola_set_theme($theme_id, $camp_id){
     } else {
         return true;
     }
+    
+    exit();
+  
+    
 }
+    
 function sola_get_camp_theme_id($camp_id){
     global $wpdb;
     global $sola_nl_camp_tbl;
@@ -2891,3 +2990,186 @@ function custom_auto_mail_send(){
     }
 }
 
+function sola_nl_theme_selection() {
+    
+    /* added in 3.1.0 by Nick */
+    
+    
+    
+    /* first scan plugin folder */
+   
+    
+    
+     $theme_dir = plugin_dir_path( __FILE__ )."themes/";
+    $theme_url = plugin_dir_url( __FILE__ )."themes/";
+    
+    
+    
+    
+    $files2 = scandir($theme_dir, 1);
+
+    foreach ($files2 as $sola_theme) {
+
+
+          if ($sola_theme == "." || $sola_theme == "..") { } else {
+
+
+              $sola_current_directory = $theme_dir.$sola_theme;
+              $sola_current_url = $theme_url.$sola_theme;
+              $theme_data = scandir($sola_current_directory, 1);
+              //var_dump($theme_data);
+
+              $theme_html_file = $sola_current_directory."/".$sola_theme.".html";
+              $theme_style_file = $sola_current_directory."/".$sola_theme."-style.json";
+              $theme_thumbnail_file = $sola_current_url."/thumbnail.png";
+              $theme_data_file = $sola_current_directory."/theme_data.json";
+
+              $theme_data = @trim(@stripslashes(@file_get_contents($theme_data_file)));
+              //var_dump($theme_data);
+              $json_decoded_themn_data = json_decode($theme_data, true);
+              //var_dump($json_decoded_themn_data);
+
+              $theme_html = @trim(@stripslashes(@file_get_contents($theme_html_file)));
+              //var_dump($theme_html);
+
+              $style_data = @trim(@stripslashes(@file_get_contents($theme_style_file)));
+              //var_dump($style_data);
+              $json_decode = json_decode($style_data, true);
+              //var_dump($json_decode);
+
+              //var_dump($theme_thumbnail_file);
+
+              
+
+
+
+    ?>
+      <div class="theme_div_wrapper">
+          <label>
+              <h3><?php echo ucfirst($json_decoded_themn_data['theme_data']['title']) ?></h3>
+              <p>
+                  <em><?php _e("Author: ","sola"); ?><?php echo $json_decoded_themn_data['theme_data']['author']; ?></em><br />
+                  <em><?php _e("Version: ","sola"); ?><?php echo $json_decoded_themn_data['theme_data']['version']; ?></em>
+              </p>
+              <input type="radio" name="theme_id" value="<?php echo $sola_current_directory.",".$sola_current_url; ?>">
+
+              <img src="<?php echo $theme_thumbnail_file; ?>" width="200px">
+          </label>
+      </div>              
+    <?php
+
+          }
+    }
+    
+    
+    
+    /* scan uploads folder (downloaded themes) */
+    
+    $upload_dir = wp_upload_dir();
+    $theme_dir = $upload_dir['basedir']."/sola/themes/";
+    $theme_url = $upload_dir['baseurl']."/sola/themes/";
+    $files2 = scandir($theme_dir, 1);
+
+    foreach ($files2 as $sola_theme) {
+
+
+          if ($sola_theme == "." || $sola_theme == "..") { } else {
+
+
+              $sola_current_directory = $theme_dir.$sola_theme;
+              $sola_current_url = $theme_url.$sola_theme;
+              $theme_data = scandir($sola_current_directory, 1);
+              //var_dump($theme_data);
+
+              $theme_html_file = $sola_current_directory."/".$sola_theme.".html";
+              $theme_style_file = $sola_current_directory."/".$sola_theme."-style.json";
+              $theme_thumbnail_file = $sola_current_url."/thumbnail.png";
+              $theme_data_file = $sola_current_directory."/theme_data.json";
+
+              $theme_data = @trim(@stripslashes(@file_get_contents($theme_data_file)));
+              //var_dump($theme_data);
+              $json_decoded_themn_data = json_decode($theme_data, true);
+              //var_dump($json_decoded_themn_data);
+
+              $theme_html = @trim(@stripslashes(@file_get_contents($theme_html_file)));
+              //var_dump($theme_html);
+
+              $style_data = @trim(@stripslashes(@file_get_contents($theme_style_file)));
+              //var_dump($style_data);
+              $json_decode = json_decode($style_data, true);
+              //var_dump($json_decode);
+
+              //var_dump($theme_thumbnail_file);
+
+
+
+
+    ?>
+      <div class="theme_div_wrapper">
+          <label>
+              <h3><?php echo ucfirst($json_decoded_themn_data['theme_data']['title']) ?></h3>
+              <p>
+                  <em><?php _e("Author: ","sola"); ?><?php echo $json_decoded_themn_data['theme_data']['author']; ?></em><br />
+                  <em><?php _e("Version: ","sola"); ?><?php echo $json_decoded_themn_data['theme_data']['version']; ?></em>
+              </p>
+               <input type="radio" name="theme_id" value="<?php echo $sola_current_directory.",".$sola_current_url; ?>">
+
+              <img src="<?php echo $theme_thumbnail_file; ?>" width="200px">
+          </label>
+      </div>              
+    <?php
+
+          }
+    }
+}
+
+function sola_nl_get_theme_data($theme) {
+    
+
+                $sola_theme = basename ($theme);
+                $sola_current_directory = $theme;
+                //var_dump($sola_theme);
+                
+              $theme_data = scandir($theme, 1);
+              //var_dump($theme_data);
+              $theme_data_file = $theme."/theme_data.json";
+              $theme_data = @trim(@stripslashes(@file_get_contents($theme_data_file)));
+              $json_decoded_themn_data = json_decode($theme_data, true);
+              
+              
+              
+               
+              $theme_html_file = $theme."/".$sola_theme.".html";
+              
+              $theme_html_file = $sola_current_directory."/".$sola_theme.".html";
+              $theme_style_file = $sola_current_directory."/".$sola_theme."-style.json";
+             //var_dump($theme_style_file);
+             
+    
+              //var_dump($theme_data);
+              
+              //var_dump($json_decoded_themn_data);
+
+              $theme_html = @trim(@stripslashes(@file_get_contents($theme_html_file)));
+              //var_dump($theme_html);
+
+              $style_data = @trim(@file_get_contents($theme_style_file));
+//              var_dump($style_data);
+              $json_decoded_themn_style = json_decode($style_data, true);
+              //var_dump($json_decoded_themn_style);
+
+              $theme_array = array();
+              $theme_array['theme_data'] = $json_decoded_themn_data;
+              $theme_array['styles'] = $json_decoded_themn_style;
+              $theme_array['html'] = $theme_html;
+              return $theme_array;
+              
+              
+              
+              
+              
+              
+             
+             
+    
+}

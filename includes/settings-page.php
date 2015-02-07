@@ -3,6 +3,8 @@
 $sola_nl_ajax_nonce = wp_create_nonce("sola_nl");
 
 
+
+
 ?>
 
 <script language="javascript">
@@ -32,6 +34,51 @@ $sola_nl_ajax_nonce = wp_create_nonce("sola_nl");
       </ul>
       <div id="tabs-1">
             <table width='100%'>
+         
+                <?php if (function_exists("sola_nl_premium_activate")) { ?>
+                <tr>
+                    <td width="250px" valign="top" >
+                        <label><?php _e('API Key', 'sola'); ?></label>
+                            <p class="description" style='padding:10px;'><?php _e('Enter your Sola Newsletters Premium API key', 'sola'); ?></p>
+                    </td>
+                    <td>
+                        <input type="text" class='sola-input' name="sola_nl_api" value="<?php echo get_option("sola_nl_api");?>"/>
+                        <a href="http://solaplugins.com/documentation/sola-newsletters-documentation/where-do-i-get-my-sola-newsletters-premium-api-key/" title="Sola Newsletters" target="_BLANK"><?php _e("Where do I get my API key?","sola"); ?></a>
+                        <br />
+                        <?php
+
+                            $api_check = get_option("sola_nl_api_status");
+                            
+                            if (isset($api_check) && $api_check)    {
+
+                                $api_msg = get_option("sola_nl_api_msg");
+                                $api_msg2 = get_option("sola_nl_api_msg2");
+                                $api_domains = get_option("sola_nl_api_domains");
+                                
+                                if ($api_msg == "") { $api_msg = __("We cannot verify your API key. Is your API key active?","sola"); }
+                                
+                            ?>
+                        <div class="api_box <?php  if (isset($api_check) && $api_check == 1) {?>green-border<?php } else { ?>red-border<?php } ?>">
+                            <strong><?php echo $api_msg; ?></strong>
+                            <p><?php echo $api_msg2; ?></p>
+                            <p><ul><?php if($api_domains) { foreach($api_domains as $domain) { echo "<li>".$domain."</li>"; } }?></ul></p>
+                        </div>
+
+
+                            <?php
+                            }
+                            else {
+
+
+                            }
+
+                        ?>
+                    </td>
+                </tr>
+                <tr style="height:20px;"><td></td><td></td></tr>
+                <?php } ?>
+                
+                
                 <tr>
                     <td width="250px" >
                         <label><?php _e('Sending Address', 'sola'); ?></label>

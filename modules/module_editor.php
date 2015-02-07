@@ -78,6 +78,8 @@ function sola_get_style_editor($theme_id, $styles) {
     $sql = "SELECT * FROM `$sola_nl_css_options_table`";
     $css_options = $wpdb->get_results($sql);
     extract(unserialize($styles));
+
+    
     
     ?>
     <form id="sola_nl_styles">

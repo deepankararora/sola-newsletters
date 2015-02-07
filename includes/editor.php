@@ -2,6 +2,11 @@
 $sola_nl_ajax_nonce = wp_create_nonce("sola_nl");
 $camp_details = sola_nl_get_camp_details($_GET['camp_id']);
 $theme_id = $camp_details->theme_id;
+if (isset($camp_details->theme_data)) {
+    $theme_array = json_decode($camp_details->theme_data);
+    $theme_data = sola_nl_get_theme_data(stripslashes($theme_array[0]));
+
+}
 $styles = $camp_details->styles;
 
 ?>
@@ -22,6 +27,14 @@ if(isset($camp_type['action'])) { $auto_camp_type = $camp_type['action']; } else
 
 ?>
 
+<div id="sola_nl_export_dialog" title="<?php _e('Theme export', 'sola_t'); ?>">
+    <strong><?php _e("Theme data","sola"); ?></strong><br />
+    <textarea class='sola_nl_export_textarea_data' style='width:100%; height:25%;'></textarea><br />
+    <strong><?php _e("Style data","sola"); ?></strong><br />
+    <textarea class='sola_nl_export_textarea_styles' style='width:100%; height:25%;'></textarea><br />
+    <strong><?php _e("HTML","sola"); ?></strong><br />
+    <textarea class='sola_nl_export_textarea_html' style='width:100%; height:25%;'></textarea><br />
+</div>
 <div class="sola-content-fixed">
     <div class="sola-header-content ">        
         <div class="sola-sidebar-header">
@@ -35,6 +48,7 @@ if(isset($camp_type['action'])) { $auto_camp_type = $camp_type['action']; } else
             
         </div>
         <div class="header-right">
+            <button class="button sola_nl_open_export_dialog" style="float:left;"><?php _e("Export","sola"); ?></button>
             <div class="next-button">
                 <a id="sola_nl_next_temp_btn" class='button-primary sola_nl_preview_btn' ><?php _e("Next","sola"); ?></a>
             </div>
@@ -46,19 +60,56 @@ if(isset($camp_type['action'])) { $auto_camp_type = $camp_type['action']; } else
         <div id="editor_options">
             <div id="editor-content" class="content">
                 <?php if ($camp_details->type == '2' && $auto_camp_type == 3) { ?>
-                <div class="add-box sola_addable_item" type="automatic_content" id="auto-content">
-                    <h3><?php _e("Content","sola"); ?></h3>
-                    <i class="fa fa-5x fa-file-text-o"></i>
+                <div class="add-box sola_addable_item  sola_css_ai_text" type="automatic_content" id="auto-content">
+                    <div class="add-box-title">
+                        <h3><?php _e("Content","sola"); ?></h3>
+                        <i class="fa fa-3x fa-file-text-o"></i>
+                    </div>
                 </div>
                 <?php } ?>
-                <div class="add-box sola_addable_item" type="text">
-                    <h3><?php _e("Text","sola"); ?></h3>
-                    <i class="fa fa-5x fa-font"></i>
+                <div class="add-box sola_addable_item sola_css_ai_text" type="text">
+                    <div class="add-box-title">
+                        <h3><?php _e("Text","sola"); ?></h3>
+                        <i class="fa fa-3x fa-font"></i>
+                    </div>
+                </div>
+                <div class="add-box sola_css_ai_table sola_show_editior_div">
+                    <div class="add-box-title">
+                        <h3><?php _e("Table","sola"); ?></h3>
+                        <i class="fa fa-3x fa-table"></i>
+                    </div>
+                    <div class="sola-extra-content" style="padding:0 20px 10px 10px;">
+                        <div class="add-box" style="width:80px; height:80px; margin: 10px 10px 10px 10px;">
+                            <div class="add-box-title sola_addable_item" type="table" cols="2">
+                                <center>
+                                    <h5><?php _e("2 cols","sola"); ?></h5>
+                                    <i class="fa fa-2x fa-table"></i>
+                                </center>
+                            </div>
+                        </div>
+                        <div class="add-box" style="width:80px; height:80px; margin: 10px 10px 10px 10px;">
+                            <div class="add-box-title sola_addable_item" type="table" cols="3">
+                                <center>
+                                    <h5><?php _e("3 cols","sola"); ?></h5>
+                                    <i class="fa fa-2x fa-table"></i>
+                                </center>
+                            </div>
+                        </div>
+                        <div class="add-box" style="width:80px; height:80px; margin: 10px 10px 10px 10px;">
+                            <div class="add-box-title sola_addable_item" type="table" cols="4">
+                                <center>
+                                    <h5><?php _e("4 cols","sola"); ?></h5>
+                                    <i class="fa fa-2x fa-table"></i>
+                                </center>                            </div>
+                            
+                        </div>
+                        
+                    </div>
                 </div>
                 <div class="add-box sola_show_editior_div">
                     <div class="add-box-title">
                         <h3><?php _e("Button","sola"); ?></h3>
-                        <i class="fa fa-5x fa-square"></i>
+                        <i class="fa fa-3x fa-square"></i>
                     </div>
                     <div class="sola-extra-content" style="padding:0 20px 10px 10px;">
                         
@@ -81,7 +132,7 @@ if(isset($camp_type['action'])) { $auto_camp_type = $camp_type['action']; } else
                 <div class="add-box sola_show_editior_div">
                     <div class="add-box-title">
                         <h3><?php _e("Blog Post","sola"); ?></h3>
-                        <i class="fa fa-5x fa-bullhorn"></i>   
+                        <i class="fa fa-3x fa-bullhorn"></i>   
                     </div>
                     <div class="sola-extra-content">
                         <?php
@@ -119,8 +170,10 @@ if(isset($camp_type['action'])) { $auto_camp_type = $camp_type['action']; } else
                 </div>
                 
                 <div class="add-box sola_show_editior_div">
-                    <h3><?php _e("Images","sola"); ?></h3>
-                    <i class="fa fa-5x fa-picture-o"></i>
+                    <div class="add-box-title">
+                        <h3><?php _e("Images","sola"); ?></h3>
+                        <i class="fa fa-3x fa-picture-o"></i>
+                    </div>
                     <div class="sola-extra-content">
                         <center>
                             <label for="upload_image">
@@ -129,14 +182,34 @@ if(isset($camp_type['action'])) { $auto_camp_type = $camp_type['action']; } else
                         </center>    
                         <hr/>
                         <div id="images"><!-- Images Returned from pop up box -->
+                            
+                            
+                            <?php 
+                            if (is_array($theme_array)) {
+                                $dir = @stripslashes($theme_array[0])."/img/";
+                                $files = scandir($dir, 1);   
+                                foreach($files as $file){
+                                    if($file != "." && $file != ".."){
+                                        ?>
+                                        <div type="image" truesrc="<?php echo $theme_array[1]; ?>/img/<?php echo $file ?>" thumbnail="<?php echo $theme_array[1]; ?>/img/<?php echo $file ?>" class="sola_addable_image ui-draggable ui-draggable-handle" style="float:left; padding:3px; margin:3px;" >
 
+                                            <img src="<?php echo $theme_array[1]; ?>/img/<?php echo $file ?>"  width="100%" style="max-width:313px;"/>
+                                        </div>
+                                <?php
+                                    }
+                                }
+                            }
+
+                        ?>
                         </div>
                     </div>
                 </div>
                 
                 <div class="add-box sola_show_editior_div">
-                    <h3><?php _e("Divider","sola"); ?></h3>
-                    <i class="fa fa-5x fa-bars"></i>
+                    <div class="add-box-title">
+                        <h3><?php _e("Divider","sola"); ?></h3>
+                        <i class="fa fa-3x fa-bars"></i>
+                    </div>
                     
                     <div class="sola-extra-content">
                             <div type="divider" truesrc="" thumbnail="" class="sola_addable_hr sola_sub_addable_item" align="center"><em><?php _e("Insert divider","sola"); ?></em></div>
@@ -161,8 +234,10 @@ if(isset($camp_type['action'])) { $auto_camp_type = $camp_type['action']; } else
             
                 </div>
                 <div class="add-box sola_show_editior_div">
-                    <h3><?php _e("Social","sola"); ?></h3>
-                    <i class="fa fa-5x fa-thumbs-up"></i>
+                    <div class="add-box-title">
+                        <h3><?php _e("Social","sola"); ?></h3>
+                        <i class="fa fa-3x fa-thumbs-up"></i>
+                    </div>
                     <div class="sola-extra-content">
                         <?php 
                         $i = 1;
@@ -290,6 +365,7 @@ if(isset($camp_type['action'])) { $auto_camp_type = $camp_type['action']; } else
         <div id="sola_nl_send_test">
             <input type="email" value="<?php echo get_option('admin_email')?>" class="sola-input" id="sola_nl_to_mail_test" />
             <button class="button-primary sola_send_preview"><?php _e("Send Test","sola"); ?></button>
+            
         </div>
     </div>  
     

@@ -188,17 +188,20 @@ jQuery(document).ready(function() {
     jQuery("body").on("click", ".sola_send_preview", function(){
         jQuery(this).prop("disabled", true);
         sola_save_letter();
+        sola_remove_toolbars();
+        var sola_body = jQuery("#sola_newsletter_preview").html();
         setTimeout(function() {
             var data = {
                 action: "preview_mail",
                 to: jQuery("#sola_nl_to_mail_test").val(),
                 security:sola_nl_nonce,
-                body:jQuery("#sola_newsletter_preview").html(),
+                body:sola_body,
                 camp_id:camp_id,
                 cache: false
             };
             jQuery.post(ajaxurl, data, function(response){
                alert(response);
+               sola_add_toolbars();
                jQuery(".sola_send_preview").prop("disabled", false);
             });
           }, 2000);
@@ -310,7 +313,7 @@ jQuery(document).ready(function() {
 //    });
     
 
-    jQuery("#sola_newsletter_wrapper img").each(function(){
+    jQuery("sdf.preview_container #sola_newsletter_wrapper img").each(function(){
         
         var attribute_width = jQuery(this).attr('width'); 
         
@@ -320,7 +323,7 @@ jQuery(document).ready(function() {
             if (attribute_width.indexOf("%", 0) === -1) {
                 var stripped_width = attribute_width.replace("px", "");
                 var attribute_width_new = parseInt(stripped_width);    
-                var real_attr_width = ((attribute_width_new / 600) * 100);
+                var real_attr_width = ((attribute_width_new / 300) * 100);
                 var real_real_attr_width = real_attr_width+"%";
                 jQuery(this).attr('width',real_real_attr_width);            
             } 

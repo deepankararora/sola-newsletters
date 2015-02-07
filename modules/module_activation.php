@@ -152,6 +152,7 @@ function sola_nl_handle_db() {
         type tinyint(1) NOT NULL,
         action tinyint(1) NOT NULL,
         automatic_data LONGTEXT NOT NULL,
+        theme_data LONGTEXT NOT NULL,
       PRIMARY KEY  (camp_id)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1 ; 
    ";
@@ -244,16 +245,16 @@ function sola_nl_add_wp_user_to_sub(){
    $sql = "SELECT * FROM `$sola_nl_camp_tbl`";
    if(!$wpdb->get_results($sql)){
         $wp_users = get_users('role=Administrator');
-        $wpdb->insert($sola_nl_list_tbl, array('list_id' => '', 'list_name' => 'My First List', 'list_description' => 'This is your first list.'));
+        @$wpdb->insert($sola_nl_list_tbl, array('list_id' => '', 'list_name' => 'My First List', 'list_description' => 'This is your first list.'));
         $list_id = $wpdb->insert_id;
-        $styles = sola_nl_default_styles_array();
-        $wpdb->insert($sola_nl_camp_tbl, array('camp_id'=>'', 'subject'=> "My First Campaign", 'theme_id' => '1', 'styles' => $styles));
-        $camp_id = $wpdb->insert_id;
-        $wpdb->insert($sola_nl_camp_list_tbl, array('id' => '', 'camp_id'=>$camp_id,'list_id'=>$list_id));
+//        $styles = sola_nl_default_styles_array();
+//        $wpdb->insert($sola_nl_camp_tbl, array('camp_id'=>'', 'subject'=> "My First Campaign", 'theme_id' => '1', 'styles' => $styles));
+//        $camp_id = $wpdb->insert_id;
+//        $wpdb->insert($sola_nl_camp_list_tbl, array('id' => '', 'camp_id'=>$camp_id,'list_id'=>$list_id));
         foreach($wp_users as $wp_user){
            $email = $wp_user->user_email;
            $key = wp_hash_password( $email );
-           $wpdb->insert( $sola_nl_subs_tbl, array( 'sub_id' => '', 'sub_email' => $email , 'sub_key' => $key ));
+           @$wpdb->insert( $sola_nl_subs_tbl, array( 'sub_id' => '', 'sub_email' => $email , 'sub_key' => $key ));
            $sub_id = $wpdb->insert_id;
            if($sub_id > 0){
              $wpdb->insert($sola_nl_subs_list_tbl, array('id'=> '', 'sub_id'=>$sub_id, 'list_id'=>$list_id));
