@@ -265,6 +265,9 @@ line-height: 30px;
 #toplevel_page_sola-nl-menu .wp-menu-image img{
     padding:0 !important;
 }
+
+.theme_div_wrapper h3 { margin:0; padding:2px; }
+.theme_div_wrapper p { margin:0; padding:2px; }
 .theme_div_wrapper input[type=radio]{
   display:none;
 }

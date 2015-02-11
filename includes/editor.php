@@ -27,7 +27,7 @@ if(isset($camp_type['action'])) { $auto_camp_type = $camp_type['action']; } else
 
 ?>
 
-<div id="sola_nl_export_dialog" title="<?php _e('Theme export', 'sola_t'); ?>">
+<div id="sola_nl_export_dialog" style="display:none;" title="<?php _e('Theme export', 'sola_t'); ?>">
     <strong><?php _e("Theme data","sola"); ?></strong><br />
     <textarea class='sola_nl_export_textarea_data' style='width:100%; height:25%;'></textarea><br />
     <strong><?php _e("Style data","sola"); ?></strong><br />

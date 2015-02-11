@@ -13,8 +13,6 @@ Create newsletters, automatic post notifications and autoresponders that are mod
 
 Create newsletters, automatic post notifications and autoresponders that are modern and beautiful with our unique newsletter editor. Drag and drop images, text areas, buttons, social icons, posts and more. Add a signup widget to your website, manage your subscribers, and send fresh, modern newsletters all within your wordpress admin area.
 
-We've spent over a year building this newsletter plugin and we're proud to finally release it. Sola Newsletters is still in BETA. Any feedback would be welcomed.
-
 = Features =
 * Super easy to use drag and drop newsletter editor
 * Send newsletters to 2500 subscribers
@@ -120,6 +118,12 @@ Sola Newsletters strongly suggests that you follow the CAN-SPAM Act. We have inc
 Not applicable.
 
 == Changelog ==
+= 4.0.1 - 2015-02-11 - Low priority =
+* Scandir notices fixed when in the newsletter theme page
+* Added the ability to see all available newsletter themes
+* Bug fixes
+* Usability improvements on the theme page
+
 = 4.0.0 - 2015-02-06 - Medium priority =
 * Major improvements to the newsletter editor
 *  You can now add tables to your newsletters (2 columns, 3 columns and 4 columns)
