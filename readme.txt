@@ -3,15 +3,15 @@ Contributors: SolaPlugins, NickDuncan, Jarryd Long
 Donate link: http://solaplugins.com
 Tags: newsletter, newsletters, email newsletters, email subscription, email, emailing, email signup, newsletter signup, newsletter widget, subscribe widget, subscribers, newsletter widget, email newsletter, newsletter builder, automatic post notification, auto post notifications, autoresponder, autoresponders, auto-responder, post notification
 Requires at least: 3.6
-Tested up to: 4.1
+Tested up to: 4.1.1
 Stable tag: trunk
 License: GPLv2
 
-Create newsletters, automatic post notifications and autoresponders that are modern and beautiful with Sola Newsletters.
+Create and send newsletters, automatic post notifications and autoresponders that are modern and beautiful with Sola Newsletters.
 
 == Description ==
 
-Create newsletters, automatic post notifications and autoresponders that are modern and beautiful with our unique newsletter editor. Drag and drop images, text areas, buttons, social icons, posts and more. Add a signup widget to your website, manage your subscribers, and send fresh, modern newsletters all within your wordpress admin area.
+Create and send newsletters, automatic post notifications and autoresponders that are modern and beautiful with our unique newsletter editor. Drag and drop images, text areas, buttons, social icons, posts and more. Add a signup widget to your website, manage your subscribers, and send fresh, modern newsletters all within your wordpress admin area.
 
 = Features =
 * Super easy to use drag and drop newsletter editor
@@ -48,8 +48,11 @@ Create newsletters, automatic post notifications and autoresponders that are mod
 Get a free copy of the Sola Newsletters premium version in exchange for translating our plugin!
 
 * English
+* German (Marc Winter)
+* Italian (Luigi Mangili)
 * French (Katia - creaweb.fr)
 * Russian (Alexey Arkhipenko)
+* Brazilian Portuguese (Mauricio Gofas)
 * Spanish
 
 == Installation ==
@@ -118,6 +121,12 @@ Sola Newsletters strongly suggests that you follow the CAN-SPAM Act. We have inc
 Not applicable.
 
 == Changelog ==
+
+= 4.0.2 - 2015-02-19 - Medium priority =
+* Fixed the bug that stopped you from dragging your own images into the newsletter
+* Fixed the column width bug for a 4 column table in the newsletter editor
+* Fixed the editing bug when trying to edit the content of columns in a table within the newsletter editor
+
 = 4.0.1 - 2015-02-11 - Low priority =
 * Scandir notices fixed when in the newsletter theme page
 * Added the ability to see all available newsletter themes

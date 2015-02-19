@@ -207,71 +207,9 @@ jQuery(document).ready( function() {
         
     }
     
-    
-//    jQuery("body").on("click", ".btnSave", function(){ 
-//        newText = jQuery(".editBox").val().replace(/"/g, '"'); 
-//        var content = tinyMCE.get(mid).getContent();
-//        jQuery("#"+did).html(content).removeClass("noPad").bind("dblclick", replaceHTML);
-//        jQuery("#"+did).parent().addClass('sortable-item');
-//        jQuery("#"+did).parent().removeClass('notdrag');
-//        jQuery('#sola_toolbar').remove();
-//        sola_is_editing = false; 
-        
-//        newText = jQuery(this).parent().siblings("form").children(".editBox").val().replace(/"/g, '"');  
-//        mid = jQuery(this).attr("mid");
-//        did = jQuery(this).attr("did"); // used to add the sortable-item class back
-//        var content = tinyMCE.get(mid).getContent();
-//        
-//        jQuery(this).parent().parent().html(content).removeClass("noPad").bind("dblclick", replaceHTML); 
-//        jQuery("#"+did).parent().addClass('sortable-item');
-//        jQuery("#"+did).parent().removeClass('notdrag');
-//        jQuery('#sola_toolbar').remove();
-//        sola_is_editing = false;
-//    });   
-//    
-//    
-//    jQuery("body").on("click", ".btnDiscard", function(){  
-//        jQuery(this).parent().parent().html(oldText).removeClass("noPad").bind("dblclick", replaceHTML);  
-//        did = jQuery(this).attr("did"); // used to add the sortable-item class back
-//        jQuery("#"+did).parent().addClass('sortable-item');
-//        jQuery("#"+did).parent().removeClass('notdrag');
-//        jQuery('#sola_toolbar').remove();
-//        sola_is_editing = false;
-//    });   
-    
-    /* Nick - 2015-01-21 - Modified the way we connect with the sortable list so that it pushes the correct values through. WP4.1 changed this somehow - perhaps a newer version of jQuery? */
-    //jQuery('.sola_addable_item').draggable({
-      //  helper: function() {
-        //    console.log('hier is ek nou');
-//            var t_attr = jQuery(this).attr('type');
-//            jQuery("#sola_nl_save_text").empty();
-//            jQuery(".header-right").css("background", "url('../wp-content/plugins/sola-newsletters/images/editor-header.jpg') center no-repeat");
-//            
-//            if (t_attr === "text") {
-//                return jQuery('<div type="text">').addClass('editable').text('Drag to the newsletter');
-//            }
-//            else if (t_attr === "btn") {
-//                return jQuery('<div type="btn">').addClass('editable').html(jQuery(this).html());
-//            }
-//            else if (t_attr === "blog_post") {
-//                
-//                var post = jQuery(this).attr('value');
-//                var feat_image = jQuery(this).attr('feat_image');
-//                var title = jQuery(this).attr("title");
-//                var post_url = jQuery(this).attr("post_url");
-//                return jQuery('<div type="blog_post" title="'+title+'" post_url="'+post_url+'" feat_image="'+feat_image+'" value="'+post+'">').addClass('editable');
-//            }
-//            else if(t_attr==='social_icons')
-//            {
-//                console.log('hierso');
-//            }
-           
-        //},
-        //connectToSortable: ".sortable-list"
-    //});
    
-   /*albert change - 19 january 2015*/
-//    
+    /*albert change - 19 january 2015*/
+    //    
     jQuery('.sola_addable_item').draggable({
         helper:"clone",
         connectToSortable: ".sortable-list",
@@ -289,7 +227,10 @@ jQuery(document).ready( function() {
         {
             jQuery("#sola_nl_save_text").empty();
             jQuery(".header-right").css("background", "url('../wp-content/plugins/sola-newsletters/images/editor-header.jpg') center no-repeat");
-            return jQuery('<div>').addClass('editable').text('Drag to the newsletter');
+            if (typeof jQuery(ui.helper).attr('type') !== 'undefined' && jQuery(ui.helper).attr('type') === 'table') {
+            } else {
+              return jQuery('<div>').addClass('editable').text('Drag to the newsletter');
+            }
             
         }
         
@@ -308,6 +249,7 @@ jQuery(document).ready( function() {
    
    
    jQuery('.sola_addable_image').draggable({
+
         helper: function(e) {
             return jQuery('<div type="image" truesrc="'+jQuery(this).attr("truesrc")+'" thumbnail="'+jQuery(this).attr("thumbnail")+'">').addClass('editable').append("<img src='"+jQuery(this).attr("thumbnail")+"' />");
         },
@@ -315,22 +257,7 @@ jQuery(document).ready( function() {
     });
        
    
-       
 
-   
-   
-   
-   
-   
-//
-//    Moved this to function that imports image
-//            
-//    jQuery('.sola_addable_image').draggable({
-//        helper: function(e) {
-//            return jQuery('<div>').addClass('editable').text('Drag to the newsletter');
-//        },
-//        connectToSortable: ".sortable-list"
-//    });
     jQuery('.sola_addable_hr').draggable({
         helper: function(e) {
             //console.log(jQuery(this).attr("truesrc"));
@@ -340,144 +267,13 @@ jQuery(document).ready( function() {
         connectToSortable: ".sortable-list"
     });
     
-    
-    
-    
-//    var allsortables = jQuery('.sortable-item', jQuery("#sola_newsletter_wrapper"))
-//    var wtf = allsortables.filter(function(){
-//
-//
-//        var wid = jQuery(this).width();
-//        /* check if we have added the toolbar already */
-//        var cur_children = jQuery(this).children();
-//        //console.log(jQuery(this).children(".sola_tool"));
-//        console.log(jQuery(this).find(".sola_tool").selector.length);
-//       // console.log(cur_children);
-//        if (jQuery(this).find(".sola_tool").selector.length > 0) {
-//            /* do nothing */
-//            console.log("do nothing");
-//        } else {
-//            /* check if it is a sortable TD, if yes, add the TD MOVE handle */
-//            if (jQuery(this).parent().hasClass('sortable-list-2')) {
-//                 console.log("td sortable");
-//                 jQuery(this).prepend("<div id='sola_toolbar' class='sola_tool' style='width:"+wid+"px;'><i class='sola_tool_icon fa fa-arrows' id='sola_tool_move_td'></i> <i class='sola_tool_icon fa fa-trash-o' id='sola_tool_delete'></i></div>"); 
-//            } else if (jQuery(this).parent().hasClass('sortable-list')) {
-//                 console.log("normal list");
-//                 jQuery(this).prepend("<div id='sola_toolbar' class='sola_tool' style='width:"+wid+"px;'><i class='sola_tool_icon fa fa-arrows' id='sola_tool_move'></i> <i class='sola_tool_icon fa fa-trash-o' id='sola_tool_delete'></i></div>"); 
-//
-//            }
-//        }
-          
-          
-          ////          console.log(jQuery(this)[0].src);
-//          
-//          var currentsrc = jQuery(this)[0].src;
-//          var encodedData = window.btoa(jQuery(this)[0].src);
-//          newHTML = newHTML.replace(currentsrc, "data:image/jpg;base64,"+encodedData);
-//          console.log(encodedData);
-//        });
-//    
-    
-    
-    
-    
-    
-//    
-//    jQuery("body").on({
-//        mouseenter: function () {
-//            if (sola_is_editing === true) { return; }
-//            jQuery('#sola_toolbar').remove();
-//            var wid = jQuery(this).width();
-//            jQuery(this).prepend("<div id='sola_toolbar' style='width:"+wid+"px;'><i class='sola_tool_icon fa fa-arrows' id='sola_tool_move'></i> <i class='sola_tool_icon fa fa-trash-o' id='sola_tool_delete'></i></div>"); 
-//        },
-//        mouseleave: function () {
-//            if (sola_is_editing === true) { return; }
-//             jQuery('#sola_toolbar').remove();
-//        }
-//    }, ".sortable-list .sortable-item"); //pass the element as an argument to .on
-//    
-//      
-//     /* handle the dragging and sorting between TD elements in a table with multiple columns */
-//    jQuery("body").on({
-//        mouseenter: function () {
-//            if (sola_is_editing === true) { return; }
-//            jQuery('#sola_toolbar').remove();
-//            var wid = jQuery(this).width();
-//            jQuery(this).prepend("<div id='sola_toolbar' style='width:"+wid+"px;'><i class='sola_tool_icon fa fa-arrows' id='sola_tool_move_td'></i> <i class='sola_tool_icon fa fa-trash-o' id='sola_tool_delete'></i></div>"); 
-//        },
-//        mouseleave: function () {
-//            if (sola_is_editing === true) { return; }
-//             jQuery('#sola_toolbar').remove();
-//        }
-//    }, ".sortable-list-2 .sortable-item"); //pass the element as an argument to .on
-//    
-      
-    
-/*  
-    jQuery("body").on("mouseenter", ".sortable-item", function(){      
-        if (document.getElementById('sola_toolbar') === null) {
-            jQuery(this).append("<div id='sola_toolbar'><span id='sola_tool_delete'>X</span></div>"); 
-        }
-    });
-    jQuery("body").on("mouseleave", ".sortable-item", function(){      
-        if (document.getElementById('sola_toolbar') !== null) {
-         jQuery('#sola_toolbar').remove();
-        }
-    });
-*/    
-    
+        
     jQuery("body").on("click", "#sola_tool_delete", function(){      
       jQuery(this).parent().parent().remove();
       sola_save_letter();
     });
 
     
-//    jQuery("body").on("click", ".sola_nl_save_temp_btn", function(){      
-//        jQuery(this).prop( "disabled", true );
-//        sola_add_style_to_letter();
-//        var sola_nl_html = jQuery("#sola_newsletter_wrapper").html();
-//        jQuery("#sola_nl_save_text").html('Saving...');
-//        var styles = [];
-//        jQuery(".colorpicker").each(function(){
-//            styles.push({
-//                id:jQuery(this).attr("id"),
-//                color:jQuery(this).attr("color"),
-//                css:jQuery(this).attr("css")
-//            });
-//        });
-//        jQuery(".font-select").each(function(){
-//            styles.push({
-//                id:jQuery(this).attr("id"),
-//                font_family:jQuery(this).val()
-//            });
-//        });
-//        jQuery(".font-size").each(function(){
-//            styles.push({
-//                id:jQuery(this).attr("id"),
-//                font_size:jQuery(this).val()
-//            });
-//        });
-//        //console.log(styles);
-//        var data = {
-//            action: 'save_template',
-//            security: sola_nl_nonce,
-//            sola_html: sola_nl_html,
-//            camp_id: jQuery("#sola_newsletter_wrapper").attr("camp_id"),
-//            styles:styles
-//        };
-//        jQuery.post(ajaxurl, data, function(response) {
-//            var temp_html = response.replace(/\\(.)/mg, "$1");
-//            jQuery("#sola_newsletter_wrapper").html(temp_html);
-//            sola_nl_make_sortable();
-//            var now = new Date();
-//            now.toString();
-//            jQuery("#sola_nl_save_text").html('Last saved at '+now);
-//            jQuery("#sola_nl_save_temp_btn").prop( "disabled", false );
-//            
-//        });
-//
-//    });
-//    
     // Jarryd    
     // Next button  - saves then redirect to preview
     jQuery("body").on("click", ".sola_nl_preview_btn", function(){ 
@@ -493,31 +289,6 @@ jQuery(document).ready( function() {
         var url = "admin.php?page=sola-nl-menu&action=confirm_camp&camp_id="+camp_id;
         window.location.href = url;
         
-//        var sola_nl_html = jQuery("#sola_newsletter_wrapper").html();
-//        var camp_id = jQuery("#sola_newsletter_wrapper").attr("camp_id");
-//        jQuery("#sola_nl_save_text").html('Saving...');
-//        
-//        var data = {
-//            action: 'save_template',
-//            security: sola_nl_nonce,
-//            sola_html: sola_nl_html,
-//            camp_id: camp_id
-//        };
-//        
-//        //alert(camp_id);
-//        //save the newsletter
-//        jQuery.post(ajaxurl, data, function(response) {
-//            
-//            var temp_html = response.replace(/\\(.)/mg, "$1");
-//            jQuery("#sola_newsletter_wrapper").html(temp_html);
-//            sola_nl_make_sortable();
-//            var now = new Date();
-//            now.toString();
-//            jQuery("#sola_nl_save_text").html('Last saved at '+now);
-//            jQuery(".sola_nl_next_btn").prop( "disabled", false );
-//            var url = "admin.php?page=sola-nl-menu&action=confirm_camp&camp_id="+camp_id;
-//            window.location.href = url;
-//        });
 
     });
     // SEND TEST MAIL
@@ -549,14 +320,7 @@ jQuery(document).ready( function() {
     jQuery("#sola_nl_editor_tabs").tabs();
     
     
-    
-    
-    
-    
- 
-    
 
-    
     //Custom uploader to add images
     var custom_uploader;
     jQuery('#upload_image_button').click(function(e) {
@@ -600,6 +364,12 @@ jQuery(document).ready( function() {
               jQuery('#images').append('<div type="image" truesrc="'+attachment.url+'" thumbnail="'+thumbnail+'" class="sola_addable_image" style="float:left; padding:3px; margin:3px;"><img src="'+thumbnail+'" /></div>');
               
             });
+            jQuery('.sola_addable_image').draggable({
+              helper: function(e) {
+                  return jQuery('<div type="image" truesrc="'+jQuery(this).attr("truesrc")+'" thumbnail="'+jQuery(this).attr("thumbnail")+'">').addClass('editable').append("<img src='"+jQuery(this).attr("thumbnail")+"' />");
+              },
+              connectToSortable: ".sortable-list"
+          });
 
 
             
@@ -700,7 +470,14 @@ jQuery(function() {
                 var solaid = new Date().getTime();
                 var table = jQuery('<table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%"></table>');
                 var tr = jQuery("<tr></tr>");
-                var td = jQuery('<td class="editable" id="'+solaid+'"></td>');
+
+                if(ui.item.attr('type')){
+                    if(ui.item.attr('type') !== "table"){
+                      var td = jQuery('<td class="editable" id="'+solaid+'"></td>');
+                    } else {
+                      var td = jQuery('<td class="" id="'+solaid+'"></td>'); /* if we're inserting a table make sure the main TD is not editable */
+                    }
+                }
                 //this adds new items to the editor
                 if(ui.item.attr('type')){
                     if(ui.item.attr('type') === "text"){
@@ -714,13 +491,13 @@ jQuery(function() {
                         if (td_cnt < 2 || td_cnt > 4) { td_cnt = 2; }
                         
                         if (td_cnt == 2) { 
-                            td_data = jQuery('<table border="0" cellpadding="0" cellspacing="0" class="sola_table " width="100%"><tbody><tr class="sortable-list-2"><td class="editable sortable-item sortable-list" width="50%" id="'+solaid+1+'"><table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%"><tbody><tr><td class="editable" id="'+solaid+2+'"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lobortis maximus felis, ac congue odio finibus eu. Quisque vel posuere felis. In hac habitasse platea dictumst.</p></td></tr></tbody></table></td><td class="editable sortable-item sortable-list" width="50%" id="'+solaid+3+'"><table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%"><tbody><tr><td class="editable" id="'+solaid+4+'"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lobortis maximus felis, ac congue odio finibus eu. Quisque vel posuere felis. In hac habitasse platea dictumst.</p></td></tr></tbody></table></td></tr></tbody></table>');
+                            td_data = jQuery('<table border="0" cellpadding="0" cellspacing="0" class="sola_table " width="100%"><tbody><tr class="sortable-list-2"><td class="sortable-item sortable-list" width="50%" id="'+solaid+1+'"><table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%"><tbody><tr><td class="editable" id="'+solaid+2+'"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lobortis maximus felis, ac congue odio finibus eu. Quisque vel posuere felis. In hac habitasse platea dictumst.</p></td></tr></tbody></table></td><td class="sortable-item sortable-list" width="50%" id="'+solaid+3+'"><table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%"><tbody><tr><td class="editable" id="'+solaid+4+'"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lobortis maximus felis, ac congue odio finibus eu. Quisque vel posuere felis. In hac habitasse platea dictumst.</p></td></tr></tbody></table></td></tr></tbody></table>');
                         }
                         if (td_cnt == 3) {
-                            td_data = jQuery('<table border="0" cellpadding="0" cellspacing="0" class="sola_table " width="100%"><tbody><tr class="sortable-list-2"><td class="editable sortable-item sortable-list" width="33.3%" id="'+solaid+1+'"><table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%"><tbody><tr><td class="editable" id="'+solaid+2+'"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lobortis maximus felis, ac congue odio finibus eu. Quisque vel posuere felis. In hac habitasse platea dictumst.</p></td></tr></tbody></table></td><td class="editable sortable-item sortable-list" width="33.3%" id="'+solaid+3+'"><table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%"><tbody><tr><td class="editable" id="'+solaid+4+'"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lobortis maximus felis, ac congue odio finibus eu. Quisque vel posuere felis. In hac habitasse platea dictumst.</p></td></tr></tbody></table></td><td class="editable sortable-item sortable-list" width="33.3%" id="'+solaid+6+'"><table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%"><tbody><tr><td class="editable" id="'+solaid+7+'"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lobortis maximus felis, ac congue odio finibus eu. Quisque vel posuere felis. In hac habitasse platea dictumst.</p></td></tr></tbody></table></td></tr></tbody></table>');
+                            td_data = jQuery('<table border="0" cellpadding="0" cellspacing="0" class="sola_table " width="100%"><tbody><tr class="sortable-list-2"><td class="sortable-item sortable-list" width="33.3%" id="'+solaid+1+'"><table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%"><tbody><tr><td class="editable" id="'+solaid+2+'"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lobortis maximus felis, ac congue odio finibus eu. Quisque vel posuere felis. In hac habitasse platea dictumst.</p></td></tr></tbody></table></td><td class="sortable-item sortable-list" width="33.3%" id="'+solaid+3+'"><table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%"><tbody><tr><td class="editable" id="'+solaid+4+'"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lobortis maximus felis, ac congue odio finibus eu. Quisque vel posuere felis. In hac habitasse platea dictumst.</p></td></tr></tbody></table></td><td class="sortable-item sortable-list" width="33.3%" id="'+solaid+6+'"><table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%"><tbody><tr><td class="editable" id="'+solaid+7+'"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lobortis maximus felis, ac congue odio finibus eu. Quisque vel posuere felis. In hac habitasse platea dictumst.</p></td></tr></tbody></table></td></tr></tbody></table>');
                         }
                         if (td_cnt == 4) {
-                            td_data = jQuery('<table border="0" cellpadding="0" cellspacing="0" class="sola_table " width="100%"><tbody><tr class="sortable-list-2"><td class="editable sortable-item sortable-list" width="20%" id="'+solaid+1+'"><table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%"><tbody><tr><td class="editable" id="'+solaid+2+'"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lobortis maximus felis, ac congue odio finibus eu. Quisque vel posuere felis. In hac habitasse platea dictumst.</p></td></tr></tbody></table></td><td class="editable sortable-item sortable-list" width="20%" id="'+solaid+3+'"><table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%"><tbody><tr><td class="editable" id="'+solaid+4+'"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lobortis maximus felis, ac congue odio finibus eu. Quisque vel posuere felis. In hac habitasse platea dictumst.</p></td></tr></tbody></table></td><td class="editable sortable-item sortable-list" width="20%" id="'+solaid+6+'"><table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%"><tbody><tr><td class="editable" id="'+solaid+7+'"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lobortis maximus felis, ac congue odio finibus eu. Quisque vel posuere felis. In hac habitasse platea dictumst.</p></td></tr></tbody></table></td><td class="editable sortable-item sortable-list" width="20%" id="'+solaid+8+'"><table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%"><tbody><tr><td class="editable" id="'+solaid+9+'"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lobortis maximus felis, ac congue odio finibus eu. Quisque vel posuere felis. In hac habitasse platea dictumst.</p></td></tr></tbody></table></td></tr></tbody></table>');
+                            td_data = jQuery('<table border="0" cellpadding="0" cellspacing="0" class="sola_table " width="100%"><tbody><tr class="sortable-list-2"><td class="sortable-item sortable-list" width="25%" id="'+solaid+1+'"><table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%"><tbody><tr><td class="editable" id="'+solaid+2+'"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lobortis maximus felis, ac congue odio finibus eu. Quisque vel posuere felis. In hac habitasse platea dictumst.</p></td></tr></tbody></table></td><td class="sortable-item sortable-list" width="25%" id="'+solaid+3+'"><table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%"><tbody><tr><td class="editable" id="'+solaid+4+'"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lobortis maximus felis, ac congue odio finibus eu. Quisque vel posuere felis. In hac habitasse platea dictumst.</p></td></tr></tbody></table></td><td class="sortable-item sortable-list" width="25%" id="'+solaid+6+'"><table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%"><tbody><tr><td class="editable" id="'+solaid+7+'"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lobortis maximus felis, ac congue odio finibus eu. Quisque vel posuere felis. In hac habitasse platea dictumst.</p></td></tr></tbody></table></td><td class="sortable-item sortable-list" width="25%" id="'+solaid+8+'"><table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%"><tbody><tr><td class="editable" id="'+solaid+9+'"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi lobortis maximus felis, ac congue odio finibus eu. Quisque vel posuere felis. In hac habitasse platea dictumst.</p></td></tr></tbody></table></td></tr></tbody></table>');
                         }
                         
                         
@@ -802,7 +579,13 @@ jQuery(function() {
                 var solaid = new Date().getTime();
                 var table = jQuery('<table border="0" cellpadding="0" cellspacing="0" class="sola_table sortable-item" width="100%"></table>');
                 var tr = jQuery("<tr></tr>");
-                var td = jQuery('<td class="editable" id="'+solaid+'"></td>');
+                if(ui.item.attr('type')){
+                    if(ui.item.attr('type') !== "table"){
+                      var td = jQuery('<td class="editable" id="'+solaid+'"></td>');
+                    } else {
+                      var td = jQuery('<td class="" id="'+solaid+'"></td>'); /* if we're inserting a table make sure the main TD is not editable */
+                    }
+                }
                 //this adds new items to the editor
                 if(ui.item.attr('type')){
                     if(ui.item.attr('type') === "text"){
@@ -963,20 +746,7 @@ function sola_save_letter(redirect){
             attributes["array_name"] = jQuery(this).closest('.style_element_wrapper').attr('array_name');
             styles.push(attributes);
         });
-//        var newHTML;
-//        newHTML = sola_nl_html;
-//        
-//        var allImages = jQuery('img', jQuery("#sola_newsletter_preview"))
-//        var largeImages = allImages.filter(function(){
-//        
-//          console.log(jQuery(this));
-//          console.log(jQuery(this)[0].src);
-//          
-//          var currentsrc = jQuery(this)[0].src;
-//          var encodedData = window.btoa(jQuery(this)[0].src);
-//          newHTML = newHTML.replace(currentsrc, "data:image/jpg;base64,"+encodedData);
-//          console.log(encodedData);
-//        });
+
         
         var sola_nl_main_array = [];
         var d = new Date();
@@ -995,12 +765,7 @@ function sola_save_letter(redirect){
         sola_nl_theme_data["author_url"] = "Author";
         sola_nl_theme_data["licence"] = "GPLv3";
         sola_nl_theme_data["date"] = date_output;
-        
-        
-//        sola_nl_main_array.push(sola_nl_theme_data);
-//        sola_nl_main_array.push(styles);
-//        sola_nl_main_array.push(sola_nl_html);
-//        var sola_nl_json_export = JSON.stringify(sola_nl_main_array);
+
         
         jQuery(".sola_nl_export_textarea_data").val(JSON.stringify(sola_nl_theme_data), null, " ");
         jQuery(".sola_nl_export_textarea_styles").val(JSON.stringify(styles), null, " ");
