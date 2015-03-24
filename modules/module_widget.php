@@ -84,6 +84,9 @@ function sola_nl_widget_add_sub(){
         sola_mail(0, $sub_email, $subject, $body);
         
         ?>
+
+        
+
         <div>
             <?php echo get_option("sola_nl_confirm_thank_you"); ?>
         </div>
@@ -99,6 +102,7 @@ function sola_nl_sign_up_box()
     $hidden_list_description='';
     
     
+    /* - albert -  */
     
     $out='<div id="sola_nl_sign_up_box_'.rand() .'" class="sola_nl_sign_up_box">
     <div id="sola_nl_title">
@@ -113,7 +117,7 @@ function sola_nl_sign_up_box()
         </div>
         <div class="sola_sign_up_form_row">
             <label>
-                '. __('E-mail', 'sola').'
+                '. __('E-mail', 'sola').':
             </label>
             <input type="email"  name="sub_email"/>
         </div>
@@ -125,26 +129,80 @@ function sola_nl_sign_up_box()
         
         $out.='</div>';
         
-        $out.='<br/>';
         
-        if(get_option('sola_nl_use_list')){
+        
+        
+        /*albert*/
+        
+        if(get_option('sola_nl_use_list')==="1")
+        {
             $lists = sola_nl_get_lists();
 
-            $out.='<select name="ddl_lists_widget" id="ddl_lists_widget">';
-            $out.='<option value="" selected="selected"> - Available lists - </option>';
+            
+            
+            
+            /*
+            
+            if(is_array($lists))
+            {
+                $out.='<br/>';
+            
+                $out.='<select name="ddl_lists_widget" id="ddl_lists_widget">';
+                $out.='<option value="" selected="selected"> - Available lists - </option>';
 
-            foreach ($lists as $list) {
+                foreach ($lists as $list) {
 
-                $list_id = $list->list_id;
-                $list_description = $list->list_description;
-                $list_name = $list->list_name;
+                    $list_id = $list->list_id;
+                    $list_description = $list->list_description;
+                    $list_name = $list->list_name;
 
-                $out.='<option value="' . $list_id . '">' . $list_name . '</option>';
-                $hidden_list_description.='<div class="hidden_list_descriptions" id="list_description_display_' . $list_id . '" style="display:none;"> ' . $list_description . ' </div>';
+                    $out.='<option value="' . $list_id . '">' . $list_name . '</option>';
+                    $hidden_list_description.='<div class="hidden_list_descriptions" id="list_description_display_' . $list_id . '" style="display:none;"> ' . $list_description . ' </div>';
+                }
+                $out.='</select>';
+                 $out.='<br/>';
+                
+                $out.=$hidden_list_description;
+                
+                
+               
+                $out.='<br/>';
+            } 
+             * 
+             */
+            
+            if(is_array($lists))
+            {
+                $out.='<br/>';
+            
+                $out.='<p> '.__('Mailing lists','sola').':</p>';
+                
+                foreach ($lists as $list) 
+                {
+
+                    $list_id = $list->list_id;
+                    $list_description = $list->list_description;
+                    $list_name = $list->list_name;
+
+                    $out.='<input type="checkbox" name="sola_list_ids_signup_widget[]" value="'.$list_id.'" /> '.$list_name ; 
+                    $out.='<br/>';
+                    
+                }
+                
+               
+                
+                $out.='<br/>';
             }
-            $out.='</select>';
-        } else {
-            /* Choose the default list - old way */
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             
         }
 
@@ -154,8 +212,12 @@ function sola_nl_sign_up_box()
 
 
 
-    $out.=$hidden_list_description;
-        $out.='<br/><br/>';
+    
+        
+    
+        /*albert*/
+    
+        //$out.='<br/><br/>';
         
         
         

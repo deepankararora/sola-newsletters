@@ -26,7 +26,7 @@ Create and send newsletters, automatic post notifications and autoresponders tha
 * Beautiful newsletter theme included
 * Add subscribers by either copying and pasting from Excel, or uploading a CSV file
 * Export your subscribers to a CSV file
-* Send your newsletters via Wordpress Mail, SMTP or Gmail
+* Send your newsletters via Wordpress Mail, SMTP, Amazon SES or Gmail
 
 = Premium Features =
 * Send to more than 2500 subscribers
@@ -121,6 +121,19 @@ Sola Newsletters strongly suggests that you follow the CAN-SPAM Act. We have inc
 Not applicable.
 
 == Changelog ==
+
+= 4.0.3 - 2015-03-24 - Medium priority =
+* Added support for Amazon SES (via the SMTP method)
+* New throttle setting allows you to specify the delay between each newsletter being sent via SMTP
+* Fixed a bug that caused the ajax send to not work correctly
+* Added 3 more newsletter themes
+* Added basic javascript validation to the newsletter signup widget to force a user to enter an e-mail address
+* Fixed issue in the newsletter signup widget, where when the same e-mail address was used for the signup it gave a database error
+* Removed the slashes from problematic textareas and textfields
+* Fixed Internet Explorer 8 issue where a user could not get passed the "Select Theme" page
+* Added javascript validation to the "Select theme" page, to force a user to select a theme before being able to continue. Also fixed the PHP back-end validation and warning for this
+* Added the ability to select multiple newsletter mailing lists to sign up for in the signup widget. If no list is chosen it defaults to the default mailing list
+* Added javascript to manipulate the DOM for the newsletter signup widget settings page when allowing a user to select mailing lists to subscribe to when using the signup widget
 
 = 4.0.2 - 2015-02-19 - Medium priority =
 * Fixed the bug that stopped you from dragging your own images into the newsletter

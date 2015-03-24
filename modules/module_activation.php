@@ -41,6 +41,7 @@ function sola_nl_activate() {
     ));
     add_option("sola_nl_hosting_provider", 0);
     add_option("sola_nl_send_limit_qty", 20);
+    add_option("sola_nl_send_delay", 1000);
     add_option("sola_nl_send_limit_time", 600);
     $confirmation_subject = __("Thank You For Subscribing","sola");
     add_option("sola_nl_confirm_subject", $confirmation_subject);

@@ -3,8 +3,6 @@
 $sola_nl_ajax_nonce = wp_create_nonce("sola_nl");
 
 
-
-
 ?>
 
 <script language="javascript">
@@ -267,6 +265,8 @@ $sola_nl_ajax_nonce = wp_create_nonce("sola_nl");
             <?php 
             $hosting_provider = get_option('sola_nl_hosting_provider');
             $limit = get_option('sola_nl_send_limit_qty');
+            $delay = get_option('sola_nl_send_delay');
+            if (!$delay) { $delay = 1000000; }
             $limit_time = get_option('sola_nl_send_limit_time');
             ?>
             <table>
@@ -326,6 +326,9 @@ $sola_nl_ajax_nonce = wp_create_nonce("sola_nl");
                                 <option <?php if($limit_time == 7200){echo "selected";} ?> value='7200'><?php _e("every 2 hours","sola"); ?></option>
                             </select>  
                         </p>
+                        <p class='bold'><?php _e("Wait","sola"); ?> <input type='text' value='<?php echo $delay; ?>' size='6' id='sola_nl_send_delay' name='sola_nl_send_delay' /> <?php _e("milliseconds between each email (1000000 = 1 second)","sola"); ?> 
+                            
+                        </p>
                         <p><?php _e("Please note: We suggest that you keep the amount of mails being sent below 50 every 5 minutes. We do not take responsibility for any actions that happen as a result of the above settings.","sola"); ?></p>
                     </td>
                 </tr>
@@ -348,6 +351,7 @@ $sola_nl_ajax_nonce = wp_create_nonce("sola_nl");
                         <button class='button-primary sola_send_test_mail' ><?php _e("Send Test","sola"); ?></button>
                         <br />
                         <input type="checkbox" id='sola_nl_to_mail_test_debug' class='sola-input' name="sola_nl_to_mail_test_debug" placeholder='youremail@email.com' /> <?php _e("Show me the output (debugging purposes)","sola"); ?>
+                        <div id='sola_nl_email_debug_output' style='display:none;'></div>
                     </td>
                 </tr>
             </table>
@@ -399,6 +403,7 @@ $sola_nl_ajax_nonce = wp_create_nonce("sola_nl");
                         ?>
                         <?php 
                             $lists = sola_nl_get_lists();
+                                                        
                             foreach($lists as $list){
                                 $list_id = $list->list_id;?>
                                 <input type="checkbox" name="sola_nl_sign_up_sub_list[]" <?php if(is_array($sign_up_list)&&in_array($list_id, $sign_up_list)) echo "checked" ?> value="<?php echo $list->list_id ?>"/>

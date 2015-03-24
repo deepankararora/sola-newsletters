@@ -22,10 +22,7 @@ function sola_nl_preview_mail(){
         $body = sola_nl_replace_links($body,0,$camp_id);
 
         if($result->type == 2 && $result->action == 3){
-//            $letter = sola_nl_get_letter($camp_id);
-//            var_dump($camp_id);
             $inserted_data = sola_nl_build_automatic_content($camp_id,false);
-//            var_dump($inserted_data);
             $body = preg_replace('/<table id="sola_nl_automatic_container"(.*?)<\/table>/is', $inserted_data, $body);
         }
         
@@ -41,7 +38,7 @@ function sola_nl_preview_mail(){
     }
 
 }
-
+/* deprecated
 function sola_nl_send_mail(){
 
     global $wpdb;
@@ -90,6 +87,7 @@ function sola_nl_send_mail_via_cron_original($camp_id,$sub_id,$sub_email){
     global $sola_global_subid;
     global $sola_global_campid;
 
+
     $sql = "SELECT * FROM `$sola_nl_camp_tbl` WHERE `camp_id` = '$camp_id'";
     $camp = $wpdb->get_row($sql);
     $body = sola_nl_mail_body($camp->email, $sub_id, $camp->camp_id);
@@ -129,7 +127,7 @@ function sola_nl_send_mail_via_cron_original($camp_id,$sub_id,$sub_email){
 function sola_nl_send_mail_via_cron($camp_id,$sub_id,$sub_email){
 
 }
-
+*/
 function sola_nl_mail_body($body, $sub_id, $camp_id){
     global $wpdb;
     global $sola_nl_style_table;
@@ -369,6 +367,8 @@ function sola_mail($camp_id,$to,$subject,$body,$headers = false,$attachment = fa
         } else {
             $mail->SMTPDebug = 1;
         }
+        $mail->SMTPDebug = 2;
+        $mail->Debugoutput = 'html';
 
         if(!$mail->Send()){
             return array('error'=>'Error sending mail');
@@ -434,7 +434,6 @@ function sola_nl_test_mail_2(){
     global $sola_nl_camp_tbl;
 
     extract($_POST);
-    //var_dump($_POST);
 
 
         $body = "<p>Your email settings are correct.</p>"
@@ -501,15 +500,25 @@ function sola_check_send_mail_time($type){
     
     $sql = "SELECT * FROM `$sola_nl_camp_tbl` WHERE `schedule_date` < '$current_date' AND `status` = '$type' AND `type` != '2' LIMIT 1";
     $campaign = $wpdb->get_row($sql);
+
        
     if($campaign){
+
         $time_limit = strtotime("-".get_option('sola_nl_send_limit_time')." seconds");
         $camp_id = false;
          
         $last_sent_date = strtotime($campaign->last_sent);
-        if(($last_sent_date < $time_limit) && ($campaign->time_frame_qty > 0)){
+
+
+        if (strtotime("now") > ($last_sent_date + get_option('sola_nl_send_limit_time'))) {
+            $camp_id = $campaign->camp_id;
+        } 
+
+
+
+        /*if(($last_sent_date < $time_limit) && ($campaign->time_frame_qty > 0)){
             $camp_id = $campaign->camp_id;             
-        }
+        }*/
         return $camp_id;
         
     } else {
@@ -576,8 +585,17 @@ function sola_next_send_time_left($camp_id){
 //    }
     return $time_left;
 }
-function sola_cron_send($camp_id = false) {
-    
+
+
+/**
+ * sola_cron_send
+ *
+ * This handles the sending of any CRON-related emails as well as the "force send" ajax function
+ *
+ * @camp_id         [bool]  [if false, will get the next campaign automatically]
+ */
+
+function sola_cron_send($camp_id = false) {    
     $debug_start = (float) array_sum(explode(' ',microtime()));
 
     global $wpdb;
@@ -587,6 +605,11 @@ function sola_cron_send($camp_id = false) {
     global $sola_global_subid;
     global $sola_global_campid;
     
+
+    $delay = get_option("sola_nl_send_delay");
+    if (!$delay) { $delay = 1000000; }
+    $delay = intval($delay);
+
     /*
      * Sends mail to new users and subscribers.
      */
@@ -599,9 +622,6 @@ function sola_cron_send($camp_id = false) {
     if ($camp_id) {
         $limit = sola_get_camp_limit($camp_id);
         if($limit){
-
-
-
             if (!get_option("sola_currently_sending")) {
                 if (get_option("sola_currently_sending") == "yes") {
                     return __("We are currently sending. Dont do anything", "sola");
@@ -615,7 +635,6 @@ function sola_cron_send($camp_id = false) {
             update_option("sola_currently_sending","yes");
 
             $subscribers = sola_nl_camp_subs($camp_id, $limit);
-            //var_dump($subscribers);
 
             $sql = "SELECT * FROM `$sola_nl_camp_tbl` WHERE `camp_id` = '$camp_id'";
             $camp = $wpdb->get_row($sql);
@@ -669,61 +688,27 @@ function sola_cron_send($camp_id = false) {
                 $mail->SMTPDebug = 0;
             }           
             
-//            var_dump($subscribers);
 
             if ($subscribers) {
 
                 foreach($subscribers as $subscriber) {
-                    set_time_limit(600);
+                    if( !ini_get('safe_mode') ){ 
+                        set_time_limit(1200); 
+                    } 
                     $sub_id = $subscriber->sub_id;
                     $sub_email = $subscriber->sub_email;
-                    
-                    
-//                    echo $sub_email;
-                    
-                    //var_dump('Subscriber ID '.$sub_id);
 
                     $the_email = $camp->email;
-//                    global $sola_global_subid;
-                    
 
                     $sola_global_subid = $sub_id;
-//                    var_dump("HERE");
-//                    var_dump($sola_global_subid);
                     $sola_global_campid = $camp->camp_id;
                     
                     $original_body = sola_nl_mail_body($the_email, $sub_id, $camp->camp_id);
-                    echo "<h1>original</h1>";
-                    echo $original_body;
                     
                     
                     $final_body = do_shortcode($original_body);
-//                    echo "<h1>final</h1>";
-//                    echo $final_body;
-//                    
-//                    echo 'Sub ID '.$sub_id;
-//                    
-//                    var_dump($sub_id);
-//                    var_dump($sola_global_subid);
-//                    
-//                    echo 'Camp ID '.$camp_id;
-//                    echo 'Body';
-                    
-//                  echo $body;
-//                    $the_sub = sola_nl_get_subscriber('12');
-                    
-//                    echo sola_nl_unsubscribe_href();
-//                    var_dump($the_sub);                            
-                            
                             
                     $body = sola_nl_replace_links($final_body, $sub_id, $camp->camp_id);
-//                    exit();
-
-                    /* ------ */    
-
-
-                    //$check = sola_mail($camp_id ,$sub_email, $camp->subject, $body);
-
 
                     if($saved_send_method == "1"){
                         if(wp_mail($sub_email, $camp->subject, $body, $headers )){
@@ -734,6 +719,7 @@ function sola_cron_send($camp_id = false) {
 
                     } else if ($saved_send_method >= "2") {
 
+                        
                         if (is_array($sub_email)) {
                             foreach ($sub_email as $address) {
                                 $mail->AddAddress($address);
@@ -754,6 +740,8 @@ function sola_cron_send($camp_id = false) {
                             $mail->clearAttachments();
                             $check = true;
                         }
+                        /* pause for x milliseconds (controlled via settings page, default to 1000000ms (1s)) */
+                        usleep($delay);
                     }
 
 
@@ -767,6 +755,7 @@ function sola_cron_send($camp_id = false) {
                         sola_return_error(new WP_Error( 'sola_error', __( 'Failed to send email to subscriber' ), 'Could not send email to '.$mail->ErrorInfo ));
                         echo "<p>Failed to send to ".$sub_email."</p>";
                     }
+
                     sola_update_camp_limit($camp_id);
                     $wpdb->update( 
                         $sola_nl_camp_subs_tbl, 
@@ -794,10 +783,11 @@ function sola_cron_send($camp_id = false) {
                     //if ( is_wp_error($check)) sola_return_error($check);
                 }
             }
+
         } else {
             /* do nothing, reached limit */
         }
-        if ($saved_send_method >= "2") { $mail->smtpClose(); }
+        if ($saved_send_method >= "2") { $mail->smtpClose(); unset($mail); }
         $end = (float) array_sum(explode(' ',microtime()));
         echo "<br />processing time: ". sprintf("%.4f", ($end-$debug_start))." seconds<br />";
 
@@ -818,13 +808,11 @@ function sola_cron_send_original() {
     $debug_start = (float) array_sum(explode(' ',microtime()));
 
     $camp_id = sola_check_send_mail_time(3);
-    //var_dump($camp_id);
 
     if ($camp_id) {
         $limit = sola_get_camp_limit($camp_id);
         if($limit){
             $subscribers = sola_nl_camp_subs($camp_id, $limit);
-            //var_dump($subscribers);
 
             if ($subscribers) {
 
@@ -956,12 +944,6 @@ function sola_nl_ajax_send($subscribers, $camp_id){
 
 
                 $body = sola_nl_replace_links($body, $sub_id, $camp->camp_id);
-
-
-
-
-
-
 
                 /* ------ */    
 

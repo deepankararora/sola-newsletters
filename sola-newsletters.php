@@ -3,12 +3,25 @@
 Plugin Name: Sola Newsletters
 Plugin URI: http://www.solaplugins.com
 Description: Create beautiful email newsletters in a flash with Sola Newsletters.
-Version: 4.0.2
+Version: 4.0.3
 Author: SolaPlugins
 Author URI: http://www.solaplugins.com
 */
 
-/* 4.0.2 - 2015-02-19 - Medium priority
+/* 4.0.3 - 2015-03-24 - Medium priority
+ * Added support for Amazon SES (via the SMTP method)
+ * New throttle setting allows you to specify the delay between each send via SMTP
+ * Fixed a bug that caused the ajax send to not work correctly
+ * Added 3 more newsletter themes
+ * Added basic javascript validation to the newsletter signup widget to force a user to enter an e-mail address
+ * Fixed issue in the newsletter signup widget, where when the same e-mail address was used for the signup it gave a database error
+ * Removed the slashes from problematic textareas and textfields
+ * Fixed Internet Explorer 8 issue where a user could not get passed the "Select Theme" page
+ * Added javascript validation to the "Select theme" page, to force a user to select a theme before being able to continue. Also fixed the PHP back-end validation and warning for this
+ * Added the ability to select multiple newsletter mailing lists to sign up for in the signup widget. If no list is chosen it defaults to the default mailing list
+ * Added javascript to manipulate the DOM for the newsletter signup widget settings page when allowing a user to select mailing lists to subscribe to when using the signup widget
+ * 
+ * 4.0.2 - 2015-02-19 - Medium priority
  * Fixed the bug that stopped you from dragging your own images into the newsletter
  * Fixed the column width bug for a 4 column table in the newsletter editor
  * Fixed the editing bug when trying to edit the content of columns in a table
@@ -135,7 +148,7 @@ define("SOLA_PLUGIN_NAME","Sola Newsletters");
 
 global $sola_nl_version;
 global $sola_nl_version_string;
-$sola_nl_version = "4.0.2";
+$sola_nl_version = "4.0.3";
 $sola_nl_version_string = "";
 
 
@@ -320,6 +333,9 @@ function sola_nl_update_control() {
             if(get_option('sola_nl_use_list') == ""){
                 add_option('sola_nl_use_list', 0);
             }
+            if (get_option("sola_nl_send_delay") == "") {
+                  add_option("sola_nl_send_delay", 1000000);
+            }
 
             update_option("sola_nl_version",$sola_nl_version);
 
@@ -399,20 +415,24 @@ function sola_nl_action_callback() {
                 $time_interval = get_option("sola_nl_send_limit_time");
 
                 $time_next = ($last_sent + $time_interval) - time();
+                $orig_time_next = $time_next;
                 if ($time_next <= 0) {
                     $time_next = __("Sending again in about ","sola").'0'.__(" minute(s)","sola");
                 } else {
                     $time_next = __("Sending again in about ","sola").ceil(($time_next / 60)).__(" minute(s)","sola");
                 }
+                
             }
 
 
             $temp_array[] = $time_next;
-
             if ($sent_perc == 100) {
                 $next_camp_id = sola_check_send_mail_time(3);
                 if (!$next_camp_id) { $temp_array[] = "0";  } else { $temp_array[] = $next_camp_id; }
             } else {
+                $camp_id = sola_check_send_mail_time(3);
+                /* must we send a batch now, is it time? */
+                if ($camp_id) { sola_cron_send($camp_id ); }
                 $temp_array[] = "0";
             }
             $temp_array[] = $total_sent." ".__("of","sola")." ".$total_subscribers." ".__("sent","sola");
@@ -519,18 +539,53 @@ function sola_nl_action_callback() {
             extract($_POST);
 
             if(sola_nl_add_single_subscriber(2)){
+                
+                /* albert */
+                
                 $sub_email = $_POST["sub_email"];
                 $sql = "SELECT * FROM `$sola_nl_subs_tbl` WHERE `sub_email` = '$sub_email'";
                 $result = $wpdb->get_row($sql);
                 $sub_key =  $result->sub_key;
                 $sub_id=$result->sub_id;
 
-                if(isset($_REQUEST['ddl_lists_widget'])&&trim($_REQUEST['ddl_lists_widget'])!=="")
+                
+                if(isset($_REQUEST['sola_list_ids_signup_widget']))
                 {
-                    $list_id=$_REQUEST['ddl_lists_widget'];
-                    $query='INSERT INTO '.$sola_nl_subs_list_tbl.' (sub_id,list_id) VALUES ('.$sub_id.','.$list_id.')';
-                    $result = $wpdb->query($query);
+                    $selected_lists=$_REQUEST['sola_list_ids_signup_widget'];
+                    if(is_array($selected_lists))
+                    {
+                        foreach($selected_lists as $list_id)
+                        {
+                            $result=$wpdb->get_results('SELECT count(*) as count FROM '.$sola_nl_subs_list_tbl.'  WHERE sub_id="'.$sub_id.'" AND list_id="'.$list_id.'" ; ');
+                            $count=(integer)$result[0]->count;
+
+                            if($count===0)
+                            {
+                                $query='INSERT INTO '.$sola_nl_subs_list_tbl.' (sub_id,list_id) VALUES ('.$sub_id.','.$list_id.')';
+                                $result = $wpdb->query($query);
+                            }
+                        }
+                    }
                 }
+                else 
+                {
+                    $default_lists_set=unserialize(get_option('sola_nl_sign_up_lists'));
+                    if(is_array($default_lists_set))
+                    {
+                        foreach($default_lists_set as $list_id)
+                        {
+                            $result=$wpdb->get_results('SELECT count(*) as count FROM '.$sola_nl_subs_list_tbl.'  WHERE sub_id="'.$sub_id.'" AND list_id="'.$list_id.'" ; ');
+                            $count=(integer)$result[0]->count;
+
+                            if($count===0)
+                            {
+                                $query='INSERT INTO '.$sola_nl_subs_list_tbl.' (sub_id,list_id) VALUES ('.$sub_id.','.$list_id.')';
+                                $result = $wpdb->query($query);
+                            }
+                        }
+                    }
+                }
+               
 
 
                 $page_url = get_permalink( get_option("sola_nl_confirm_page"));
@@ -836,8 +891,10 @@ function sola_nl_wp_head() {
 //        }
 //        else {
 
-            
+            /*albert*/
         
+        if(isset($_POST['theme_id']))
+        {
             $theme_array = explode(",",$_POST['theme_id']);
 
 
@@ -849,6 +906,14 @@ function sola_nl_wp_head() {
                 header('location:'.$editor);
                 exit();
             }
+        }
+        else
+        {
+            $error_data=new WP_Error( 'sola_error', __( 'Please select a theme before continuing', 'sola'), '' );
+            sola_return_error($error_data);
+        }
+        
+            
 //        }
 
     }
@@ -1062,8 +1127,10 @@ function sola_nl_get_subscribers($list_id = false, $limit = false, $page = false
     if($list_id){
         $where = "WHERE `$sola_nl_subs_list_tbl`.`list_id` = '$list_id'";
     }
-    if($name){
-        $where = "WHERE `$sola_nl_subs_tbl`.`sub_name` LIKE '%$name%' OR `$sola_nl_subs_tbl`.`sub_email` LIKE '%$name%' AND `$sola_nl_subs_list_tbl`.`list_id` = '$list_id'";
+    if($name && $list_id){
+        $where = "WHERE (`$sola_nl_subs_tbl`.`sub_name` LIKE '%$name%' OR `$sola_nl_subs_tbl`.`sub_email` LIKE '%$name%') AND `$sola_nl_subs_list_tbl`.`list_id` = '$list_id'";
+    } else if ($name) {
+        $where = "WHERE (`$sola_nl_subs_tbl`.`sub_name` LIKE '%$name%' OR `$sola_nl_subs_tbl`.`sub_email` LIKE '%$name%')";
     }
     if($limit){
         if(!$page){
@@ -1102,15 +1169,36 @@ function sola_nl_subscriber_status($status){
         _e('Unsubscribed', 'sola');
    }
 }
+
+
+
+/* - albert - */
+
 function sola_nl_add_single_subscriber($status = 1){
     global $wpdb;
     global $sola_nl_subs_tbl;
+    $sola_nl_sub_check='';
+    
     if(sola_cts()){
         extract($_POST);
         if($sub_email){
            $sub_key = wp_hash_password( $sub_email );
-           $sola_nl_sub_check = $wpdb->insert( $sola_nl_subs_tbl, array( 'sub_id' => '', 'sub_name' => $sub_name, 'sub_email' => $sub_email, 'sub_key' => $sub_key , "status" => $status ) ) ;
-
+           
+           
+           
+           $result=$wpdb->get_results('SELECT count(*) as count FROM '.$sola_nl_subs_tbl.'  WHERE sub_email="'.$sub_email.'" ; ');
+           $count=$result[0]->count;
+           if((integer)$count===0)
+           {
+               $sola_nl_sub_check = $wpdb->insert( $sola_nl_subs_tbl, array( 'sub_id' => '', 'sub_name' => $sub_name, 'sub_email' => $sub_email, 'sub_key' => $sub_key , "status" => $status ) ) ;
+           }
+           
+           
+           
+           
+           
+           
+           
            if(isset($sub_list))
            {
                sola_nl_add_sub_list($sub_list, $wpdb->insert_id);
@@ -1334,13 +1422,17 @@ function sola_nl_update_settings(){
        update_option("sola_nl_sign_up_lists", maybe_serialize($_POST['sola_nl_sign_up_sub_list']));
     }
 
+    
+    
+    
    update_option("sola_nl_social_links", $social_links);
    update_option("sola_nl_encryption", $encryption);
    update_option("sola_nl_confirm_subject",$sola_nl_confirm_subject);
-   update_option("sola_nl_confirm_mail",$sola_nl_confirm_mail);
-   update_option("sola_nl_confirm_thank_you", $sola_nl_confirm_thank_you);
+   update_option("sola_nl_confirm_mail",  stripslashes($sola_nl_confirm_mail));
+   update_option("sola_nl_confirm_thank_you", stripslashes($sola_nl_confirm_thank_you));
    update_option("sola_nl_hosting_provider", $sola_nl_hosting_provider);
    update_option("sola_nl_send_limit_qty", $sola_nl_send_limit_qty);
+   update_option("sola_nl_send_delay", $sola_nl_send_delay);
    update_option("sola_nl_send_limit_time", $sola_nl_send_limit_time);
    update_option("sola_nl_browser_text", $sola_nl_browser_text);
    update_option("sola_nl_enable_link_tracking", $sola_nl_enable_link_tracking);
@@ -1652,6 +1744,8 @@ function sola_nl_get_letter($camp_id, $theme_id = null){
             $letter = stripslashes($result->email);
         } else {
             $sql = "SELECT * FROM `$sola_nl_themes_table` WHERE `theme_id` = '$theme_id'";
+            //var_dump($sql);
+            
             $result = $wpdb->get_row($sql);
             $letter = stripslashes($result->theme_html);
         }

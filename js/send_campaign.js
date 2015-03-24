@@ -58,6 +58,7 @@ jQuery(document).ready( function() {
     
     every_ten_seconds = setInterval(function() {
         ein_get_perc().done(function(response){
+
             var something = JSON.parse(response);
             progress(something[0], something[2], jQuery('#progressBar_'+camp_id));
             jQuery("#time_next_"+camp_id).html("<small>"+something[1]+"<br />"+something[3]+"<br /><a href='javascrit:void(0);' onclick='javascript:sola_nl_send_batch("+camp_id+"); return false;'>Send a batch now!</a></small>");

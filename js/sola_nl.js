@@ -158,6 +158,7 @@ jQuery(document).ready(function() {
         var smtp_pass = jQuery("#sola_nl_password").val();
         var smtp_encrypt = jQuery("input[name=encryption]:radio:checked").val();
 
+        jQuery("#sola_nl_email_debug_output").html("Sending test email...").fadeIn("slow");
 
         
         
@@ -179,7 +180,7 @@ jQuery(document).ready(function() {
         
         //alert(data);
         jQuery.post(ajaxurl, data, function(response) {
-            alert(response);
+            jQuery("#sola_nl_email_debug_output").html(response);
             jQuery(".sola_send_test_mail").prop( "disabled", false );
             
         });
@@ -395,26 +396,61 @@ jQuery(document).ready(function() {
 
 
 
-    /*run on click and on page load - page load to determine display of listing options*/
-    //signup_widget.lists.determine_list_manipulation();
     
-    //jQuery('#sola_nl_use_list').click(function()
-    //{
-      //  signup_widget.lists.determine_list_manipulation();
-    //});
+    
+    signup_widget.lists.determine_list_manipulation();
+    
+    jQuery('#sola_nl_use_list').unbind('click').click(function()
+    {
+        signup_widget.lists.determine_list_manipulation();
+    });
+    
+    
+    
+    jQuery('input[type="submit"]').filter('[name="sola_set_theme"]').unbind('click').on('click',function()
+    {
+         if(jQuery('[name="theme_id"]').length===1)
+         {
+            if(jQuery('[name="theme_id"]').is(':checked'))
+            {
+               
+            }
+            else
+            {
+                alert('Please first select a theme by clicking on the appropriate image.');
+                return false;
+            }
+         }
+        
+    });
+    
+    /*This should fix the IE 8 bug where the user can't get past the theme selection page*/
+    
+    jQuery('.theme_div_wrapper img[src$="sola-newsletters/themes/basic-layout-1/thumbnail.png"]').unbind('click').on('click',function()
+    {
+       if(jQuery('[name="theme_id"]').length===1)
+       {
+           jQuery('[name="theme_id"]').attr('checked','checked');
+       }
+    });
+    
+    
+    
 
-    /* - -------------------------------------- - - */
+
+
+
+
 
 
 });
 
-/*
 
 var signup_widget={
     lists:{
         determine_list_manipulation:function()
         {
-            if(jQuery('#sola_nl_list_of_lists').is(':visible'))
+            if(jQuery('#sola_nl_use_list').is(':checked'))
             {
                 signup_widget.lists.hide();
             }
@@ -430,9 +466,6 @@ var signup_widget={
         hide:function()
         {
             jQuery('#sola_nl_list_of_lists').hide();
-            jQuery('#sola_nl_list_of_lists :checkbox').removeAttr('checked');
         }
     }
 };
-
-*/
