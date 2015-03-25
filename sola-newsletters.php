@@ -3,12 +3,16 @@
 Plugin Name: Sola Newsletters
 Plugin URI: http://www.solaplugins.com
 Description: Create beautiful email newsletters in a flash with Sola Newsletters.
-Version: 4.0.3
+Version: 4.0.4
 Author: SolaPlugins
 Author URI: http://www.solaplugins.com
 */
 
-/* 4.0.3 - 2015-03-24 - Medium priority
+/* 
+ * 4.0.4 - 2015-03-25 - Low priority
+ * French translation fix
+ * 
+ * 4.0.3 - 2015-03-24 - Medium priority
  * Added support for Amazon SES (via the SMTP method)
  * New throttle setting allows you to specify the delay between each send via SMTP
  * Fixed a bug that caused the ajax send to not work correctly
@@ -148,7 +152,7 @@ define("SOLA_PLUGIN_NAME","Sola Newsletters");
 
 global $sola_nl_version;
 global $sola_nl_version_string;
-$sola_nl_version = "4.0.3";
+$sola_nl_version = "4.0.4";
 $sola_nl_version_string = "";
 
 

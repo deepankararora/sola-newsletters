@@ -122,6 +122,10 @@ Not applicable.
 
 == Changelog ==
 
+
+= 4.0.4 - 2015-03-25 - Low priority =
+* French translation fix
+
 = 4.0.3 - 2015-03-24 - Medium priority =
 * Added support for Amazon SES (via the SMTP method)
 * New throttle setting allows you to specify the delay between each newsletter being sent via SMTP
