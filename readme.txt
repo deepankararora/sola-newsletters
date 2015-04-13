@@ -122,6 +122,9 @@ Not applicable.
 
 == Changelog ==
 
+= 4.0.5 - 2015-04-13 - Low priority =
+* Erroneous Debugging error being shown, Now fixed
+* Changed character to UTF-8
 
 = 4.0.4 - 2015-03-25 - Low priority =
 * French translation fix

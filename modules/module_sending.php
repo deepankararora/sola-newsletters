@@ -367,7 +367,7 @@ function sola_mail($camp_id,$to,$subject,$body,$headers = false,$attachment = fa
         } else {
             $mail->SMTPDebug = 1;
         }
-        $mail->SMTPDebug = 2;
+        //$mail->SMTPDebug = 2;
         $mail->Debugoutput = 'html';
 
         if(!$mail->Send()){

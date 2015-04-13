@@ -3,12 +3,17 @@
 Plugin Name: Sola Newsletters
 Plugin URI: http://www.solaplugins.com
 Description: Create beautiful email newsletters in a flash with Sola Newsletters.
-Version: 4.0.4
+Version: 4.0.5
 Author: SolaPlugins
 Author URI: http://www.solaplugins.com
 */
 
+
 /* 
+ * 4.0.5 - 2015-04-13 - Low priority
+ * Erroneous Debugging error being shown, Now fixed.
+ * Changed character to UTF-8.
+ * 
  * 4.0.4 - 2015-03-25 - Low priority
  * French translation fix
  * 
@@ -152,7 +157,7 @@ define("SOLA_PLUGIN_NAME","Sola Newsletters");
 
 global $sola_nl_version;
 global $sola_nl_version_string;
-$sola_nl_version = "4.0.4";
+$sola_nl_version = "4.0.5";
 $sola_nl_version_string = "";
 
 
