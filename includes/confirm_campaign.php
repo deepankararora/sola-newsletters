@@ -24,7 +24,7 @@ $limit_time = get_option('sola_nl_send_limit_time');
                   <p class="description"><?php _e("Give your campaign a subject line to make your subscribers take the bait!","sola"); ?></p>
                </td>
                <td>
-                  <input type="text" class="sola-input-subject" name="subject" value="<?php if($camp){ echo $camp->subject; } ?>"/>
+                   <input type="text" class="sola-input-subject" name="subject" value="<?php if($camp){ echo stripslashes($camp->subject); } ?>"/>
                </td>
             </tr>
                 <?php 

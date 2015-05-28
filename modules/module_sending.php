@@ -3,6 +3,7 @@
 // checks if any camps to send via ajax
 
 
+
 function sola_nl_preview_mail(){
 
     global $wpdb;
@@ -684,7 +685,7 @@ function sola_cron_send($camp_id = false) {
                 $mail->Port = $port;
                 $mail->AddReplyTo ($reply, $reply_name);
                 $mail->SetFrom($sent_from, $sent_from_name);
-                $mail->Subject = $camp->subject;
+                $mail->Subject = stripslashes($camp->subject);
                 $mail->SMTPDebug = 0;
             }           
             
@@ -710,8 +711,10 @@ function sola_cron_send($camp_id = false) {
                             
                     $body = sola_nl_replace_links($final_body, $sub_id, $camp->camp_id);
 
+                    $body = stripslashes($body);
+                    
                     if($saved_send_method == "1"){
-                        if(wp_mail($sub_email, $camp->subject, $body, $headers )){
+                        if(wp_mail($sub_email, stripslashes($camp->subject), $body, $headers )){
                             $check = true;
                         } else {
                             $check = array('error'=>"Failed to send email to $sub_email... ".$GLOBALS['phpmailer']->ErrorInfo);

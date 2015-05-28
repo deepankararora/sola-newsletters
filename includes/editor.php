@@ -282,11 +282,33 @@ if(isset($camp_type['action'])) { $auto_camp_type = $camp_type['action']; } else
                            
                         ?>
                     </div>
+                    
+                </div>
+                <div class="add-box sola_show_editior_div">
+                    <div class="add-box-title">
+                        <h3><?php _e("Shortcodes","sola"); ?></h3>
+                        <i class="fa fa-3x fa-code"></i>
+                    </div>
+                    <div class="sola-extra-content" style="padding:0 20px 10px 10px;">
+                        <div class="form-group">
+                            <label>
+                                <?php _e("User First Name","sola"); ?>
+                            </label>
+                            <input type="text" class="form-control" id="sola_nl_btn_text" readme value="<?php _e('[sola_nl_first_name]', 'sola'); ?>"/>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <?php _e("User Last Name","sola"); ?>
+                            </label>
+                            <input type="text" class="form-control" id="sola_nl_btn_text" readme value="<?php _e('[sola_nl_last_name]', 'sola'); ?>"/>
+                        </div>
+                    </div>
+                </div>
+                    
+                    
+                   
                 </div>
                 <div style="clear: both"></div>
-                
-              
-                
                 
             </div>
             

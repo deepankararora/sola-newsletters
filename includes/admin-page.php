@@ -137,7 +137,7 @@ $total_pages = ceil($total_rows/$limit);
                                 <strong>
                                     <a class="row-title" <?php if ($camp->status == 0 ) { echo "href=\"?page=sola-nl-menu&action=editor&camp_id=".$camp->camp_id."\""; }
                                     else if($camp->status >= 1 && $camp->type != 2) { echo "href=\"?page=sola-nl-menu&action=camp_stats&camp_id=".$camp->camp_id."\""; } else if ($camp->type == 2) { echo "href=\"?page=sola-nl-menu&action=editor&camp_id=".$camp->camp_id."\""; }?>>
-                                        <?php echo $camp->subject ?>
+                                        <?php echo stripslashes($camp->subject); ?>
                                     </a>
                                 </strong>
                                 <div class="row-actions">

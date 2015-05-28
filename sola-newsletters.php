@@ -3,13 +3,18 @@
 Plugin Name: Sola Newsletters
 Plugin URI: http://www.solaplugins.com
 Description: Create beautiful email newsletters in a flash with Sola Newsletters.
-Version: 4.0.5
+Version: 4.0.6
 Author: SolaPlugins
 Author URI: http://www.solaplugins.com
 */
 
 
-/* 
+/* 4.0.6 - 2015-05-28 - Medium priority
+ * New Feature: Added Shortcodes for subscriber first and last name
+ * Improvement: Migrated from jqplot to Google Charts (Pro)
+ * Bug Fix: Slashes stripped in emails when using an apostrophe
+ * Bug Fix: French Translation file renamed 
+ * 
  * 4.0.5 - 2015-04-13 - Low priority
  * Erroneous Debugging error being shown, Now fixed.
  * Changed character to UTF-8.
@@ -157,7 +162,7 @@ define("SOLA_PLUGIN_NAME","Sola Newsletters");
 
 global $sola_nl_version;
 global $sola_nl_version_string;
-$sola_nl_version = "4.0.5";
+$sola_nl_version = "4.0.6";
 $sola_nl_version_string = "";
 
 
@@ -238,6 +243,13 @@ add_shortcode("unsubscribe_href", "sola_nl_unsubscribe_href");
 add_shortcode("browser_view","sola_nl_view_browser");
 add_shortcode("unsubscribe_text", "sola_nl_unsubscribe_text");
 add_shortcode("browser_view_text", "sola_nl_view_browser_text");
+
+add_shortcode('sola_nl_first_name', 'sola_nl_get_first_name');
+add_shortcode('sola_nl_last_name', 'sola_nl_get_last_name');
+
+
+
+
 
 add_shortcode('sola_nl_blog_name', 'sola_nl_get_blog_name');
 add_shortcode('sola_nl_post_author', 'sola_nl_get_post_author');
@@ -1065,18 +1077,24 @@ function sola_nl_admin_scripts_basic() {
     if(isset($_GET['page']) && isset($_GET['action']) && $_GET['page'] == "sola-nl-menu" && ($_GET['action'] == "camp_stats" || $_GET['action'] == "single_sub_stats")){
         wp_register_script('sola_nl_bootstrap_js', PLUGIN_DIR."/js/bootstrap.min.js", false);
         wp_enqueue_script( 'sola_nl_bootstrap_js' );
-        wp_register_script('sola_nl_datatables_js', PLUGIN_DIR."/js/jquery.dataTables.js", false);
-        wp_enqueue_script( 'sola_nl_datatables_js' );
+
+        
+
+        
         if ($_GET['action'] == "camp_stats") {
-            wp_register_script('sola_nl_jqplot_js', PLUGIN_DIR.'/js/jquery.jqplot.min.js');
-            wp_enqueue_script('sola_nl_jqplot_js');
-            wp_register_script('sola_nl_jqplot_render_js', PLUGIN_DIR.'/js/jqplot.pieRenderer.min.js');
-            wp_enqueue_script('sola_nl_jqplot_render_js');
+            wp_register_script('sola_nl_googlecharts_js', "//www.google.com/jsapi", false);
+            wp_enqueue_script( 'sola_nl_googlecharts_js' );
+//            wp_register_script('sola_nl_jqplot_js', PLUGIN_DIR.'/js/jquery.jqplot.min.js');
+//            wp_enqueue_script('sola_nl_jqplot_js');
+//            wp_register_script('sola_nl_jqplot_render_js', PLUGIN_DIR.'/js/jqplot.pieRenderer.min.js');
+//            wp_enqueue_script('sola_nl_jqplot_render_js');
             if(function_exists('sola_nl_register_pro_version')){
-                wp_register_script('sola_nl_jqplot_custom_js', PLUGIN_DIR_PRO.'/js/sola_nl_pro.js');
-                wp_enqueue_script('sola_nl_jqplot_custom_js');
+                wp_register_script('sola_nl_google_charts_custom_js', PLUGIN_DIR_PRO.'/js/sola_nl_pro.js');
+                wp_enqueue_script('sola_nl_google_charts_custom_js');
             }
         }
+        wp_register_script('sola_nl_datatables_js', PLUGIN_DIR."/js/jquery.dataTables.js", false);
+        wp_enqueue_script( 'sola_nl_datatables_js' );
     }
 
     if (isset($_GET['page']) && ($_GET['page'] == "sola-nl-menu-settings" || $_GET['page'] == "sola-nl-menu" || $_GET['page'] == "sola-nl-menu-subscribers" || (isset($_GET['action']) && $_GET['action'] == "preview") || (isset($_GET['action']) && $_GET['action'] == "confirm_camp") || (isset($_GET['action']) && $_GET['action'] == 'new_campaign') || isset($_GET['action']) && isset($_GET['custom_template']))){
@@ -2162,6 +2180,38 @@ function sola_nl_confirm_link($atr , $text = null){
         return "<a href='$page_url&action=sola_nl_confirmation&sub_key=$sub_key'>$text</a>";
     }
 }
+
+function sola_nl_get_first_name() {
+    global $sola_global_subid;
+    
+    if (isset($sola_global_subid)) {
+        global $wpdb;
+        global $sola_nl_subs_tbl;
+        $result = $wpdb->get_row(
+        $wpdb->prepare(
+                " SELECT `sub_name` FROM `$sola_nl_subs_tbl`  WHERE `sub_id` = %d  LIMIT 1",
+                $sola_global_subid
+            )
+        );
+        return $result->sub_name;
+    }
+}
+function sola_nl_get_last_name() {
+    global $sola_global_subid;
+    
+    if (isset($sola_global_subid)) {
+        global $wpdb;
+        global $sola_nl_subs_tbl;
+        $result = $wpdb->get_row(
+        $wpdb->prepare(
+                " SELECT `sub_last_name` FROM `$sola_nl_subs_tbl`  WHERE `sub_id` = %d  LIMIT 1",
+                $sola_global_subid
+            )
+        );
+        return $result->sub_last_name;
+    }
+}
+
 //short code function to show name in confirm mail
 function sola_nl_sub_name(){
     return $_POST['sub_name'];

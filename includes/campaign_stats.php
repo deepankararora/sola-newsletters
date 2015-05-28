@@ -23,7 +23,7 @@ if(function_exists('sola_nl_register_pro_return_stats')){
     $total_sent = $stats['sent'];
     
     if(($total_opens != 0) && ($total_sent != 0)){
-        $open_rate = round((($total_opens / $total_sent)*100),2)."%";
+        $open_rate = round((($total_opens / $total_sent)*100),2);
     } else {
         $open_rate = 0;
     }
@@ -31,9 +31,7 @@ if(function_exists('sola_nl_register_pro_return_stats')){
 } else {
     $stats = '';
 }
-
 ?>
-
 <style>
     
 tr.even td.sorting_1 {
@@ -133,9 +131,34 @@ tr.even {
                                     <?php 
                                     if(function_exists('sola_nl_register_pro_version')) { 
                                     ?>
-                                    <div id="open_rate"></div>
+                                    <h6 style="text-align: center;"><strong><?php _e('Open rate for this campaign', 'sola'); ?></strong></h6>
+                                    <script type="text/javascript">
+                                        google.load("visualization", "1", {packages: ["corechart"]});
+                                            
+                                        function drawChart() {
+                                            var open_rate = <?php echo $open_rate; ?>;
+                                            unopen_rate = 100 - open_rate;
+                                            
+                                            var data = google.visualization.arrayToDataTable([
+                                                ['Open Rate', open_rate],
+                                                ['Unopened', unopen_rate]                                              
+                                            ], true);
+
+                                            var options = {                                                
+                                                is3D: true,
+                                                legend: 'none',
+                                                sliceVisibilityThreshold: 0
+                                            };
+
+                                            var chart = new google.visualization.PieChart(document.getElementById('open_rate'));
+
+                                            chart.draw(data, options);
+                                        }
+                                        google.setOnLoadCallback(drawChart);
+                                    </script>
+                                    <div id="open_rate" style="width: 100%;"></div>
                                     <div style="height: 25px;"></div>
-                                    <p><strong><?php echo $open_rate; ?></strong> <?php _e('Open Rate',"sola"); ?></p>
+                                    <p><strong><?php echo $open_rate; ?>%</strong> <?php _e('Open Rate',"sola"); ?></p>
                                     <?php } else { ?>
                                         <h4><?php _e('Go','sola')?> <a target='_BLANK' href='http://solaplugins.com/plugins/sola-newsletters/?utm_source=plugin&utm_medium=link&utm_campaign=stats_opens' style='color:#EC6851;'><?php _e('Premium','sola')?> </a><?php _e('to get these stats and more!','sola')?></h4>
                                     <p><?php _e('Open Rate',"sola"); ?></p>
@@ -143,11 +166,36 @@ tr.even {
                                     
                                 </div>
                                 <div class="col-sm-6">
+                                    <h6 style="text-align: center;"><strong><?php _e('Average open rate for all campaigns sent', 'sola'); ?></strong></h6>
                                     <?php 
                                     if(function_exists('sola_nl_register_pro_version')) { 
                                         $average_open_rate = sola_nl_average_open_rate();
                                     ?>
-                                    <div id="average_rate"></div>
+                                    <script type="text/javascript">
+                                        google.load("visualization", "1", {packages: ["corechart"]});
+                                            
+                                        function drawChart() {
+                                            var average_open_rate = <?php echo $average_open_rate; ?>;
+                                            average_unopen_rate = 100 - average_open_rate;
+
+                                            var data = google.visualization.arrayToDataTable([
+                                                ['Average Open Rate', average_open_rate],
+                                                ['Average Unopened', average_unopen_rate]
+                                            ], true);
+
+                                            var options = {
+                                                is3D: true,
+                                                legend: 'none',
+                                                sliceVisibilityThreshold: 0
+                                            };
+
+                                            var chart = new google.visualization.PieChart(document.getElementById('average_open_rate'));
+
+                                            chart.draw(data, options);
+                                        }
+                                        google.setOnLoadCallback(drawChart);
+                                    </script>
+                                    <div id="average_open_rate" style="width: 100%;"></div>
                                     <div style="height: 25px;"></div>
                                     <p><strong><?php echo $average_open_rate; ?>%</strong> <?php _e('Average Open Rate',"sola"); ?></p>
                                     <?php } else { ?>
@@ -157,8 +205,7 @@ tr.even {
                                     
                                 </div>
                             </div>
-                        </div>
-                        
+                        </div>                        
                     </div>
                 </div>
             </div>

@@ -3,7 +3,7 @@ Contributors: SolaPlugins, NickDuncan, Jarryd Long
 Donate link: http://solaplugins.com
 Tags: newsletter, newsletters, email newsletters, email subscription, email, emailing, email signup, newsletter signup, newsletter widget, subscribe widget, subscribers, newsletter widget, email newsletter, newsletter builder, automatic post notification, auto post notifications, autoresponder, autoresponders, auto-responder, post notification
 Requires at least: 3.6
-Tested up to: 4.1.1
+Tested up to: 4.2.2
 Stable tag: trunk
 License: GPLv2
 
@@ -121,6 +121,12 @@ Sola Newsletters strongly suggests that you follow the CAN-SPAM Act. We have inc
 Not applicable.
 
 == Changelog ==
+
+= 4.0.6 - 2015-05-28 - Medium priority =
+* New Feature: Added Shortcodes for subscriber first and last name
+* Improvement: Migrated from jqplot to Google Charts (Pro)
+* Bug Fix: Slashes stripped in emails when using an apostrophe
+* Bug Fix: French Translation file renamed 
 
 = 4.0.5 - 2015-04-13 - Low priority =
 * Erroneous Debugging error being shown, Now fixed
