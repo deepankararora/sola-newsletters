@@ -1,15 +1,19 @@
 <?php
 /*
-Plugin Name: Sola Newsletters
+Plugin Name: Nifty Newsletters
 Plugin URI: http://www.solaplugins.com
-Description: Create beautiful email newsletters in a flash with Sola Newsletters.
-Version: 4.0.6
+Description: Create beautiful email newsletters in a flash with Nifty Newsletters.
+Version: 4.0.7
 Author: SolaPlugins
 Author URI: http://www.solaplugins.com
 */
 
 
-/* 4.0.6 - 2015-05-28 - Medium priority
+/* 4.0.7 - 2015-06-25 - Medium priority
+ * Bug fix in the newsletter editor
+ * Name change (Sola Newsletters to Nifty Newsletters)
+ * 
+ * 4.0.6 - 2015-05-28 - Medium priority
  * New Feature: Added Shortcodes for subscriber first and last name
  * Improvement: Migrated from jqplot to Google Charts (Pro)
  * Bug Fix: Slashes stripped in emails when using an apostrophe
@@ -56,7 +60,7 @@ Author URI: http://www.solaplugins.com
  * Theme functionality
  *  We have finally introduced newsletter theme/layout functionality
  *  You can now create your own layouts to sell on our website
- *  You can now acquire new themes by visiting the Sola Newsletters website (solaplugins.com)
+ *  You can now acquire new themes by visiting the Nifty Newsletters website (solaplugins.com)
  * Other changes
  *  A Valentines Day newsletter theme is now available for purchase on our website
  *  Many bug fixes
@@ -158,11 +162,11 @@ global $sola_nl_advanced_link_tracking_table;
 global $sola_global_subid;
 global $sola_global_campid;
 
-define("SOLA_PLUGIN_NAME","Sola Newsletters");
+define("SOLA_PLUGIN_NAME","Nifty Newsletters");
 
 global $sola_nl_version;
 global $sola_nl_version_string;
-$sola_nl_version = "4.0.6";
+$sola_nl_version = "4.0.7";
 $sola_nl_version_string = "";
 
 
@@ -646,7 +650,7 @@ function sola_nl_action_callback() {
 
 
 function sola_nl_admin_menu() {
-    $sola_nl_mainpage = add_menu_page(__('Sola Newsletters','sola'), __('Newsletters','sola_nl'), 'manage_options', 'sola-nl-menu', 'sola_nl_admin_menu_layout', plugin_dir_url( __FILE__ )."images/sola_logo.png");
+    $sola_nl_mainpage = add_menu_page(__('Nifty Newsletters','sola'), __('Newsletters','sola_nl'), 'manage_options', 'sola-nl-menu', 'sola_nl_admin_menu_layout', plugin_dir_url( __FILE__ )."images/sola_logo.png");
     add_submenu_page('sola-nl-menu', __('Subscribers','sola'), __('Subscribers','sola'), 'manage_options' , 'sola-nl-menu-subscribers', 'sola_nl_subscribers_page');
     add_submenu_page('sola-nl-menu', __('Lists','sola'), __('Lists','sola'), 'manage_options' , 'sola-nl-menu-lists', 'sola_nl_lists_page');
     add_submenu_page('sola-nl-menu', __('Settings','sola'), __('Settings','sola'), 'manage_options' , 'sola-nl-menu-settings', 'sola_nl_admin_settings_layout');
@@ -669,7 +673,7 @@ function sola_nl_wp_head() {
     /* albert 22 jan 2015 */
 
 //    if (isset($checker['object-cache.php'])) {
-//	echo "<div id=\"message\" class=\"error\"><p>".__("Please note: <strong>Sola Newsletters will not function correctly while using APC Object Cache.</strong> We have found that GoDaddy hosting packages automatically include this with their WordPress hosting packages. Please email GoDaddy and ask them to remove the object-cache.php from your wp-content/ directory.","sola")."</p></div>";
+//	echo "<div id=\"message\" class=\"error\"><p>".__("Please note: <strong>Nifty Newsletters will not function correctly while using APC Object Cache.</strong> We have found that GoDaddy hosting packages automatically include this with their WordPress hosting packages. Please email GoDaddy and ask them to remove the object-cache.php from your wp-content/ directory.","sola")."</p></div>";
 //    }
 
 
@@ -946,7 +950,7 @@ function sola_nl_wp_head() {
 //    if(function_exists('sola_nl_register_pro_version')){
 //        global $sola_nl_pro_version;
 //        if($sola_nl_pro_version <= 2.2){
-//            echo "<div class='error'><p>".__("You are using an outdated version of Sola Newsletters Premium. Please update Sola Newsletters Premium using your Plugins panel", "sola")."</p></div>";
+//            echo "<div class='error'><p>".__("You are using an outdated version of Nifty Newsletters Premium. Please update Nifty Newsletters Premium using your Plugins panel", "sola")."</p></div>";
 //        }
 //    }
 }
@@ -990,6 +994,9 @@ function sola_nl_admin_menu_layout() {
     }else if ($_GET['page'] == "sola-nl-menu" && $_GET['action'] == "editor"){
        include('includes/editor.php');
        //Jarryd
+    }else if ($_GET['page'] == "sola-nl-menu" && $_GET['action'] == "welcome"){
+        include('includes/welcome_page.php');
+    //Jarryd
     }else if ($_GET['page'] == "sola-nl-menu" && $_GET['action'] == "preview"){
        include('includes/preview.php');
        //
@@ -2734,7 +2741,7 @@ function sola_nl_on_publish_page(){
 //function add_sola_nl_meta_box(){
 //    add_meta_box(
 //        'sola_nl_meta_box',
-//        __('Sola Newsletters', 'sola'),
+//        __('Nifty Newsletters', 'sola'),
 //        'sola_nl_meta_contents',
 //        'post',
 //        'side',

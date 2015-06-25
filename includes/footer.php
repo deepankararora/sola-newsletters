@@ -3,7 +3,7 @@
 <div class="footer" style="padding:15px 7px;">
     <div id=foot-contents>
         <div class="support">
-            <em><?php _e("Sola Newsletters. If you find any errors or if you have any suggestions","sola");?>, <a href="http://solaplugins.com/support-desk" target="_BLANK"><?php _e("please get in touch with us","sola"); ?></a>.</em>
+            <em><?php _e("Nifty Newsletters. If you find any errors or if you have any suggestions","sola");?>, <a href="http://solaplugins.com/support-desk" target="_BLANK"><?php _e("please get in touch with us","sola"); ?></a>.</em>
             
             <br />
             <br />
@@ -18,7 +18,7 @@
             <br />
             <br />
             
-            <?php _e('Sola Newsletter Premium Version: ', 'sola'); ?><a target='_BLANK' href="http://solaplugins.com/plugins/sola-newsletters/?utm_source=plugin&utm_medium=link&utm_campaign=version_premium"><?php echo $sola_nl_pro_version.$sola_nl_pro_version_string; ?></a> |
+            <?php _e('Nifty Newsletter Premium Version: ', 'sola'); ?><a target='_BLANK' href="http://solaplugins.com/plugins/sola-newsletters/?utm_source=plugin&utm_medium=link&utm_campaign=version_premium"><?php echo $sola_nl_pro_version.$sola_nl_pro_version_string; ?></a> |
             
             <a target="_blank" href="http://solaplugins.com/support-desk/"><?php _e('Support', 'sola'); ?></a>
             
@@ -27,7 +27,7 @@
             <br />
             <br />
                 
-            <?php _e('Sola Newsletter Version: ', 'sola'); ?><a target='_BLANK' href="http://solaplugins.com/plugins/sola-newsletters/?utm_source=plugin&utm_medium=link&utm_campaign=version_free"><?php echo $sola_nl_version.$sola_nl_version_string; ?></a> |
+            <?php _e('Nifty Newsletter Version: ', 'sola'); ?><a target='_BLANK' href="http://solaplugins.com/plugins/sola-newsletters/?utm_source=plugin&utm_medium=link&utm_campaign=version_free"><?php echo $sola_nl_version.$sola_nl_version_string; ?></a> |
             
             <a target="_blank" href="http://solaplugins.com/support-desk/"><?php _e('Support', 'sola'); ?></a> | 
             

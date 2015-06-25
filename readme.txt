@@ -1,7 +1,7 @@
-=== Sola Newsletters ===
+=== Nifty Newsletters (Formerly Sola Newsletters) ===
 Contributors: SolaPlugins, NickDuncan, Jarryd Long
 Donate link: http://solaplugins.com
-Tags: newsletter, newsletters, email newsletters, email subscription, email, emailing, email signup, newsletter signup, newsletter widget, subscribe widget, subscribers, newsletter widget, email newsletter, newsletter builder, automatic post notification, auto post notifications, autoresponder, autoresponders, auto-responder, post notification
+Tags: newsletter, newsletters, email newsletters, email subscription, email, emailing, email signup, newsletter signup, newsletter widget, subscribe widget, subscribers, newsletter widget, email newsletter, newsletter builder, automatic post notification, auto post notifications, autoresponder, autoresponders, auto-responder, post notification, nifty newsletters
 Requires at least: 3.6
 Tested up to: 4.2.2
 Stable tag: trunk
@@ -45,7 +45,7 @@ Create and send newsletters, automatic post notifications and autoresponders tha
 * Subscriber segmentation
 
 = Translations =
-Get a free copy of the Sola Newsletters premium version in exchange for translating our plugin!
+Get a free copy of the Nifty Newsletters premium version in exchange for translating our plugin!
 
 * English
 * German (Marc Winter)
@@ -63,10 +63,10 @@ Get a free copy of the Sola Newsletters premium version in exchange for translat
 
 == Frequently Asked Questions ==
 
-= How do I get the premium version of Sola Newsletters? =
-Order your copy of [Sola Newsletters Premium](http://solaplugins.com/plugins/sola-newsletters/?utm_source=wordpress&utm_medium=click&utm_campaign=readme).
+= How do I get the premium version of Nifty Newsletters? =
+Order your copy of [Nifty Newsletters Premium](http://solaplugins.com/plugins/sola-newsletters/?utm_source=wordpress&utm_medium=click&utm_campaign=readme).
 
-= I've installed the Sola Newsletters plugin, now what? =
+= I've installed the Nifty Newsletters plugin, now what? =
 
 Once installed and activated, a link should appear in your left navigation panel within your wp-admin section. Click on the "Newsletters" link and follow the on screen instructions.
 
@@ -82,7 +82,7 @@ Once installed and activated, a link should appear in your left navigation panel
 
 = How do I add a "subscribe to newsletter" widget? =
 * Click on Appearance->Widgets in your left navigation
-* Drag "Sola Newsletters Subscribe Widget" to the sidebar of your choice
+* Drag "Nifty Newsletters Subscribe Widget" to the sidebar of your choice
 * Ensure that you have selected the list you would like to add your subscribers to in "Newsletters->Settings->Sign Up"
 
 = How do I create an automatic post notification campaign? =
@@ -97,13 +97,13 @@ Once installed and activated, a link should appear in your left navigation panel
 = How does the Custom HTML Newsletter function work? =
 * When creating a custom HTML newsletter campaign, any HTML that is pasted into the editor will be sent as is. The only element that can change before being sent are the links, should you have "link tracking" enabled in your settings.
 
-= How do I update my Pro version of Sola Newsletters? =
+= How do I update my Pro version of Nifty Newsletters? =
 * Please log in to http://solaplugins.com/my-account/ and select the relevant download
-* Delete your current Pro version of Sola Newsletters Pro (you wont lose any campaigns or settings)
+* Delete your current Pro version of Nifty Newsletters Pro (you wont lose any campaigns or settings)
 * Upload the ZIP file you just downloaded and activate the plugin
 
 = What is the CAN-SPAM Act? =
-Sola Newsletters strongly suggests that you follow the CAN-SPAM Act. We have included a copy of the CAN-SPAM Act as well as a compliance guide for businesses. Ensure you have read this before creating and sending any newsletters. Sola Newsletters takes no responsibility for any misuse of the CAN SPAM Act.
+Nifty Newsletters strongly suggests that you follow the CAN-SPAM Act. We have included a copy of the CAN-SPAM Act as well as a compliance guide for businesses. Ensure you have read this before creating and sending any newsletters. Nifty Newsletters takes no responsibility for any misuse of the CAN SPAM Act.
 
 == Screenshots ==
 
@@ -121,6 +121,10 @@ Sola Newsletters strongly suggests that you follow the CAN-SPAM Act. We have inc
 Not applicable.
 
 == Changelog ==
+
+= 4.0.7 - 2015-06-25 - Medium priority =
+* Bug fix in the newsletter editor
+* Name change (Sola Newsletters to Nifty Newsletters)
 
 = 4.0.6 - 2015-05-28 - Medium priority =
 * New Feature: Added Shortcodes for subscriber first and last name
@@ -169,7 +173,7 @@ Not applicable.
 * Theme functionality
 *  We have finally introduced newsletter theme/layout functionality
 *  You can now create your own layouts to sell on our website
-*  You can now acquire new themes by visiting the Sola Newsletters website (solaplugins.com)
+*  You can now acquire new themes by visiting the Nifty Newsletters website (solaplugins.com)
 * Other changes
 *  A Valentines Day newsletter theme is now available for purchase on our website
 *  Many bug fixes

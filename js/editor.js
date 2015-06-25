@@ -39,6 +39,18 @@ jQuery(document).ready( function() {
      });
      //Show elements option
      var style_open = false;
+     
+     jQuery("#style-options").click(function(e){
+        jQuery("#editor-styles").show();
+        jQuery("#editor_options").hide();
+        style_open = true;
+     });
+     jQuery('#content-options').mouseup(function (e){
+        jQuery("#editor-styles").hide();
+        jQuery("#editor_options").show();
+        style_open = false;
+    });
+     
      jQuery(".style").click(function(e){
          if(style_open === false && jQuery(this).hasClass("style-open") === false){
              jQuery(this).children(".style-options").show();

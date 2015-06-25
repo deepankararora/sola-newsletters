@@ -2,10 +2,10 @@
 <center>
     <h1 style="font-weight: 300; font-size: 50px; line-height: 50px;">
         <?php _e("Welcome to ",'sola'); ?> 
-        <strong style='color: #ec6851;'>Sola Newsletters</strong> 
+        <strong style='color: #ec6851;'>Nifty Newsletters</strong> 
         <!--<small>Beta</small>-->
     </h1>
-    <div class="about-text" style="margin: 0;"><?php _e("Beautiful, Modern and Easy to Create Newsletters","sola"); ?></div>
+    <div class="about-text" style="margin: 0; font-size:26px;"><?php _e("Beautiful, Modern and Easy to Create Newsletters","sola"); ?></div>
     <img src="<?php echo PLUGIN_DIR; ?>/images/sola-newsletters-iphone.png" width="40%"/>
 
     <h2 style="font-size: 25px;"><?php _e("How did you find us?","sola"); ?></h2>
