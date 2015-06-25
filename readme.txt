@@ -1,7 +1,7 @@
 === Nifty Newsletters (Formerly Sola Newsletters) ===
 Contributors: SolaPlugins, NickDuncan, Jarryd Long
 Donate link: http://solaplugins.com
-Tags: newsletter, newsletters, email newsletters, email subscription, email, emailing, email signup, newsletter signup, newsletter widget, subscribe widget, subscribers, newsletter widget, email newsletter, newsletter builder, automatic post notification, auto post notifications, autoresponder, autoresponders, auto-responder, post notification, nifty newsletters
+Tags: newsletter, newsletters, email newsletters, email subscription, email, emailing, email signup, newsletter signup, newsletter widget, subscribe widget, subscribers, newsletter widget, email newsletter, newsletter builder, automatic post notification, auto post notifications, autoresponder, autoresponders, auto-responder, post notification
 Requires at least: 3.6
 Tested up to: 4.2.2
 Stable tag: trunk
