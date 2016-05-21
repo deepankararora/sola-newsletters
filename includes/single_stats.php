@@ -10,7 +10,7 @@ $camp_id = $_GET['camp_id'];
 ?>
 <div id="wpbody-content"> 
         <div class="wrap">
-        <a href="admin.php?page=sola-nl-menu&action=camp_stats&camp_id=<?php echo $camp_id; ?>" class="button button-primary">Return To Stats</a>
+        <a href="admin.php?page=sola-nl-menu&action=camp_stats&camp_id=<?php echo htmlentities($camp_id); ?>" class="button button-primary">Return To Stats</a>
 <?php
 if (isset($_GET['sent'])) {
     $subs = sola_nl_get_camp_subs($camp_id, true);
